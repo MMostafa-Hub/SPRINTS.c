@@ -1,0 +1,11 @@
+﻿  Source.c
+e:\.c\task2_stack\task2_stack\source.c(24): warning C4013: 'strlen' undefined; assuming extern returning int
+e:\.c\task2_stack\task2_stack\source.c(26): warning C4047: '==': 'uint8_t *' differs in levels of indirection from 'int'
+e:\.c\task2_stack\task2_stack\source.c(28): warning C4047: 'function': 'uint8_t' differs in levels of indirection from 'uint8_t *'
+e:\.c\task2_stack\task2_stack\source.c(28): warning C4024: 'push': different types for formal and actual parameter 1
+e:\.c\task2_stack\task2_stack\source.c(30): warning C4047: '==': 'uint8_t *' differs in levels of indirection from 'int'
+e:\.c\task2_stack\task2_stack\source.c(32): warning C4047: '==': 'uint8_t *' differs in levels of indirection from 'int'
+e:\.c\task2_stack\task2_stack\source.c(47): warning C4013: 'gets' undefined; assuming extern returning int
+e:\.c\task2_stack\task2_stack\source.c(48): warning C4047: 'function': 'uint8_t **' differs in levels of indirection from 'char [100]'
+e:\.c\task2_stack\task2_stack\source.c(48): warning C4024: 'balancedParentheses': different types for formal and actual parameter 1
+  Task2_Stack.vcxproj -> E:\.c\Task2_Stack\Debug\Task2_Stack.exe
