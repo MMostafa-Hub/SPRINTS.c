@@ -1,125 +1,162 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#define gridSize 9
+#define true 1
+#define false 0
 
-char grid[10] = { '*', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-int checkwin()
+char gv[gridSize] = { '0','1','2','3','4','5','6','7','8' }; //gridValues
+
+void drawGrid()
 {
-	if (grid[1] == grid[2] && grid[2] == grid[3])
-		return 1;
-
-	else if (grid[4] == grid[5] && grid[5] == grid[6])
-		return 1;
-
-	else if (grid[7] == grid[8] && grid[8] == grid[9])
-		return 1;
-
-	else if (grid[1] == grid[4] && grid[4] == grid[7])
-		return 1;
-
-	else if (grid[2] == grid[5] && grid[5] == grid[8])
-		return 1;
-
-	else if (grid[3] == grid[6] && grid[6] == grid[9])
-		return 1;
-
-	else if (grid[1] == grid[5] && grid[5] == grid[9])
-		return 1;
-
-	else if (grid[3] == grid[5] && grid[5] == grid[7])
-		return 1;
-
-	else if (grid[1] != '1' && grid[2] != '2' && grid[3] != '3' &&
-		grid[4] != '4' && grid[5] != '5' && grid[6] != '6' && grid[7]
-		!= '7' && grid[8] != '8' && grid[9] != '9')
-
-		return 0;
-	else
-		return  -1;
+	printf("%c | %c | %c\n", gv[0], gv[1], gv[2]);
+	printf("__|___|__\n");
+	printf("%c | %c | %c\n", gv[3], gv[4], gv[5]);
+	printf("__|___|__\n");
+	printf("%c | %c | %c\n", gv[6], gv[7], gv[8]);
 }
 
-void board()
+// returns 1 if the winner is x and return 0 if the winner is O and -1 if none
+int  whoWon()
 {
+	if (gv[0] == gv[1] && gv[1] == gv[2])
+	{
+		if (gv[0] == 'X')
+			return 1;
+		else
+			return 0;
+	}
+	else if (gv[3] == gv[4] && gv[4] == gv[5])
+	{
 
-	printf("\n\n\tTic Tac Toe\n\n");
+		if (gv[3] == 'X')
+			return 1;
+		else
+			return 0;
+	}
+	else if (gv[6] == gv[7] && gv[7] == gv[8])
+	{
 
-	printf("Player 1 (X)  -  Player 2 (O)\n\n\n");
+		if (gv[6] == 'X')
+			return 1;
+		else
+			return 0;
+	}
+	else if (gv[0] == gv[4] && gv[4] == gv[8])
+	{
+
+		if (gv[0] == 'X')
+			return 1;
+		else
+			return 0;
+	}
+	else if (gv[2] == gv[4] && gv[4] == gv[6])
+	{
+
+		if (gv[2] == 'X')
+			return 1;
+		else
+			return 0;
+	}
+	else if (gv[0] == gv[3] && gv[3] == gv[6])
+	{
+
+		if (gv[0] == 'X')
+			return 1;
+		else
+			return 0;
+	}
+	else if (gv[1] == gv[4] && gv[4] == gv[7])
+	{
+
+		if (gv[4] == 'X')
+			return 1;
+		else
+			return 0;
+	}
+	else if (gv[2] == gv[5] && gv[5] == gv[8])
+	{
+
+		if (gv[5] == 'X')
+			return 1;
+		else
+			return 0;
+	}
 
 
-	printf("     |     |     \n");
-	printf("  %c  |  %c  |  %c \n", grid[1], grid[2], grid[3]);
+	return -1;
 
-	printf("_____|_____|_____\n");
-	printf("     |     |     \n");
-
-	printf("  %c  |  %c  |  %c \n", grid[4], grid[5], grid[6]);
-
-	printf("_____|_____|_____\n");
-	printf("     |     |     \n");
-
-	printf("  %c  |  %c  |  %c \n", grid[7], grid[8], grid[9]);
-
-	printf("     |     |     \n\n");
 }
-
+int isDraw()
+{
+	for (int i = 0; i < sizeof(gv); i++)
+	{
+		if (gv[i] != 'X' && gv[i] != 'O')
+			return false;
+	}
+	return true;
+}
 int main()
 {
-	int player = 1, i, choice;
-
-	char mark;
-	do
+	int turn = 1; // X is going to be the first player and O is the second
+	while (true)
 	{
-		board();
-		player = (player % 2) ? 1 : 2;
 
-		printf("Player %d, enter a number:  ", player);
-		scanf("%d", &choice);
-
-		mark = (player == 1) ? 'X' : 'O';
-
-		if (choice == 1 && grid[1] == '1')
-			grid[1] = mark;
-
-		else if (choice == 2 && grid[2] == '2')
-			grid[2] = mark;
-
-		else if (choice == 3 && grid[3] == '3')
-			grid[3] = mark;
-
-		else if (choice == 4 && grid[4] == '4')
-			grid[4] = mark;
-
-		else if (choice == 5 && grid[5] == '5')
-			grid[5] = mark;
-
-		else if (choice == 6 && grid[6] == '6')
-			grid[6] = mark;
-
-		else if (choice == 7 && grid[7] == '7')
-			grid[7] = mark;
-
-		else if (choice == 8 && grid[8] == '8')
-			grid[8] = mark;
-
-		else if (choice == 9 && grid[9] == '9')
-			grid[9] = mark;
-
+		drawGrid();
+		if (turn)
+		{
+			printf("Player 1 turn\n");
+		}
 		else
 		{
-			printf("The move is Invalid ");
-
-			player--;
+			printf("Player 2 turn\n");
 		}
-		i = checkwin();
 
-		player++;
-	} while (i == -1);
+		int input = -1;
+		printf("Entrer the number you want to play in :\n");
 
-	board();
 
-	if (i == 1)
-		printf("Player %d WON !!!", --player);
-	else
-		printf("DRAW");
-	
+		// Validation of the input
+		int valid = 0;
+		while (input == -1)
+		{
+			scanf("%d", &input);
+			if ((input >= 0 && input <= 8) && (gv[input] != 'X' && gv[input] != 'O')) // if the user entered an valid input
+			{
+				valid = 1;
+				if (turn == 1)
+					gv[input] = 'X';
+				else
+					gv[input] = 'O';
+			}
+			else
+			{
+				valid = 0;
+				printf("ENTER A VALID INPUT!!!!\n");
+			}
+
+		}
+
+		// checking if there's a winner
+		int winner = whoWon();
+		if (winner == 1)
+		{
+			drawGrid();
+			printf("Player 1 WON!!!\n");
+			return;
+		}
+		else if (winner == 0)
+		{
+			drawGrid();
+			printf("Player 2 WON!!!\n");
+			return;
+		}
+		else if (isDraw())
+		{
+			drawGrid();
+			printf("DRAW\n");
+			return;
+		}
+		turn = valid ? !turn : turn; // if invalid data the player will not change 
+	}
 }
-

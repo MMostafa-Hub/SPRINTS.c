@@ -19,7 +19,7 @@ uint8_t top()
 	return stack[sp];
 }
 
-uint8_t* balancedParentheses(uint8_t* expression[])
+uint8_t* balancedParentheses(uint8_t* expression)
 {
 	for (int i = 0; i < strlen(expression); i++)
 	{
@@ -43,7 +43,7 @@ uint8_t* balancedParentheses(uint8_t* expression[])
 
 int main()
 {
-	char s[100];
+	uint8_t s[100];
 	gets(s);
 	printf("%s", balancedParentheses(s));
 }
