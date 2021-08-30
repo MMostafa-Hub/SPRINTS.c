@@ -1,16 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-
-
-char stack[100];
+#define maxSize 100
+//STACK
+char stack[maxSize];
 int8_t sp = -1;
 void push(uint8_t u8_data)
 {
 	sp++;
 	stack[sp] = u8_data;
 }
-uint8_t pull()
+uint8_t pull() // pop()
 {
 	return stack[sp--];
 }
@@ -18,6 +18,7 @@ uint8_t top()
 {
 	return stack[sp];
 }
+
 
 uint8_t* balancedParentheses(uint8_t* expression)
 {
@@ -29,7 +30,7 @@ uint8_t* balancedParentheses(uint8_t* expression)
 		}
 		else if (expression[i] == '}' || expression[i] == ')')
 		{
-			if ((expression[i] == '}' && top() == '(') || (expression[i] == ')' && top() == '{') || (sp == -1))
+			if ((expression[i] == '}' && top() != '{') || (expression[i] == ')' && top() != '(') || (sp == -1))
 				return "Not Balanced";
 
 			pull();

@@ -1,4 +1,4 @@
 ﻿  Source.c
-e:\sprints.c\task2_stack\task2_stack\source.c(24): warning C4013: 'strlen' undefined; assuming extern returning int
-e:\sprints.c\task2_stack\task2_stack\source.c(47): warning C4013: 'gets' undefined; assuming extern returning int
+e:\sprints.c\task2_stack\task2_stack\source.c(25): warning C4013: 'strlen' undefined; assuming extern returning int
+e:\sprints.c\task2_stack\task2_stack\source.c(48): warning C4013: 'gets' undefined; assuming extern returning int
   Task2_Stack.vcxproj -> E:\SPRINTS.c\Task2_Stack\Debug\Task2_Stack.exe
