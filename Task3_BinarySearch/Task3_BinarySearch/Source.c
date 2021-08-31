@@ -58,6 +58,7 @@ int main()
 	if (!isSorted(a, n))
 	{
 		printf("the array is not sorted\n");
+		printf("sorting.....\n");
 		bubbleSort(a, n);
 		for (int i = 0; i < n; i++)
 		{
@@ -75,6 +76,8 @@ int main()
 	int32_t number; scanf("%d", &number);
 
 	int8_t ans = binarySearch(0, n - 1, number, a);
+	free(a);
+
 	if (ans == -1)
 		printf("Not Found");
 	else
