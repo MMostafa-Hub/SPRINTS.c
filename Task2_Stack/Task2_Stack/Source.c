@@ -2,35 +2,42 @@
 #include <stdio.h>
 #include <stdint.h>
 #define maxSize 100
+
+
 //STACK
 char stack[maxSize];
 int8_t sp = -1;
 void push(uint8_t u8_data)
 {
-	sp++;
-	stack[sp] = u8_data;
+	if (sp == maxSize - 1) // OVERFLOW GUARD
+		return;
+	stack[++sp] = u8_data;
 }
 uint8_t pull() // pop()
 {
+	if (sp == -1) // UNDERFOW GUARD
+		return;
 	return stack[sp--];
 }
 uint8_t top()
 {
+	if (sp == -1) // INVALID
+		return;
 	return stack[sp];
 }
 
 
 uint8_t* balancedParentheses(uint8_t* expression)
 {
-	for (int i = 0; i < strlen(expression); i++)
+	for (int iterator = 0; iterator < strlen(expression); iterator++)
 	{
-		if (expression[i] == '{' || expression[i] == '(')
+		if (expression[iterator] == '{' || expression[iterator] == '(')
 		{
-			push(expression[i]);
+			push(expression[iterator]);
 		}
-		else if (expression[i] == '}' || expression[i] == ')')
+		else if (expression[iterator] == '}' || expression[iterator] == ')')
 		{
-			if ((expression[i] == '}' && top() != '{') || (expression[i] == ')' && top() != '(') || (sp == -1))
+			if ((expression[iterator] == '}' && top() != '{') || (expression[iterator] == ')' && top() != '(') || (sp == -1))
 				return "Not Balanced";
 
 			pull();
@@ -44,7 +51,7 @@ uint8_t* balancedParentheses(uint8_t* expression)
 
 int main()
 {
-	uint8_t s[100];
-	gets(s);
-	printf("%s", balancedParentheses(s));
+	uint8_t expression[maxSize];
+	gets(expression);
+	printf("%s", balancedParentheses(expression));
 }

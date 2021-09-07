@@ -1,5 +1,5 @@
 ﻿  Source.c
-e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(13): warning C4018: '<': signed/unsigned mismatch
-e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(26): warning C4018: '<': signed/unsigned mismatch
-e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(28): warning C4018: '<': signed/unsigned mismatch
+e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(14): warning C4018: '<': signed/unsigned mismatch
+e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(31): warning C4018: '<': signed/unsigned mismatch
+e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(33): warning C4018: '<': signed/unsigned mismatch
   Task3_BinarySearch.vcxproj -> E:\SPRINTS.c\Task3_BinarySearch\Debug\Task3_BinarySearch.exe

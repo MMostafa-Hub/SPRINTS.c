@@ -5,16 +5,19 @@
 * Author : OWNER
 */
 
- //#include <avr/io.h>
 #define true 1
 #include "Button_driver/button.h"
 #include "LED_Driver/led.h"
 
-
-int main(void)
+void app_init(void)
 {
 	led_init();
 	button_init();
+}
+
+int main(void)
+{
+	app_init();	
 	while (true)
 	{
 		if(button_pressed())

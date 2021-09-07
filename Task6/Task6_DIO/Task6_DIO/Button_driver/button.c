@@ -5,13 +5,13 @@
  *  Author: OWNER
  */ 
 #include "../DIO_Driver/DIO.h"
-
-
+#include "../registers.h"
+ 
 void button_init(void)
 {
-	DIO_init_PortC();
+	DIO_init(PORTC_DIR_addr,1);
 }
 int button_pressed(void)
 {
-	return (DIO_read_portC() == 0x01);
+	return (DIo_read(PINC_Data_addr) == 0x01);
 }

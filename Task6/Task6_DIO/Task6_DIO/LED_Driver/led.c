@@ -5,18 +5,20 @@
  *  Author: OWNER
  */ 
 #include "../DIO_Driver/DIO.h"
+#include "../registers.h"
 
+//#include <avr/io.h>
 void led_init(void)
 {
-	DIO_init_PortA();
+	DIO_init(PORTA_DIR_addr,0x01);
 }
 
 void led_ON(void)
 {
-	DIO_write_PortA(0x01);	
+	DIO_write(PORTA_Data_addr,0x01);
 }
 
 void led_OFF(void)
 {
-	DIO_write_PortA(0x00);
+	DIO_write(PORTA_Data_addr,0x00);
 }
