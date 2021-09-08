@@ -3,29 +3,29 @@ Task6_DIO.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000f4  00000000  00000000  00000054  2**1
+  0 .text         000000f6  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  00000148  2**0
+  1 .data         00000000  00800060  00800060  0000014a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  00000148  2**0
+  2 .comment      00000030  00000000  00000000  0000014a  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000178  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000017c  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000b0  00000000  00000000  000001b4  2**0
+  4 .debug_aranges 000000a8  00000000  00000000  000001b8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000084d  00000000  00000000  00000264  2**0
+  5 .debug_info   0000082c  00000000  00000000  00000260  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000680  00000000  00000000  00000ab1  2**0
+  6 .debug_abbrev 000006be  00000000  00000000  00000a8c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000035d  00000000  00000000  00001131  2**0
+  7 .debug_line   00000347  00000000  00000000  0000114a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000000f0  00000000  00000000  00001490  2**2
+  8 .debug_frame  000000e0  00000000  00000000  00001494  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000034e  00000000  00000000  00001580  2**0
+  9 .debug_str    00000349  00000000  00000000  00001574  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000028  00000000  00000000  000018ce  2**0
+ 10 .debug_loc    0000004e  00000000  00000000  000018bd  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000070  00000000  00000000  000018f6  2**0
+ 11 .debug_ranges 00000068  00000000  00000000  0000190b  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -60,8 +60,8 @@ Disassembly of section .text:
   5a:	d8 e0       	ldi	r29, 0x08	; 8
   5c:	de bf       	out	0x3e, r29	; 62
   5e:	cd bf       	out	0x3d, r28	; 61
-  60:	0e 94 6c 00 	call	0xd8	; 0xd8 <main>
-  64:	0c 94 78 00 	jmp	0xf0	; 0xf0 <_exit>
+  60:	0e 94 69 00 	call	0xd2	; 0xd2 <main>
+  64:	0c 94 79 00 	jmp	0xf2	; 0xf2 <_exit>
 
 00000068 <__bad_interrupt>:
   68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -84,10 +84,10 @@ void button_init(void)
 }
 int button_pressed(void)
 {
-	return (DIo_read(PINC_Data_addr) == 0x01);
+	return (DIO_read(PINC_Data_addr) == 0x01);
   7a:	83 e3       	ldi	r24, 0x33	; 51
   7c:	90 e0       	ldi	r25, 0x00	; 0
-  7e:	0e 94 4b 00 	call	0x96	; 0x96 <DIo_read>
+  7e:	0e 94 4b 00 	call	0x96	; 0x96 <DIO_read>
   82:	21 e0       	ldi	r18, 0x01	; 1
   84:	01 97       	sbiw	r24, 0x01	; 1
   86:	09 f0       	breq	.+2      	; 0x8a <button_pressed+0x10>
@@ -108,9 +108,9 @@ void DIO_init(int DRR_address ,int direction)
   92:	60 83       	st	Z, r22
   94:	08 95       	ret
 
-00000096 <DIo_read>:
+00000096 <DIO_read>:
 }
-int DIo_read(int PIN_address)
+int DIO_read(int PIN_address)
 {
 	return mem(PIN_address);
   96:	fc 01       	movw	r30, r24
@@ -141,70 +141,65 @@ void led_init(void)
   ac:	0e 94 48 00 	call	0x90	; 0x90 <DIO_init>
   b0:	08 95       	ret
 
-000000b2 <led_ON>:
+000000b2 <led_write>:
 }
 
-void led_ON(void)
+void led_write(int value)
 {
-	DIO_write(PORTA_Data_addr,0x01);
+	DIO_write(PORTA_Data_addr,(value!=0));
   b2:	61 e0       	ldi	r22, 0x01	; 1
   b4:	70 e0       	ldi	r23, 0x00	; 0
-  b6:	8b e3       	ldi	r24, 0x3B	; 59
-  b8:	90 e0       	ldi	r25, 0x00	; 0
-  ba:	0e 94 4f 00 	call	0x9e	; 0x9e <DIO_write>
-  be:	08 95       	ret
+  b6:	89 2b       	or	r24, r25
+  b8:	11 f4       	brne	.+4      	; 0xbe <led_write+0xc>
+  ba:	60 e0       	ldi	r22, 0x00	; 0
+  bc:	70 e0       	ldi	r23, 0x00	; 0
+  be:	8b e3       	ldi	r24, 0x3B	; 59
+  c0:	90 e0       	ldi	r25, 0x00	; 0
+  c2:	0e 94 4f 00 	call	0x9e	; 0x9e <DIO_write>
+  c6:	08 95       	ret
 
-000000c0 <led_OFF>:
-}
+000000c8 <app_init>:
+#define OFF 0
 
-void led_OFF(void)
-{
-	DIO_write(PORTA_Data_addr,0x00);
-  c0:	60 e0       	ldi	r22, 0x00	; 0
-  c2:	70 e0       	ldi	r23, 0x00	; 0
-  c4:	8b e3       	ldi	r24, 0x3B	; 59
-  c6:	90 e0       	ldi	r25, 0x00	; 0
-  c8:	0e 94 4f 00 	call	0x9e	; 0x9e <DIO_write>
-  cc:	08 95       	ret
-
-000000ce <app_init>:
-#include "Button_driver/button.h"
-#include "LED_Driver/led.h"
 
 void app_init(void)
 {
 	led_init();
-  ce:	0e 94 52 00 	call	0xa4	; 0xa4 <led_init>
+  c8:	0e 94 52 00 	call	0xa4	; 0xa4 <led_init>
 	button_init();
-  d2:	0e 94 36 00 	call	0x6c	; 0x6c <button_init>
-  d6:	08 95       	ret
+  cc:	0e 94 36 00 	call	0x6c	; 0x6c <button_init>
+  d0:	08 95       	ret
 
-000000d8 <main>:
+000000d2 <main>:
 }
 
 int main(void)
 {
 	app_init();	
-  d8:	0e 94 67 00 	call	0xce	; 0xce <app_init>
-	while (true)
+  d2:	0e 94 64 00 	call	0xc8	; 0xc8 <app_init>
+	while (True)
 	{
 		if(button_pressed())
-  dc:	0e 94 3d 00 	call	0x7a	; 0x7a <button_pressed>
-  e0:	88 23       	and	r24, r24
-  e2:	19 f0       	breq	.+6      	; 0xea <main+0x12>
+  d6:	0e 94 3d 00 	call	0x7a	; 0x7a <button_pressed>
+  da:	88 23       	and	r24, r24
+  dc:	29 f0       	breq	.+10     	; 0xe8 <main+0x16>
 		{
-			led_ON();
-  e4:	0e 94 59 00 	call	0xb2	; 0xb2 <led_ON>
-  e8:	f9 cf       	rjmp	.-14     	; 0xdc <main+0x4>
+			led_write(ON);
+  de:	81 e0       	ldi	r24, 0x01	; 1
+  e0:	90 e0       	ldi	r25, 0x00	; 0
+  e2:	0e 94 59 00 	call	0xb2	; 0xb2 <led_write>
+  e6:	f7 cf       	rjmp	.-18     	; 0xd6 <main+0x4>
 		}
 		else
 		{
-			led_OFF();
-  ea:	0e 94 60 00 	call	0xc0	; 0xc0 <led_OFF>
-  ee:	f6 cf       	rjmp	.-20     	; 0xdc <main+0x4>
+			led_write(OFF);
+  e8:	80 e0       	ldi	r24, 0x00	; 0
+  ea:	90 e0       	ldi	r25, 0x00	; 0
+  ec:	0e 94 59 00 	call	0xb2	; 0xb2 <led_write>
+  f0:	f2 cf       	rjmp	.-28     	; 0xd6 <main+0x4>
 
-000000f0 <_exit>:
-  f0:	f8 94       	cli
+000000f2 <_exit>:
+  f2:	f8 94       	cli
 
-000000f2 <__stop_program>:
-  f2:	ff cf       	rjmp	.-2      	; 0xf2 <__stop_program>
+000000f4 <__stop_program>:
+  f4:	ff cf       	rjmp	.-2      	; 0xf4 <__stop_program>

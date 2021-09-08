@@ -9,9 +9,9 @@
  
 void button_init(void)
 {
-	DIO_init(PORTC_DIR_addr,1);
+	DIO_init(PORTC_DIR_addr,0x01);
 }
 int button_pressed(void)
 {
-	return (DIo_read(PINC_Data_addr) == 0x01);
+	return (DIO_read(PINC_Data_addr) == 0x01);
 }

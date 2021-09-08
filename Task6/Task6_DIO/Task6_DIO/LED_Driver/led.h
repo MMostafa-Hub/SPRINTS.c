@@ -11,8 +11,8 @@
 
 
 void led_init(void);
-void led_ON(void);
-void led_OFF(void);
+void led_write(int value);
+
 
 
 #endif /* LED_H_ */

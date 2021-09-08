@@ -10,7 +10,7 @@ void DIO_init(int DRR_address ,int direction)
 {
 	mem(DRR_address) = direction;
 }
-int DIo_read(int PIN_address)
+int DIO_read(int PIN_address)
 {
 	return mem(PIN_address);
 }

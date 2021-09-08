@@ -13,12 +13,7 @@ void led_init(void)
 	DIO_init(PORTA_DIR_addr,0x01);
 }
 
-void led_ON(void)
+void led_write(int value)
 {
-	DIO_write(PORTA_Data_addr,0x01);
-}
-
-void led_OFF(void)
-{
-	DIO_write(PORTA_Data_addr,0x00);
+	DIO_write(PORTA_Data_addr,(value!=0));
 }

@@ -11,11 +11,11 @@
 
 #define mem(x) (*(volatile unsigned char*)(x))
 
-#define PORTA_DIR (*(volatile unsigned char*)(0x3A))
-#define PORTA_Data (*(volatile unsigned char*)(0x3B))	
+#define PORTA_DIR mem(0x3A)
+#define PORTA_Data mem(0x3B)
 
-#define PORTC_DIR (*(volatile unsigned char*)(0x34))
-#define PINC_Data (*(volatile unsigned char*)(0x33))
+#define PORTC_DIR mem(0x34)
+#define PINC_Data mem(0x33)
 
 #define PORTA_DIR_addr (0x3A)
 #define PORTA_Data_addr (0x3B)

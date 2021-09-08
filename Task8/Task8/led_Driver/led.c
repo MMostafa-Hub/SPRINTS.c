@@ -14,29 +14,22 @@ void led_init(void)
 	DIO_init(PORTA_DIR_addr,0x01);
 }
 
-void led_ON(void)
+void led_write(int value)
 {
-	DIO_write(PORTA_Data_addr,0x01);
+	DIO_write(PORTA_Data_addr,(value>=1));
 }
 
-void led_OFF(void)
-{
-	DIO_write(PORTA_Data_addr,0x00);
-}
-
-void led_ON_delay(int time)
-{
-	led_ON();
-	timer_init(time);
-}
-void led_OFF_delay(int time)
-{
-	led_OFF();
-	timer_init(time);
-}
 
 void led_blink(int time)
 {
-	led_ON_delay(time);
-	led_OFF_delay(time);
+	led_write(1);
+	timer_init(time);
+	led_write(0);
+	timer_init(time);
+
+}
+
+void led_blink_interr(int time)
+{
+	timer_init_interr(time);
 }

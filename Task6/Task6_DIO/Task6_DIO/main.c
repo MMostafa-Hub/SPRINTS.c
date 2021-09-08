@@ -5,9 +5,13 @@
 * Author : OWNER
 */
 
-#define true 1
+
 #include "Button_driver/button.h"
 #include "LED_Driver/led.h"
+#define True 1
+#define ON 1
+#define OFF 0
+
 
 void app_init(void)
 {
@@ -18,15 +22,15 @@ void app_init(void)
 int main(void)
 {
 	app_init();	
-	while (true)
+	while (True)
 	{
 		if(button_pressed())
 		{
-			led_ON();
+			led_write(ON);
 		}
 		else
 		{
-			led_OFF();
+			led_write(OFF);
 		}
 	}
 }

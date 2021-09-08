@@ -11,7 +11,7 @@
 
 
 void DIO_init(int DRR_address ,int direction);
-int DIo_read(int PIN_address);
+int DIO_read(int PIN_address);
 void DIO_write(int PORT_address, int value);
 
 
