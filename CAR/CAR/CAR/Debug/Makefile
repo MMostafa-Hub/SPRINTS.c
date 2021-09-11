@@ -36,6 +36,7 @@ SUBDIRS :=  \
 ../Button_Driver \
 ../Motor_Driver \
 ../DIO_Driver \
+../LED_Driver \
 ../Timer_Driver
 
 

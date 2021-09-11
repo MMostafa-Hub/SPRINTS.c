@@ -9,7 +9,7 @@
  
 void button_init(void)
 {
-	DIO_init(PORTC_DIR_addr,0x01);
+	DIO_init(PORTC_DIR_addr,0x00);
 }
 int button_pressed(void)
 {

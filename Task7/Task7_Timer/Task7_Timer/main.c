@@ -5,7 +5,7 @@
 * Author : OWNER
 */
 
-#define true 1
+#define True 1
 #include "LED_Driver/led.h"
 
 inline void app_init(void)
@@ -16,8 +16,8 @@ inline void app_init(void)
 int main(void)
 {
 	app_init();
-	while (true)
+	while (True)
 	{
-		led_blink(300);
+		led_blink(1000);
 	}
 }

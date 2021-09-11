@@ -11,10 +11,6 @@
 
 
 void led_init(void);
-void led_ON(void);
-void led_OFF(void);
-void led_ON_delay(int time);
-void led_OFF_delay(int time);
 void led_blink(int time);
 void led_blink_interr(int time);
 

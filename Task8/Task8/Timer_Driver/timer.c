@@ -8,8 +8,8 @@
 #include "../registers.h"
 #include "../DIO_Driver/DIO.h"
 #include <math.h>
-#define CyclesToOverFlowNormal 256
-#define CyclesToOverFlowInterr 65536
+#define CyclesToOverFlowNormal 256 // 2^8
+#define CyclesToOverFlowInterr 65536 // 2^16 
 
 void timer_init(int time)
 {	
@@ -35,15 +35,14 @@ void timer_init(int time)
 
 
 
-int delayTime ;
+int delayTime ; //global
 void __vector_9 (void) __attribute__ ((signal,used)) ;
-
 void __vector_9 (void) // Timer1 ISR // executed if TOV1 is set in TIFR
 {
 	DIO_write(PORTA_Data_addr,DIo_read(PORTA_Data_addr)^0x01);
-	TCNT1 = delayTime;   // for 1 sec at 16 MHz
+	TCNT1 = delayTime;   
 }
-void timer_init_interr(int time)
+void timer_init_interr(int time) // Timer 1 
 {
 	delayTime = ceil(CyclesToOverFlowInterr - time/1.024);
 	TCNT1 =  delayTime;  // combines TCNT1H and TCNT1L

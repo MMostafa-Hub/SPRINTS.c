@@ -72,8 +72,8 @@ Disassembly of section .text:
  
 void button_init(void)
 {
-	DIO_init(PORTC_DIR_addr,1);
-  6c:	61 e0       	ldi	r22, 0x01	; 1
+	DIO_init(PORTC_DIR_addr,0x00);
+  6c:	60 e0       	ldi	r22, 0x00	; 0
   6e:	70 e0       	ldi	r23, 0x00	; 0
   70:	84 e3       	ldi	r24, 0x34	; 52
   72:	90 e0       	ldi	r25, 0x00	; 0

@@ -27,10 +27,10 @@
 #define Timer0_control mem(0x53)
 #define Timer0_data mem(0x52)
 #define Timer0_flags mem(0x58)
-#define Timer0_overflow_flag (Timer_flags & 0x01)
+#define Timer0_overflow_flag (Timer0_flags & 0x01)
 
 #define Timer1_control_regA mem(0x4F)
 #define Timer1_control_regB mem(0x4E)
 #define Timer1_interr_mask mem(0x59)
-#define 
+
 #endif /* REGISTERS_H_ */

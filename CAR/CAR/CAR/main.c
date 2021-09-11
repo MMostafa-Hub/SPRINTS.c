@@ -1,38 +1,54 @@
 /*
- * CAR.c
- *
- * Created: 8/9/2021 2:51:48 PM
- * Author : OWNER
- */ 
+* CAR.c
+*
+* Created: 8/9/2021 2:51:48 PM
+* Author : OWNER
+*/
 
 #include <avr/io.h>
+#include "macros.h"
+#include "app.h"
 
 #define True 1
-#define set(x) (1<<x)
-void app_init()
-{
-	
-}
+
+
 int main(void)
 {
-	DDRC |= (1<<PORTC0) | (1<<PORTC1)| (1<<PORTC2) | (1<<PORTC3);
-	// Right Motor
-	PORTC |= (1<<PORTC0);	//in1 //high
-	PORTC &= ~(1<<PORTC1);	// in2 //low  Then Forward CLock Wise
-	// Left Motor
-	PORTC |= (1<<PORTC3);	// in3 // high 
-	PORTC &= ~(1<<PORTC4);	// in4 // low Then Forward CLock Wise
 	
+	app_init();
 	
-	// Controlling the speed of the motors using Fast PWM , Timer0, 1/128 preScaler
-	DDRB |= set(PORTB3);
-	TCCR0 |= set(WGM01) | set(WGM00) | set(COM01) | set(CS00) | set(CS02);
-	TCCR0 &= ~set(COM00) | ~set(CS01);
-	OCR0 = 200; // 10/256 * 100 % of full speed
-	
-    while (True) 
-    {
+	//Initial state of G button
+	uint8_t prevG = 0 , nStates = 4;
+	int8_t state = -1; //
+	while (True)
+	{
+		uint8_t currentG = is_button_pressed(buttonG) ;
 		
-    }
+		if(prevG != currentG && currentG) // to Avoid long press
+		{
+			state++; // each press of button G changes the state
+		}
+		
+		if(is_button_pressed(buttonM) && state > -1)// state > -1 to avoid pressing M at the first time we must press G first
+		{
+			setState(state % nStates); // making the states circulating
+		}
+		else if(state > -1) // STOP State
+		{
+			car_stop();
+			if(is_button_pressed(buttonL))
+			{
+				car_rotate_left();
+			}
+			else if (is_button_pressed(buttonR))
+			{
+				car_rotate_right();
+			}
+		}
+		
+		
+		
+		prevG = currentG;
+	}
 }
 
