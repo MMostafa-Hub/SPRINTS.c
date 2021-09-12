@@ -4,8 +4,6 @@
 * Created: 8/9/2021 2:51:48 PM
 * Author : OWNER
 */
-
-#include <avr/io.h>
 #include "macros.h"
 #include "app.h"
 
@@ -45,8 +43,6 @@ int main(void)
 				car_rotate_right();
 			}
 		}
-		
-		
 		
 		prevG = currentG;
 	}

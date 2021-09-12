@@ -17,9 +17,7 @@ void DIO_init(vuint8_t* PORT_, vuint8_t* DDR_, uint8_t dircetion, uint8_t bitNum
 	
 	if(dircetion == INPUT)
 	{
-		SFIOR &= ~( 1 << PUD);
 		*DDR_ &= ~(1 << bitNumber);
-		*PORT_ |= (1 << bitNumber); // Pull up resistor
 	}
 	else
 	{	

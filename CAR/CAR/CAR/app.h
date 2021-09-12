@@ -15,50 +15,50 @@
 
 void app_init()
 {
-	button_init(&PORTA,&DDRA,buttonG);
-	button_init(&PORTA,&DDRA,buttonL);
-	button_init(&PORTA,&DDRA,buttonM);
-	button_init(&PORTA,&DDRA,buttonR);
+	button_init(&PORTA_Data,&PORTA_Dir,buttonG);
+	button_init(&PORTA_Data,&PORTA_Dir,buttonL);
+	button_init(&PORTA_Data,&PORTA_Dir,buttonM);
+	button_init(&PORTA_Data,&PORTA_Dir,buttonR);
 	
 	//led_init(&PORTB,&DDRB,led0); // used for debugging
 	
 	// Inintial State
-	motor_init(&PORTC,&PORTC,&DDRC,&DDRC,motor1_IN1,motor1_IN2);
-	motor_init(&PORTC,&PORTC,&DDRC,&DDRC,motor2_IN1,motor2_IN2);
+	motor_init(&PORTC_Data,&PORTC_Data,&PORTC_Dir,&PORTC_Dir,motor1_IN1,motor1_IN2);
+	motor_init(&PORTC_Data,&PORTC_Data,&PORTC_Dir,&PORTC_Dir,motor2_IN1,motor2_IN2);
 	
 	
 }
 
 void car_forward(void)
 {
-	move_forward(&PORTC,&PORTC,motor1_IN1,motor1_IN2);
-	move_forward(&PORTC,&PORTC,motor2_IN1,motor2_IN2);
+	move_forward(&PORTC_Data,&PORTC_Data,motor1_IN1,motor1_IN2);
+	move_forward(&PORTC_Data,&PORTC_Data,motor2_IN1,motor2_IN2);
 }
 
 void car_bacwards(void)
 {
-	move_backwards(&PORTC,&PORTC,motor1_IN1,motor1_IN2);
-	move_backwards(&PORTC,&PORTC,motor2_IN1,motor2_IN2);
+	move_backwards(&PORTC_Data,&PORTC_Data,motor1_IN1,motor1_IN2);
+	move_backwards(&PORTC_Data,&PORTC_Data,motor2_IN1,motor2_IN2);
 }
 
 void car_stop(void)
 {
-	stop(&PORTC,&PORTC,motor1_IN1,motor1_IN2);
-	stop(&PORTC,&PORTC,motor2_IN1,motor2_IN2);
+	stop(&PORTC_Data,&PORTC_Data,motor1_IN1,motor1_IN2);
+	stop(&PORTC_Data,&PORTC_Data,motor2_IN1,motor2_IN2);
 }
 
 void car_rotate_left(void)
 {
-	move_forward(&PORTC,&PORTC,motor1_IN1,motor1_IN2);
-	move_backwards(&PORTC,&PORTC,motor2_IN1,motor2_IN2);
+	move_forward(&PORTC_Data,&PORTC_Data,motor1_IN1,motor1_IN2);
+	move_backwards(&PORTC_Data,&PORTC_Data,motor2_IN1,motor2_IN2);
 	set_speed(30);
 
 }
 
 void car_rotate_right(void)
 {
-	move_forward(&PORTC,&PORTC,motor2_IN1,motor2_IN2);
-	move_backwards(&PORTC,&PORTC,motor1_IN1,motor1_IN2);
+	move_forward(&PORTC_Data,&PORTC_Data,motor2_IN1,motor2_IN2);
+	move_backwards(&PORTC_Data,&PORTC_Data,motor1_IN1,motor1_IN2);
 	set_speed(30);
 
 }
@@ -80,7 +80,7 @@ void setState(uint8_t state)
 }
 uint8_t is_button_pressed(uint8_t button_bit_number)
 {
-	return button_pressed(&PINA,button_bit_number);
+	return button_pressed(&PORTA_Pin,button_bit_number);
 }
 
 #endif /* APP_H_ */
