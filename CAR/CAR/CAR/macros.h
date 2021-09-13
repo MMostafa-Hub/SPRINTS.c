@@ -17,6 +17,7 @@ typedef volatile uint8_t  vuint8_t;
 #define OUTPUT 1
 #define ON 1
 #define OFF 0
+#define MaxNumber8bit 255
 
 #define  buttonL 0
 #define  buttonM 1

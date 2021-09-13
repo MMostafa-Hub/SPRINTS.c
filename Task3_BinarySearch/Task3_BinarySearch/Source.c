@@ -2,11 +2,28 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#define doesNotExist  -1
+#define Sorted  1
+#define NotSorted  0
+
+/*
+Description: seacrh for a specific number inside vec --which it must be sorted-- using binary search algorithm
+input param: low -> the index of the first element you want to search form 
+			 high -> the index of the last element you want to search to 
+			 number -> the element you want to find in vec
+			 vec -> the array you want to search in
+output param : none
+return : return the index of the first occurence of number inside vec if FOUND
+		 if not found it returns doesNotExist 
+EX :vec = {1,2,3,4} 
+	binarySearch(0,3,2,vec) -> returns : 1
+	binarySearch(0,3,-1,vec) -> returns : -1 
+*/
 int8_t binarySearch(int low, int high, int32_t  number, uint32_t *vec)
 {
 	uint8_t mid = (uint8_t)((low + high) / 2);
 	if (mid < low || high < mid)
-		return -1;
+		return doesNotExist;
 
 	if (number == vec[mid])
 		return mid;
@@ -39,9 +56,9 @@ uint8_t isSorted(uint32_t* arr, uint8_t n)
 	for (int i = 0; i < n - 1; i++)
 	{
 		if (arr[i] > arr[i + 1])
-			return 0;
+			return NotSorted;
 	}
-	return 1;
+	return Sorted;
 }
 int main()
 {
@@ -78,7 +95,7 @@ int main()
 	int8_t ans = binarySearch(0, n - 1, number, a);
 	free(a);
 
-	if (ans == -1)
+	if (ans == doesNotExist)
 		printf("Not Found");
 	else
 	{

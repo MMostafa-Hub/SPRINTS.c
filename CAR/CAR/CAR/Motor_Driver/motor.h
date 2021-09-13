@@ -39,7 +39,7 @@ void move_backwards(vuint8_t* PORT_IN1,vuint8_t* PORT_IN2,uint8_t IN1_bitNumber 
 
 void set_speed(uint8_t percentage)
 {
-	uint8_t OCRO_value = ceil(((double)((double)percentage/(double)100))*(double)255);
+	uint8_t OCRO_value = ceil(((double)((double)percentage/(double)100))*(double)MaxNumber8bit);
 	if(percentage >= 0 && percentage <= 100)
 		Fast_PWM(OCRO_value);
 }

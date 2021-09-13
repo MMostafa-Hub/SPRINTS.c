@@ -1,5 +1,6 @@
 ﻿  Source.c
-e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(14): warning C4018: '<': signed/unsigned mismatch
-e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(31): warning C4018: '<': signed/unsigned mismatch
-e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(33): warning C4018: '<': signed/unsigned mismatch
-  Task3_BinarySearch.vcxproj -> E:\SPRINTS.c\Task3_BinarySearch\Debug\Task3_BinarySearch.exe
+e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(30): warning C4018: '<': signed/unsigned mismatch
+e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(43): warning C4018: '<': signed/unsigned mismatch
+e:\sprints.c\task3_binarysearch\task3_binarysearch\source.c(45): warning C4018: '<': signed/unsigned mismatch
+LINK : fatal error LNK1168: cannot open E:\SPRINTS.c\Task3_BinarySearch\Debug\Task3_BinarySearch.exe for writing
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(720,5): error MSB6006: "link.exe" exited with code 1168.
