@@ -18,6 +18,9 @@ return : return the index of the first occurence of number inside vec if FOUND
 EX :vec = {1,2,3,4} 
 	binarySearch(0,3,2,vec) -> returns : 1
 	binarySearch(0,3,-1,vec) -> returns : -1 
+
+
+	***PLEASE GIVE A FEEDBACK ON THE DOCUMENTATION STYLE****
 */
 int8_t binarySearch(int low, int high, int32_t  number, uint32_t *vec)
 {
@@ -32,12 +35,34 @@ int8_t binarySearch(int low, int high, int32_t  number, uint32_t *vec)
 	else
 		return binarySearch(mid + 1, high, number, vec);
 }
+/*
+Description : swaps the values ofthe memory locations of xp and yp
+input pararm : *xp : address of the first element 
+			   *xy : address of the second element 
+output paarm : none
+return : none
+EX :int x = 4;
+	int y = 10;
+	swap(&x,&y);
+	printf("%d\n",x); // 10
+	printf("%d\n",y); // 4
+
+*/
 void swap(int *xp, int *yp)
 {
 	int temp = *xp;
 	*xp = *yp;
 	*yp = temp;
 }
+/*
+Description : sorts the array
+input pararm : *arr : the address of the first element of the array in memory
+			   n : the size of the array 
+output paarm : none
+return : none
+EX :uint32_t a[4] = {5,7,0,1};
+	bubbleSort(a,4); // a = {0,1,5,7}
+*/
 void bubbleSort(uint32_t* arr, uint32_t n)
 {
 	for (int i = 0; i < n - 1; i++)
@@ -51,6 +76,14 @@ void bubbleSort(uint32_t* arr, uint32_t n)
 		}
 	}
 }
+/*
+Description : checks if the array is sorted or not 
+input pararm : *arr : the address of the first element of the array in memory
+			   n : the size of the array
+output paarm : none
+return : returns 1 "Sorted" if arr is sorted
+		 returns 0 "NotSorted" if arr is not sorted
+*/
 uint8_t isSorted(uint32_t* arr, uint8_t n)
 {
 	for (int i = 0; i < n - 1; i++)
