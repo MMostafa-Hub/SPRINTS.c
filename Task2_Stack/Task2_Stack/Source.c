@@ -27,6 +27,15 @@ uint8_t top()
 }
 
 
+
+/*
+Description : this Function cheks if the expression is blanaced or not 
+input Args: expression -> string or char* or uin8_t*
+output Args: none 
+return : returns "Balanced" if the expression is balanced and returns "Not Balanced" if not
+EX: "{(2+4)}" is Balanced 
+	"{(2+4)*2)} is Not Balanced
+*/
 uint8_t* balancedParentheses(uint8_t* expression)
 {
 	for (int iterator = 0; iterator < strlen(expression); iterator++)
