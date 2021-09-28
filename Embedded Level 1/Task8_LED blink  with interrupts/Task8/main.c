@@ -7,13 +7,19 @@
 #define True 1
 #include "registers.h"
 #include "led_Driver/led.h"
+#include "Timer_Driver/timer.h"
 
+
+inline void app_init(void)
+{
+	led_init();
+	timer_interr_init();
+}
 
 // TASK 8 : Interrupts
 int main(void)
 {
-	led_init();
-	timer_interr_init();
+	app_init();
 	led_blink_interr(300);
 
     while (True)

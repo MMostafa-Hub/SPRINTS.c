@@ -10,8 +10,11 @@
 #define REGISTERS_H_
 
 #include <stdint.h>
+#include <math.h>
+
 typedef volatile uint8_t  vuint8_t;
 #define mem(x) (*(vuint8_t*)(x))
+#define True 1
 
 #define INPUT 0
 #define OUTPUT 1
@@ -43,5 +46,14 @@ typedef volatile uint8_t  vuint8_t;
 
 #define Timer0_control mem(0x53)
 #define Timer0_Compare mem(0x5C)
+
+
+#define Timer0_control mem(0x53)
+#define Timer0_data mem(0x52)
+#define Timer0_flags mem(0x58)
+#define Timer0_overflow_flag (Timer0_flags & 0x01)
+
+#define CyclesToOverFlowNormal 255
+#define preScaler 1.024
 
 #endif /* REGISTERS_H_ */

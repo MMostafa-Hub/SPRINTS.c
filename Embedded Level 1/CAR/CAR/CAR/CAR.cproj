@@ -133,13 +133,25 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="app.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Button_Driver\button.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Button_Driver\button.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="DIO_Driver\dio.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="DIO_Driver\dio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LED_Driver\led.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LED_Driver\led.h">
@@ -148,10 +160,16 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Motor_Driver\motor.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Motor_Driver\motor.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="macros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer_Driver\timer.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Timer_Driver\timer.h">

@@ -7,7 +7,6 @@
 #include "macros.h"
 #include "app.h"
 
-#define True 1
 
 
 int main(void)

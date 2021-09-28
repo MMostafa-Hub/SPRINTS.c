@@ -50,17 +50,17 @@ void timer_interr_init(void)
 	Timer1_control_regB = 0b00000101;  // Timer mode with 1024 prescler
 }
 
-int gu8_delayTime ; //global
+uint16_t gu16_delayTime ; //global
 void __vector_9 (void) __attribute__ ((signal,used)) ;
 void __vector_9 (void) // Timer1 ISR // executed if TOV1 is set in TIFR
 {
 	DIO_write(PORTA_Data_addr,DIo_read(PORTA_Data_addr)^0x01); // flipping the bit
-	TCNT1 = gu8_delayTime;
+	TCNT1 = gu16_delayTime;
 }
 void timer_interr_delay(int time) // Timer 1
 {
-	gu8_delayTime = ceil(CyclesToOverFlowInterr - time/preScaler);
-	TCNT1 =  gu8_delayTime;  // combines TCNT1H and TCNT1L
+	gu16_delayTime = ceil(CyclesToOverFlowInterr - time/preScaler);
+	TCNT1 =  gu16_delayTime;  // combines TCNT1H and TCNT1L
 	Timer1_interr_mask = 0x04 ;   // Enable timer1 overflow interrupt(TOIE1)
 	sei();        // Enable global interrupts by setting global interrupt enable bit in SREG
 }
