@@ -133,6 +133,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Button_Driver\button.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="DIO_Driver\DIO.c">
       <SubType>compile</SubType>
     </Compile>
@@ -161,6 +164,7 @@
   <ItemGroup>
     <Folder Include="DIO_Driver" />
     <Folder Include="led_Driver" />
+    <Folder Include="Button_Driver" />
     <Folder Include="Timer_Driver" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />

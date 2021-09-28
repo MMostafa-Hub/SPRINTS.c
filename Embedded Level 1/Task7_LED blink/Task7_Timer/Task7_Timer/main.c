@@ -7,17 +7,19 @@
 
 #define True 1
 #include "LED_Driver/led.h"
-
+#include "Timer_Driver/timer.h"
 inline void app_init(void)
 {
 	led_init();
+	timer_init();
 }
+
 
 int main(void)
 {
 	app_init();
 	while (True)
 	{
-		led_blink(1000);
+		led_blink(300);
 	}
 }

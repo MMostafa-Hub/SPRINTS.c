@@ -4,7 +4,7 @@
  * Created: 7/9/2021 12:51:13 PM
  * Author : OWNER
  */ 
-#define true 1
+#define True 1
 #include "registers.h"
 #include "led_Driver/led.h"
 
@@ -13,9 +13,10 @@
 int main(void)
 {
 	led_init();
-	led_blink_interr(1000);
+	timer_interr_init();
+	led_blink_interr(300);
 
-    while (true)
+    while (True)
 	{
 	}		
    return 0;

@@ -35,6 +35,7 @@ LINKER_SCRIPT_DEP:=
 SUBDIRS :=  \
 ../DIO_Driver \
 ../led_Driver \
+../Button_Driver \
 ../Timer_Driver
 
 

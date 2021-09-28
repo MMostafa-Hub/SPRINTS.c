@@ -8,7 +8,8 @@
 #include "../Timer_Driver/timer.h"
 #include "../registers.h"
 
-//#include <avr/io.h>
+#define ON 1
+#define OFF 0
 void led_init(void)
 {
 	DIO_init(PORTA_DIR_addr,0x01);
@@ -22,10 +23,10 @@ void led_write(int value)
 
 void led_blink(int time)
 {
-	led_write(1);
-	timer_init(time);
-	led_write(0);
-	timer_init(time);
+	led_write(ON);
+	timer_delay(time);
+	led_write(OFF);
+	timer_delay(time);
 
 }
 

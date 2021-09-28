@@ -10,7 +10,9 @@
 #define TIMER_H_
 
 void timer_init(int time);
-void timer_init_interr(int time);
+void timer_delay(int time);
 
+void timer_interr_init(void);
+void timer_interr_delay(int time);
 
 #endif /* TIMER_H_ */
