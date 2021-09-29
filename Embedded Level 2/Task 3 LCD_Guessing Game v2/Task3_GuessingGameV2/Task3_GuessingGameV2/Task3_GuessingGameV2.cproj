@@ -136,13 +136,25 @@
     <Compile Include="app.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Button_Driver\button.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Button_Driver\button.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="DIO_Driver\dio.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="DIO_Driver\dio.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="KeyPad_Driver\keypad.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="KeyPad_Driver\keypad.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LCD_Driver\lcd.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LCD_Driver\lcd.h">
@@ -152,6 +164,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Timer_Driver\timer.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Timer_Driver\timer.h">

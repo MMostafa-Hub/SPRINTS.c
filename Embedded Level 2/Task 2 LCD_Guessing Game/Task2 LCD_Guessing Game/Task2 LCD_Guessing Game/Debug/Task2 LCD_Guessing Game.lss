@@ -696,7 +696,7 @@ void render_win_screen(char* number)
  3b2:	81 e0       	ldi	r24, 0x01	; 1
  3b4:	90 e0       	ldi	r25, 0x00	; 0
  3b6:	0e 94 33 01 	call	0x266	; 0x266 <lcd_cmd>
-	Lcd_Set_Cursor(1,4);
+	Lcd_Set_Cursor(1,4); // to make the sentence centerd
  3ba:	64 e0       	ldi	r22, 0x04	; 4
  3bc:	81 e0       	ldi	r24, 0x01	; 1
  3be:	0e 94 46 01 	call	0x28c	; 0x28c <Lcd_Set_Cursor>
@@ -738,7 +738,7 @@ void render_loss_screen(char* number)
  3fc:	81 e0       	ldi	r24, 0x01	; 1
  3fe:	90 e0       	ldi	r25, 0x00	; 0
  400:	0e 94 33 01 	call	0x266	; 0x266 <lcd_cmd>
-	Lcd_Set_Cursor(1,4);
+	Lcd_Set_Cursor(1,4);// to make the sentence centerd
  404:	64 e0       	ldi	r22, 0x04	; 4
  406:	81 e0       	ldi	r24, 0x01	; 1
  408:	0e 94 46 01 	call	0x28c	; 0x28c <Lcd_Set_Cursor>
@@ -1641,10 +1641,10 @@ int main()
 00000a2c <srand>:
  a2c:	a0 e0       	ldi	r26, 0x00	; 0
  a2e:	b0 e0       	ldi	r27, 0x00	; 0
- a30:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__data_start>
- a34:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__data_start+0x1>
- a38:	a0 93 62 00 	sts	0x0062, r26	; 0x800062 <__data_start+0x2>
- a3c:	b0 93 63 00 	sts	0x0063, r27	; 0x800063 <__data_start+0x3>
+ a30:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+ a34:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ a38:	a0 93 62 00 	sts	0x0062, r26	; 0x800062 <__DATA_REGION_ORIGIN__+0x2>
+ a3c:	b0 93 63 00 	sts	0x0063, r27	; 0x800063 <__DATA_REGION_ORIGIN__+0x3>
  a40:	08 95       	ret
 
 00000a42 <__itoa_ncheck>:

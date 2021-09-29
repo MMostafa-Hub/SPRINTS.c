@@ -32,7 +32,7 @@ void render_main_screen(void)
 void render_win_screen(char* number)
 {
 	lcd_cmd(0x01);
-	Lcd_Set_Cursor(1,4);
+	Lcd_Set_Cursor(1,4); // to make the sentence centerd
 	lcd_write_string("YOU WON");
 	Lcd_Set_Cursor(2,0);
 	lcd_write_string("it was :");
@@ -43,7 +43,7 @@ void render_win_screen(char* number)
 void render_loss_screen(char* number)
 {
 	lcd_cmd(0x01);
-	Lcd_Set_Cursor(1,4);
+	Lcd_Set_Cursor(1,4);// to make the sentence centerd
 	lcd_write_string("YOU LOST");
 	Lcd_Set_Cursor(2,0);
 	lcd_write_string("it was :");

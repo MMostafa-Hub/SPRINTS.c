@@ -16,7 +16,7 @@ int main(void)
 	uint8_t i = 0; // iterator of the sInput
 	uint8_t seed = 0; // the seed of the random number generator
 	char sinput[5];  // the string value of the user's input
-	memset(sinput,'\0', 5);
+	memset(sinput,'\0', 5); // sets all the values of sinput to '\0'
 	
 	while(1)
 	{
