@@ -9,17 +9,20 @@
 #ifndef LCD_H_
 #define LCD_H_
 
-
+#include "../DIO_Driver/dio.h"
+#include "../Timer_Driver/timer.h"
+#include "../Led_Driver/led.h"
 #include "../macros.h"
+
 void lcd_cmd(int data)
 {
 	
 	lcd_control	&= ~(1 << RS);
 	lcd_data = data;
 	lcd_control |= (1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 	lcd_control &= ~(1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 
 }
 
@@ -38,9 +41,9 @@ void lcd_write_char(int data)
 	lcd_control	|= (1 << RS);
 	lcd_data = data;
 	lcd_control |= (1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 	lcd_control &= ~(1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 }
 
 
@@ -51,12 +54,6 @@ void lcd_write_string(char* str)
 		lcd_write_char(str[i]);
 	}
 	
-}
-
-uint8_t rand_uInt(void)
-{
-	srand(time(0));
-	return 	(uint8_t)rand() % 10;
 }
 
 void lcd_init(void)
@@ -76,5 +73,8 @@ void lcd_init(void)
 	lcd_cmd(0x06);    //entry mode, set increment
 }
 
-
+void lcd_clear(void)
+{
+	lcd_cmd(0x01);
+}
 #endif /* LCD_H_ */

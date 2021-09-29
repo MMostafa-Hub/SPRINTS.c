@@ -11,15 +11,16 @@
 
 #include <stdlib.h>
 #include <avr/io.h>
-//#include <util/delay.h>
 #include <math.h>
 #include <avr/interrupt.h>
+//#include <avr/delay.h>
 
-
+//#define F_CPU 160000000UL
 #define INPUT 0
 #define OUTPUT 1
 #define ON 1
 #define OFF 0
+#define True 1
 #define MaxNumber8bit 255
 
 typedef volatile uint8_t  vuint8_t;
@@ -57,12 +58,16 @@ typedef volatile uint8_t  vuint8_t;
 
 #define Timer0_control mem(0x53)
 #define Timer0_data mem(0x52)
-#define Timer0_flags mem(0x58)
-#define Timer0_overflow_flag (Timer0_flags & 0x01)
+#define Timer_flags mem(0x58)
+#define Timer0_overflow_flag (Timer_flags & 0x01)
+
+
 
 #define Timer1_control_regA mem(0x4f)
 #define Timer1_control_regB mem(0x4e)
 #define Timer1_interr_mask mem(0x59)
+#define Timer1_overflow_flag (Timer_flags & (1<<2))
 
-uint8_t timeIsOver = 0;
+
+
 #endif /* MACROS_H_ */

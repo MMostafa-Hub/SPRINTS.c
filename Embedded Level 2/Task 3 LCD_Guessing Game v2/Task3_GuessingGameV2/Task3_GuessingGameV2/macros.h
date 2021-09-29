@@ -10,7 +10,7 @@
 #define MACROS_H_
 
 #include <stdlib.h>
-#include <util/delay.h>
+//#include <util/delay.h>
 #include <math.h>
 #include <avr/interrupt.h>
 #include <string.h>
@@ -57,14 +57,19 @@ typedef uint8_t u8;
 #define PORTC_DIR mem(0x34)
 #define PINC_Data mem(0x33)
 
+#define PORTD_Dir mem(0x34)
+
 #define Timer0_control mem(0x53)
 #define Timer0_data mem(0x52)
-#define Timer0_flags mem(0x58)
-#define Timer0_overflow_flag (Timer0_flags & 0x01)
+#define Timer_flags mem(0x58)
+#define Timer0_overflow_flag (Timer_flags & 0x01)
+
+
 
 #define Timer1_control_regA mem(0x4f)
 #define Timer1_control_regB mem(0x4e)
 #define Timer1_interr_mask mem(0x59)
+#define Timer1_overflow_flag (Timer_flags & (1<<2))
 
-uint8_t timeIsOver = 0;
+
 #endif /* MACROS_H_ */

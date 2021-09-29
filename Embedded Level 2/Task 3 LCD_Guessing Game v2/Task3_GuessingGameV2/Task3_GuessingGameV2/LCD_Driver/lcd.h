@@ -9,7 +9,7 @@
 #ifndef LCD_H_
 #define LCD_H_
 
-
+#include "../Timer_Driver/timer.h"
 #include "../macros.h"
 void lcd_cmd(int data)
 {
@@ -17,9 +17,9 @@ void lcd_cmd(int data)
 	lcd_control	&= ~(1 << RS);
 	lcd_data = data;
 	lcd_control |= (1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 	lcd_control &= ~(1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 
 }
 
@@ -27,20 +27,19 @@ void lcd_cmd(int data)
 void Lcd_Set_Cursor(uint8_t a, uint8_t b)
 {
 	if(a == 1)
-	lcd_cmd(0x80 + b);
+		lcd_cmd(0x80 + b); // puts the cursor on the first row and adds up to the specific pixel
 	else if(a == 2)
-	lcd_cmd(0xC0 + b);
+		lcd_cmd(0xC0 + b); // puts the cursor on the second row and adds up to the specific pixel
 }
 
 void lcd_write_char(int data)
 {
-	
 	lcd_control	|= (1 << RS);
 	lcd_data = data;
 	lcd_control |= (1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 	lcd_control &= ~(1 << EN);
-	_delay_ms(1);
+	timer_delay(1);
 }
 
 
@@ -55,8 +54,8 @@ void lcd_write_string(char* str)
 
 void lcd_init(void)
 {
-	DDRD = 0xf0;
-	DDRC = 0x07;
+	PORTD_Dir = 0xf0;
+	PORTC_DIR = 0x07;
 
 	lcd_control	&= ~(1 << RS);
 	lcd_control &= ~(1 << RW);

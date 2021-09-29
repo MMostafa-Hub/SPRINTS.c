@@ -14,18 +14,20 @@ main.d main.o: .././main.c .././macros.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- .././app.h .././lcd_Driver/lcd.h .././lcd_Driver/../macros.h \
+ .././app.h .././lcd_Driver/lcd.h .././lcd_Driver/../DIO_Driver/dio.h \
+ .././lcd_Driver/../DIO_Driver/../macros.h \
+ .././lcd_Driver/../Timer_Driver/timer.h \
+ .././lcd_Driver/../Timer_Driver/../macros.h \
+ .././lcd_Driver/../Timer_Driver/../DIO_Driver/dio.h \
+ .././lcd_Driver/../Timer_Driver/../Led_Driver/led.h \
+ .././lcd_Driver/../Timer_Driver/../Led_Driver/../DIO_Driver/dio.h \
+ .././lcd_Driver/../Timer_Driver/../Led_Driver/../Timer_Driver/timer.h \
+ .././lcd_Driver/../Timer_Driver/../Led_Driver/../Led_Driver/led.h \
+ .././lcd_Driver/../Timer_Driver/../Led_Driver/../macros.h \
+ .././lcd_Driver/../Led_Driver/led.h .././lcd_Driver/../macros.h \
  .././Button_Driver/button.h .././Button_Driver/../macros.h \
  .././Button_Driver/../DIO_Driver/dio.h \
- .././Button_Driver/../DIO_Driver/../macros.h \
  .././Button_Driver/../Led_Driver/led.h \
- .././Button_Driver/../Led_Driver/../DIO_Driver/dio.h \
- .././Button_Driver/../Led_Driver/../Timer_Driver/timer.h \
- .././Button_Driver/../Led_Driver/../Timer_Driver/../macros.h \
- .././Button_Driver/../Led_Driver/../Timer_Driver/../DIO_Driver/dio.h \
- .././Button_Driver/../Led_Driver/../Timer_Driver/../Led_Driver/led.h \
- .././Button_Driver/../Led_Driver/../Led_Driver/led.h \
- .././Button_Driver/../Led_Driver/../macros.h \
  .././Button_Driver/../Timer_Driver/timer.h .././Led_Driver/led.h \
  .././Timer_Driver/timer.h
 
@@ -65,6 +67,28 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 .././lcd_Driver/lcd.h:
 
+.././lcd_Driver/../DIO_Driver/dio.h:
+
+.././lcd_Driver/../DIO_Driver/../macros.h:
+
+.././lcd_Driver/../Timer_Driver/timer.h:
+
+.././lcd_Driver/../Timer_Driver/../macros.h:
+
+.././lcd_Driver/../Timer_Driver/../DIO_Driver/dio.h:
+
+.././lcd_Driver/../Timer_Driver/../Led_Driver/led.h:
+
+.././lcd_Driver/../Timer_Driver/../Led_Driver/../DIO_Driver/dio.h:
+
+.././lcd_Driver/../Timer_Driver/../Led_Driver/../Timer_Driver/timer.h:
+
+.././lcd_Driver/../Timer_Driver/../Led_Driver/../Led_Driver/led.h:
+
+.././lcd_Driver/../Timer_Driver/../Led_Driver/../macros.h:
+
+.././lcd_Driver/../Led_Driver/led.h:
+
 .././lcd_Driver/../macros.h:
 
 .././Button_Driver/button.h:
@@ -73,23 +97,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 .././Button_Driver/../DIO_Driver/dio.h:
 
-.././Button_Driver/../DIO_Driver/../macros.h:
-
 .././Button_Driver/../Led_Driver/led.h:
-
-.././Button_Driver/../Led_Driver/../DIO_Driver/dio.h:
-
-.././Button_Driver/../Led_Driver/../Timer_Driver/timer.h:
-
-.././Button_Driver/../Led_Driver/../Timer_Driver/../macros.h:
-
-.././Button_Driver/../Led_Driver/../Timer_Driver/../DIO_Driver/dio.h:
-
-.././Button_Driver/../Led_Driver/../Timer_Driver/../Led_Driver/led.h:
-
-.././Button_Driver/../Led_Driver/../Led_Driver/led.h:
-
-.././Button_Driver/../Led_Driver/../macros.h:
 
 .././Button_Driver/../Timer_Driver/timer.h:
 

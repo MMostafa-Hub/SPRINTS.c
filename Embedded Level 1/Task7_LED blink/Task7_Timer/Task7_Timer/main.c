@@ -20,6 +20,6 @@ int main(void)
 	app_init();
 	while (True)
 	{
-		led_blink(300);
+		led_blink(1);
 	}
 }

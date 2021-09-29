@@ -18,6 +18,7 @@ void app_init(void)
 	button_init(&PORTB_Data,&PORTB_Dir,2);
 	led_init(&PORTA_Data,&PORTA_Dir,0);
 	led_init(&PORTA_Data,&PORTA_Dir,1);
+
 }
 
 
@@ -36,7 +37,7 @@ void render_win_screen(char* number)
 	Lcd_Set_Cursor(2,0);
 	lcd_write_string("it was :");
 	lcd_write_string(number);
-	_delay_ms(2000);
+	timer_delay(2000);
 	lcd_cmd(0x01);
 }
 void render_loss_screen(char* number)
@@ -47,7 +48,7 @@ void render_loss_screen(char* number)
 	Lcd_Set_Cursor(2,0);
 	lcd_write_string("it was :");
 	lcd_write_string(number);
-	_delay_ms(2000);
+	timer_delay(2000);
 	lcd_cmd(0x01);
 }
 void render_range_invalid_screen()
@@ -57,7 +58,7 @@ void render_range_invalid_screen()
 	lcd_write_string("The Valid Range");
 	Lcd_Set_Cursor(2,0);
 	lcd_write_string("from 1 -> 15:");
-	_delay_ms(2000);
+	timer_delay(2000);
 	lcd_cmd(0x01);
 }
 uint8_t rand_int(uint8_t seed)

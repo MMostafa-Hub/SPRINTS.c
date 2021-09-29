@@ -9,6 +9,7 @@
 #ifndef REGISTERS_H_
 #define REGISTERS_H_
 
+#include <avr/io.h>
 #define mem(x) (*(volatile unsigned char*)(x))
 
 #define PORTA_DIR (*(volatile unsigned char*)(0x3A))
@@ -28,9 +29,12 @@
 #define Timer0_data mem(0x52)
 #define Timer0_flags mem(0x58)
 #define Timer0_overflow_flag (Timer0_flags & 0x01)
+#define Timer_flags mem(0x58)
 
-#define Timer1_control_regA mem(0x4F)
-#define Timer1_control_regB mem(0x4E)
+
+#define Timer1_control_regA mem(0x4f)
+#define Timer1_control_regB mem(0x4e)
 #define Timer1_interr_mask mem(0x59)
+#define Timer1_overflow_flag (Timer_flags & (1<<2))
 
 #endif /* REGISTERS_H_ */
