@@ -1,0 +1,351 @@
+
+Task 7 SPI_SLAVE.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001d8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000008  00800060  000001d8  0000024c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000254  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000284  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000b0  00000000  00000000  000002c0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000009bb  00000000  00000000  00000370  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000767  00000000  00000000  00000d2b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000050a  00000000  00000000  00001492  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  0000016c  00000000  00000000  0000199c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000419  00000000  00000000  00001b08  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000277  00000000  00000000  00001f21  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000080  00000000  00000000  00002198  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   8:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+   c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  10:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  14:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  18:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  1c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  20:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  24:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  28:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  2c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  30:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  34:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  38:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  3c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  40:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  44:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  48:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  4c:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+  50:	0c 94 3f 00 	jmp	0x7e	; 0x7e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e8 ed       	ldi	r30, 0xD8	; 216
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a8 36       	cpi	r26, 0x68	; 104
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+  76:	0e 94 4a 00 	call	0x94	; 0x94 <main>
+  7a:	0c 94 ea 00 	jmp	0x1d4	; 0x1d4 <_exit>
+
+0000007e <__bad_interrupt>:
+  7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000082 <app_init>:
+#include "USART/usart.h"
+#include "SPI/spi.h"
+
+void app_init(void)
+{
+	USART_Init(9600);
+  82:	60 e8       	ldi	r22, 0x80	; 128
+  84:	75 e2       	ldi	r23, 0x25	; 37
+  86:	80 e0       	ldi	r24, 0x00	; 0
+  88:	90 e0       	ldi	r25, 0x00	; 0
+  8a:	0e 94 93 00 	call	0x126	; 0x126 <USART_Init>
+	SPI_InitSlave();	
+  8e:	0e 94 67 00 	call	0xce	; 0xce <SPI_InitSlave>
+  92:	08 95       	ret
+
+00000094 <main>:
+	
+}
+int main(void)
+{
+  94:	cf 93       	push	r28
+  96:	df 93       	push	r29
+  98:	cd b7       	in	r28, 0x3d	; 61
+  9a:	de b7       	in	r29, 0x3e	; 62
+  9c:	2a 97       	sbiw	r28, 0x0a	; 10
+  9e:	0f b6       	in	r0, 0x3f	; 63
+  a0:	f8 94       	cli
+  a2:	de bf       	out	0x3e, r29	; 62
+  a4:	0f be       	out	0x3f, r0	; 63
+  a6:	cd bf       	out	0x3d, r28	; 61
+    /* Replace with your application code */
+	app_init();
+  a8:	0e 94 41 00 	call	0x82	; 0x82 <app_init>
+	uint8 c[10];
+    while (1) 
+    {
+		USART_SendString((uint8*)"SLAVE:\r");
+  ac:	80 e6       	ldi	r24, 0x60	; 96
+  ae:	90 e0       	ldi	r25, 0x00	; 0
+  b0:	0e 94 bb 00 	call	0x176	; 0x176 <USART_SendString>
+		
+		/* FORM MASTER */
+		SPI_ReceiveString(c);
+  b4:	ce 01       	movw	r24, r28
+  b6:	01 96       	adiw	r24, 0x01	; 1
+  b8:	0e 94 72 00 	call	0xe4	; 0xe4 <SPI_ReceiveString>
+		
+		/* TO TERMINAL */
+		USART_SendString(c);
+  bc:	ce 01       	movw	r24, r28
+  be:	01 96       	adiw	r24, 0x01	; 1
+  c0:	0e 94 bb 00 	call	0x176	; 0x176 <USART_SendString>
+		
+		USART_SendString((uint8*)"\r");
+  c4:	86 e6       	ldi	r24, 0x66	; 102
+  c6:	90 e0       	ldi	r25, 0x00	; 0
+  c8:	0e 94 bb 00 	call	0x176	; 0x176 <USART_SendString>
+  cc:	ef cf       	rjmp	.-34     	; 0xac <main+0x18>
+
+000000ce <SPI_InitSlave>:
+	while(*str)
+	{
+		SPI_SendByte(*str);
+		str++;
+	}
+}
+  ce:	87 b3       	in	r24, 0x17	; 23
+  d0:	80 64       	ori	r24, 0x40	; 64
+  d2:	87 bb       	out	0x17, r24	; 23
+  d4:	8d b1       	in	r24, 0x0d	; 13
+  d6:	80 64       	ori	r24, 0x40	; 64
+  d8:	8d b9       	out	0x0d, r24	; 13
+  da:	08 95       	ret
+
+000000dc <SPI_ReceiveByte>:
+  dc:	77 9b       	sbis	0x0e, 7	; 14
+  de:	fe cf       	rjmp	.-4      	; 0xdc <SPI_ReceiveByte>
+  e0:	8f b1       	in	r24, 0x0f	; 15
+  e2:	08 95       	ret
+
+000000e4 <SPI_ReceiveString>:
+
+void SPI_ReceiveString(uint8 *str)
+{
+  e4:	ef 92       	push	r14
+  e6:	ff 92       	push	r15
+  e8:	0f 93       	push	r16
+  ea:	1f 93       	push	r17
+  ec:	cf 93       	push	r28
+  ee:	8c 01       	movw	r16, r24
+	uint8 i = 0;
+	str[i] = SPI_ReceiveByte();
+  f0:	0e 94 6e 00 	call	0xdc	; 0xdc <SPI_ReceiveByte>
+  f4:	f8 01       	movw	r30, r16
+  f6:	80 83       	st	Z, r24
+	}
+}
+
+void SPI_ReceiveString(uint8 *str)
+{
+	uint8 i = 0;
+  f8:	c0 e0       	ldi	r28, 0x00	; 0
+	str[i] = SPI_ReceiveByte();
+	while(str[i] != '#')
+  fa:	08 c0       	rjmp	.+16     	; 0x10c <SPI_ReceiveString+0x28>
+	{
+		i++;
+  fc:	cf 5f       	subi	r28, 0xFF	; 255
+		str[i] = SPI_ReceiveByte();
+  fe:	78 01       	movw	r14, r16
+ 100:	ec 0e       	add	r14, r28
+ 102:	f1 1c       	adc	r15, r1
+ 104:	0e 94 6e 00 	call	0xdc	; 0xdc <SPI_ReceiveByte>
+ 108:	f7 01       	movw	r30, r14
+ 10a:	80 83       	st	Z, r24
+
+void SPI_ReceiveString(uint8 *str)
+{
+	uint8 i = 0;
+	str[i] = SPI_ReceiveByte();
+	while(str[i] != '#')
+ 10c:	f8 01       	movw	r30, r16
+ 10e:	ec 0f       	add	r30, r28
+ 110:	f1 1d       	adc	r31, r1
+ 112:	80 81       	ld	r24, Z
+ 114:	83 32       	cpi	r24, 0x23	; 35
+ 116:	91 f7       	brne	.-28     	; 0xfc <SPI_ReceiveString+0x18>
+	{
+		i++;
+		str[i] = SPI_ReceiveByte();
+	}
+	str[i] = '\0';
+ 118:	10 82       	st	Z, r1
+ 11a:	cf 91       	pop	r28
+ 11c:	1f 91       	pop	r17
+ 11e:	0f 91       	pop	r16
+ 120:	ff 90       	pop	r15
+ 122:	ef 90       	pop	r14
+ 124:	08 95       	ret
+
+00000126 <USART_Init>:
+uint8 USART_ReceiveByte()
+{
+	/* Waits until the receive is completed */
+	while(BIT_IS_CLEAR(UCSRA,RXC));
+	return UDR;
+}
+ 126:	2b b1       	in	r18, 0x0b	; 11
+ 128:	22 60       	ori	r18, 0x02	; 2
+ 12a:	2b b9       	out	0x0b, r18	; 11
+ 12c:	2a b1       	in	r18, 0x0a	; 10
+ 12e:	28 61       	ori	r18, 0x18	; 24
+ 130:	2a b9       	out	0x0a, r18	; 10
+ 132:	20 b5       	in	r18, 0x20	; 32
+ 134:	26 68       	ori	r18, 0x86	; 134
+ 136:	20 bd       	out	0x20, r18	; 32
+ 138:	dc 01       	movw	r26, r24
+ 13a:	cb 01       	movw	r24, r22
+ 13c:	88 0f       	add	r24, r24
+ 13e:	99 1f       	adc	r25, r25
+ 140:	aa 1f       	adc	r26, r26
+ 142:	bb 1f       	adc	r27, r27
+ 144:	88 0f       	add	r24, r24
+ 146:	99 1f       	adc	r25, r25
+ 148:	aa 1f       	adc	r26, r26
+ 14a:	bb 1f       	adc	r27, r27
+ 14c:	9c 01       	movw	r18, r24
+ 14e:	ad 01       	movw	r20, r26
+ 150:	22 0f       	add	r18, r18
+ 152:	33 1f       	adc	r19, r19
+ 154:	44 1f       	adc	r20, r20
+ 156:	55 1f       	adc	r21, r21
+ 158:	60 e4       	ldi	r22, 0x40	; 64
+ 15a:	72 e4       	ldi	r23, 0x42	; 66
+ 15c:	8f e0       	ldi	r24, 0x0F	; 15
+ 15e:	90 e0       	ldi	r25, 0x00	; 0
+ 160:	0e 94 c8 00 	call	0x190	; 0x190 <__udivmodsi4>
+ 164:	21 50       	subi	r18, 0x01	; 1
+ 166:	31 09       	sbc	r19, r1
+ 168:	30 bd       	out	0x20, r19	; 32
+ 16a:	29 b9       	out	0x09, r18	; 9
+ 16c:	08 95       	ret
+
+0000016e <USART_SendByte>:
+ 16e:	5d 9b       	sbis	0x0b, 5	; 11
+ 170:	fe cf       	rjmp	.-4      	; 0x16e <USART_SendByte>
+ 172:	8c b9       	out	0x0c, r24	; 12
+ 174:	08 95       	ret
+
+00000176 <USART_SendString>:
+
+/*
+*	Description: sends a string to another USART device
+*/
+void USART_SendString(uint8 *str)
+{
+ 176:	cf 93       	push	r28
+ 178:	df 93       	push	r29
+ 17a:	ec 01       	movw	r28, r24
+	while(*str != '\0')
+ 17c:	03 c0       	rjmp	.+6      	; 0x184 <USART_SendString+0xe>
+	{
+		USART_SendByte(*str);
+ 17e:	0e 94 b7 00 	call	0x16e	; 0x16e <USART_SendByte>
+		str++;
+ 182:	21 96       	adiw	r28, 0x01	; 1
+/*
+*	Description: sends a string to another USART device
+*/
+void USART_SendString(uint8 *str)
+{
+	while(*str != '\0')
+ 184:	88 81       	ld	r24, Y
+ 186:	81 11       	cpse	r24, r1
+ 188:	fa cf       	rjmp	.-12     	; 0x17e <USART_SendString+0x8>
+	{
+		USART_SendByte(*str);
+		str++;
+	}
+}
+ 18a:	df 91       	pop	r29
+ 18c:	cf 91       	pop	r28
+ 18e:	08 95       	ret
+
+00000190 <__udivmodsi4>:
+ 190:	a1 e2       	ldi	r26, 0x21	; 33
+ 192:	1a 2e       	mov	r1, r26
+ 194:	aa 1b       	sub	r26, r26
+ 196:	bb 1b       	sub	r27, r27
+ 198:	fd 01       	movw	r30, r26
+ 19a:	0d c0       	rjmp	.+26     	; 0x1b6 <__udivmodsi4_ep>
+
+0000019c <__udivmodsi4_loop>:
+ 19c:	aa 1f       	adc	r26, r26
+ 19e:	bb 1f       	adc	r27, r27
+ 1a0:	ee 1f       	adc	r30, r30
+ 1a2:	ff 1f       	adc	r31, r31
+ 1a4:	a2 17       	cp	r26, r18
+ 1a6:	b3 07       	cpc	r27, r19
+ 1a8:	e4 07       	cpc	r30, r20
+ 1aa:	f5 07       	cpc	r31, r21
+ 1ac:	20 f0       	brcs	.+8      	; 0x1b6 <__udivmodsi4_ep>
+ 1ae:	a2 1b       	sub	r26, r18
+ 1b0:	b3 0b       	sbc	r27, r19
+ 1b2:	e4 0b       	sbc	r30, r20
+ 1b4:	f5 0b       	sbc	r31, r21
+
+000001b6 <__udivmodsi4_ep>:
+ 1b6:	66 1f       	adc	r22, r22
+ 1b8:	77 1f       	adc	r23, r23
+ 1ba:	88 1f       	adc	r24, r24
+ 1bc:	99 1f       	adc	r25, r25
+ 1be:	1a 94       	dec	r1
+ 1c0:	69 f7       	brne	.-38     	; 0x19c <__udivmodsi4_loop>
+ 1c2:	60 95       	com	r22
+ 1c4:	70 95       	com	r23
+ 1c6:	80 95       	com	r24
+ 1c8:	90 95       	com	r25
+ 1ca:	9b 01       	movw	r18, r22
+ 1cc:	ac 01       	movw	r20, r24
+ 1ce:	bd 01       	movw	r22, r26
+ 1d0:	cf 01       	movw	r24, r30
+ 1d2:	08 95       	ret
+
+000001d4 <_exit>:
+ 1d4:	f8 94       	cli
+
+000001d6 <__stop_program>:
+ 1d6:	ff cf       	rjmp	.-2      	; 0x1d6 <__stop_program>

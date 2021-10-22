@@ -40,14 +40,14 @@ void timer_delay(uint16_t time)
 
 
 
-extern uint8_t gu8_timeIsOverFlag;
-
-void __vector_9 (void) __attribute__ ((signal,used)) ;
-void __vector_9 (void) // Timer1 ISR // executed if TOV1 is set in TIFR
-{
-	gu8_timeIsOverFlag = 1;
-	cli();
-}
+//extern uint8_t gu8_timeIsOverFlag;
+//
+//void __vector_9 (void) __attribute__ ((signal,used)) ;
+//void __vector_9 (void) // Timer1 ISR // executed if TOV1 is set in TIFR
+//{
+	//gu8_timeIsOverFlag = 1;
+	//cli();
+//}
 void timer_init_interr(int time) // Timer 1
 {
 	TCNT1 =  floor(CyclesToOverFlowTwoBytes - time/1.024);  // combines TCNT1H and TCNT1L

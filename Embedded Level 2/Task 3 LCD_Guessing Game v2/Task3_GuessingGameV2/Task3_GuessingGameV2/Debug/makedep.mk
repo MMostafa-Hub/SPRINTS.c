@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+app.c
+
 Button_Driver\button.c
 
 DIO_Driver\dio.c

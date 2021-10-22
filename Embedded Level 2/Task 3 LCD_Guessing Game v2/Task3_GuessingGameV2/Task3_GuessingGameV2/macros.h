@@ -24,7 +24,9 @@
 #define MaxNumber8bit 255
 #define invalid 'i'
 #define none 'n'
- 
+#define ENTER '='
+
+
 typedef volatile uint8_t  vuint8_t;
 #define mem(x) (*(vuint8_t*)(x))
 

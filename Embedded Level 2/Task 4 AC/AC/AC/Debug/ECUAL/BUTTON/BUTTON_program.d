@@ -1,0 +1,14 @@
+ECUAL/BUTTON/BUTTON_program.d ECUAL/BUTTON/BUTTON_program.o: \
+ ../ECUAL/BUTTON/BUTTON_program.c \
+ ../ECUAL/BUTTON/../../LIB/STD_TYPES/STD_TYPES.h \
+ ../ECUAL/BUTTON/../../LIB/BIT_MATH/BIT_MATH.h \
+ ../ECUAL/BUTTON/BUTTON_interface.h \
+ ../ECUAL/BUTTON/../../MCAL/DIO/MDIO_interface.h
+
+../ECUAL/BUTTON/../../LIB/STD_TYPES/STD_TYPES.h:
+
+../ECUAL/BUTTON/../../LIB/BIT_MATH/BIT_MATH.h:
+
+../ECUAL/BUTTON/BUTTON_interface.h:
+
+../ECUAL/BUTTON/../../MCAL/DIO/MDIO_interface.h:

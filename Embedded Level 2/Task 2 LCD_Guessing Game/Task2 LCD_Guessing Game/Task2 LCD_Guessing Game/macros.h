@@ -61,7 +61,7 @@ typedef volatile uint8_t  vuint8_t;
 #define Timer_flags mem(0x58)
 #define Timer0_overflow_flag (Timer_flags & 0x01)
 
-
+#define btn 2
 
 #define Timer1_control_regA mem(0x4f)
 #define Timer1_control_regB mem(0x4e)
