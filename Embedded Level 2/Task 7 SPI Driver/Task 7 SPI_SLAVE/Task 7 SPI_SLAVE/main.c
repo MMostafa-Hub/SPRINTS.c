@@ -1,38 +1,45 @@
 /*
- * Task 7 SPI_SLAVE.c
- *
- * Created: 22/10/2021 8:28:35 PM
- * Author : OWNER
- */ 
+ ================================================================================================
+ Name        : MC2.c
+ Author      : Mohamed Tarek
+ Description : MC2 Code in Exercise2
+ Date        : 4/11/2014
+ ================================================================================================
+ */
 
-#include <avr/io.h>
-#include "USART/usart.h"
 #include "SPI/spi.h"
+#include "USART/usart.h"
+#include <util/delay.h>
+#include <string.h>
+#define MC2_READY 0x10
 
-void app_init(void)
-{
-	USART_Init(9600);
-	SPI_InitSlave();	
-	
-}
 int main(void)
 {
-    /* Replace with your application code */
-	app_init();
-	uint8 c[100];
-    while (1) 
-    {
-		USART_SendString((uint8*)"SLAVE:\r");
-		
-		/* FORM MASTER */
-		SPI_ReceiveString(c);
-		
-		/* TO TERMINAL */
-		USART_SendString(c);
-		
-		USART_SendString((uint8*)"\r");
+	uint8 str[256];
 
-		
+// 	/* Initialize the LCD Driver */
+// 	LCD_init();
+	/* Initializing USART */
+	USART_Init(9600);
+	/* Initialize the SPI driver as Slave */
+	SPI_initSlave();
+	
+	USART_SendString((uint8*)"SLAVE\r");
+	
+// 	/* Display the received string on the LCD display */
+// 	LCD_displayString(str);
+
+    while(1)
+    {
+			/* Receive String from MC1 */
+			SPI_receiveString(str);
+			
+			/* Sending string form MC1 to terminal */
+			USART_SendString(str);
+			USART_SendByte('\r');
+			memset(str,'\0',256);
+			_delay_ms(100);
+			
     }
 }
 

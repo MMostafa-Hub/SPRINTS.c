@@ -3,29 +3,29 @@ Task 7 SPI _ MASTER.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000204  00000000  00000000  00000074  2**1
+  0 .text         00000336  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000a  00800060  00000204  00000278  2**0
+  1 .data         00000008  00800060  00000336  000003aa  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  00000282  2**0
+  2 .comment      00000030  00000000  00000000  000003b2  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002b4  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000003e4  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000b0  00000000  00000000  000002f0  2**0
+  4 .debug_aranges 000000e8  00000000  00000000  00000420  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000009e4  00000000  00000000  000003a0  2**0
+  5 .debug_info   00000df5  00000000  00000000  00000508  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000767  00000000  00000000  00000d84  2**0
+  6 .debug_abbrev 0000091f  00000000  00000000  000012fd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000512  00000000  00000000  000014eb  2**0
+  7 .debug_line   000008fc  00000000  00000000  00001c1c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  0000016c  00000000  00000000  00001a00  2**2
+  8 .debug_frame  000001c8  00000000  00000000  00002518  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000041f  00000000  00000000  00001b6c  2**0
+  9 .debug_str    00000554  00000000  00000000  000026e0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000278  00000000  00000000  00001f8b  2**0
+ 10 .debug_loc    000006bc  00000000  00000000  00002c34  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000080  00000000  00000000  00002203  2**0
+ 11 .debug_ranges 000000a8  00000000  00000000  000032f0  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,366 +65,600 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e4 e0       	ldi	r30, 0x04	; 4
-  68:	f2 e0       	ldi	r31, 0x02	; 2
+  66:	e6 e3       	ldi	r30, 0x36	; 54
+  68:	f3 e0       	ldi	r31, 0x03	; 3
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	aa 36       	cpi	r26, 0x6A	; 106
+  70:	a8 36       	cpi	r26, 0x68	; 104
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
-  76:	0e 94 4a 00 	call	0x94	; 0x94 <main>
-  7a:	0c 94 00 01 	jmp	0x200	; 0x200 <_exit>
+  76:	0e 94 b4 00 	call	0x168	; 0x168 <main>
+  7a:	0c 94 99 01 	jmp	0x332	; 0x332 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000082 <app_init>:
-#include <avr/io.h>
-#include "SPI/spi.h"
-#include "USART/usart.h"
-void app_init(void)
-{
-	USART_Init(9600);
-  82:	60 e8       	ldi	r22, 0x80	; 128
-  84:	75 e2       	ldi	r23, 0x25	; 37
-  86:	80 e0       	ldi	r24, 0x00	; 0
-  88:	90 e0       	ldi	r25, 0x00	; 0
-  8a:	0e 94 84 00 	call	0x108	; 0x108 <USART_Init>
-	SPI_InitMaster();
-  8e:	0e 94 6c 00 	call	0xd8	; 0xd8 <SPI_InitMaster>
-  92:	08 95       	ret
+00000082 <GPIO_setupPinDirection>:
+	/*
+	 * Check if the input port number is greater than NUM_OF_PINS_PER_PORT value.
+	 * Or if the input pin number is greater than NUM_OF_PINS_PER_PORT value.
+	 * In this case the input is not valid port/pin number
+	 */
+	if((pin_num >= NUM_OF_PINS_PER_PORT) || (port_num >= NUM_OF_PORTS))
+  82:	68 30       	cpi	r22, 0x08	; 8
+  84:	08 f0       	brcs	.+2      	; 0x88 <GPIO_setupPinDirection+0x6>
+  86:	6f c0       	rjmp	.+222    	; 0x166 <GPIO_setupPinDirection+0xe4>
+  88:	84 30       	cpi	r24, 0x04	; 4
+  8a:	08 f0       	brcs	.+2      	; 0x8e <GPIO_setupPinDirection+0xc>
+  8c:	6c c0       	rjmp	.+216    	; 0x166 <GPIO_setupPinDirection+0xe4>
+		/* Do Nothing */
+	}
+	else
+	{
+		/* Setup the pin direction as required */
+		switch(port_num)
+  8e:	81 30       	cpi	r24, 0x01	; 1
+  90:	01 f1       	breq	.+64     	; 0xd2 <GPIO_setupPinDirection+0x50>
+  92:	30 f0       	brcs	.+12     	; 0xa0 <GPIO_setupPinDirection+0x1e>
+  94:	82 30       	cpi	r24, 0x02	; 2
+  96:	b1 f1       	breq	.+108    	; 0x104 <GPIO_setupPinDirection+0x82>
+  98:	83 30       	cpi	r24, 0x03	; 3
+  9a:	09 f4       	brne	.+2      	; 0x9e <GPIO_setupPinDirection+0x1c>
+  9c:	4c c0       	rjmp	.+152    	; 0x136 <GPIO_setupPinDirection+0xb4>
+  9e:	08 95       	ret
+		{
+		case PORTA_ID:
+			if(direction == PIN_OUTPUT)
+  a0:	41 30       	cpi	r20, 0x01	; 1
+  a2:	59 f4       	brne	.+22     	; 0xba <GPIO_setupPinDirection+0x38>
+			{
+				SET_BIT(DDRA,pin_num);
+  a4:	2a b3       	in	r18, 0x1a	; 26
+  a6:	81 e0       	ldi	r24, 0x01	; 1
+  a8:	90 e0       	ldi	r25, 0x00	; 0
+  aa:	02 c0       	rjmp	.+4      	; 0xb0 <GPIO_setupPinDirection+0x2e>
+  ac:	88 0f       	add	r24, r24
+  ae:	99 1f       	adc	r25, r25
+  b0:	6a 95       	dec	r22
+  b2:	e2 f7       	brpl	.-8      	; 0xac <GPIO_setupPinDirection+0x2a>
+  b4:	82 2b       	or	r24, r18
+  b6:	8a bb       	out	0x1a, r24	; 26
+  b8:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRA,pin_num);
+  ba:	2a b3       	in	r18, 0x1a	; 26
+  bc:	81 e0       	ldi	r24, 0x01	; 1
+  be:	90 e0       	ldi	r25, 0x00	; 0
+  c0:	02 c0       	rjmp	.+4      	; 0xc6 <GPIO_setupPinDirection+0x44>
+  c2:	88 0f       	add	r24, r24
+  c4:	99 1f       	adc	r25, r25
+  c6:	6a 95       	dec	r22
+  c8:	e2 f7       	brpl	.-8      	; 0xc2 <GPIO_setupPinDirection+0x40>
+  ca:	80 95       	com	r24
+  cc:	82 23       	and	r24, r18
+  ce:	8a bb       	out	0x1a, r24	; 26
+  d0:	08 95       	ret
+			}
+			break;
+		case PORTB_ID:
+			if(direction == PIN_OUTPUT)
+  d2:	41 30       	cpi	r20, 0x01	; 1
+  d4:	59 f4       	brne	.+22     	; 0xec <GPIO_setupPinDirection+0x6a>
+			{
+				SET_BIT(DDRB,pin_num);
+  d6:	27 b3       	in	r18, 0x17	; 23
+  d8:	81 e0       	ldi	r24, 0x01	; 1
+  da:	90 e0       	ldi	r25, 0x00	; 0
+  dc:	02 c0       	rjmp	.+4      	; 0xe2 <GPIO_setupPinDirection+0x60>
+  de:	88 0f       	add	r24, r24
+  e0:	99 1f       	adc	r25, r25
+  e2:	6a 95       	dec	r22
+  e4:	e2 f7       	brpl	.-8      	; 0xde <GPIO_setupPinDirection+0x5c>
+  e6:	82 2b       	or	r24, r18
+  e8:	87 bb       	out	0x17, r24	; 23
+  ea:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRB,pin_num);
+  ec:	27 b3       	in	r18, 0x17	; 23
+  ee:	81 e0       	ldi	r24, 0x01	; 1
+  f0:	90 e0       	ldi	r25, 0x00	; 0
+  f2:	02 c0       	rjmp	.+4      	; 0xf8 <GPIO_setupPinDirection+0x76>
+  f4:	88 0f       	add	r24, r24
+  f6:	99 1f       	adc	r25, r25
+  f8:	6a 95       	dec	r22
+  fa:	e2 f7       	brpl	.-8      	; 0xf4 <GPIO_setupPinDirection+0x72>
+  fc:	80 95       	com	r24
+  fe:	82 23       	and	r24, r18
+ 100:	87 bb       	out	0x17, r24	; 23
+ 102:	08 95       	ret
+			}
+			break;
+		case PORTC_ID:
+			if(direction == PIN_OUTPUT)
+ 104:	41 30       	cpi	r20, 0x01	; 1
+ 106:	59 f4       	brne	.+22     	; 0x11e <GPIO_setupPinDirection+0x9c>
+			{
+				SET_BIT(DDRC,pin_num);
+ 108:	24 b3       	in	r18, 0x14	; 20
+ 10a:	81 e0       	ldi	r24, 0x01	; 1
+ 10c:	90 e0       	ldi	r25, 0x00	; 0
+ 10e:	02 c0       	rjmp	.+4      	; 0x114 <GPIO_setupPinDirection+0x92>
+ 110:	88 0f       	add	r24, r24
+ 112:	99 1f       	adc	r25, r25
+ 114:	6a 95       	dec	r22
+ 116:	e2 f7       	brpl	.-8      	; 0x110 <GPIO_setupPinDirection+0x8e>
+ 118:	82 2b       	or	r24, r18
+ 11a:	84 bb       	out	0x14, r24	; 20
+ 11c:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRC,pin_num);
+ 11e:	24 b3       	in	r18, 0x14	; 20
+ 120:	81 e0       	ldi	r24, 0x01	; 1
+ 122:	90 e0       	ldi	r25, 0x00	; 0
+ 124:	02 c0       	rjmp	.+4      	; 0x12a <GPIO_setupPinDirection+0xa8>
+ 126:	88 0f       	add	r24, r24
+ 128:	99 1f       	adc	r25, r25
+ 12a:	6a 95       	dec	r22
+ 12c:	e2 f7       	brpl	.-8      	; 0x126 <GPIO_setupPinDirection+0xa4>
+ 12e:	80 95       	com	r24
+ 130:	82 23       	and	r24, r18
+ 132:	84 bb       	out	0x14, r24	; 20
+ 134:	08 95       	ret
+			}
+			break;
+		case PORTD_ID:
+			if(direction == PIN_OUTPUT)
+ 136:	41 30       	cpi	r20, 0x01	; 1
+ 138:	59 f4       	brne	.+22     	; 0x150 <GPIO_setupPinDirection+0xce>
+			{
+				SET_BIT(DDRD,pin_num);
+ 13a:	21 b3       	in	r18, 0x11	; 17
+ 13c:	81 e0       	ldi	r24, 0x01	; 1
+ 13e:	90 e0       	ldi	r25, 0x00	; 0
+ 140:	02 c0       	rjmp	.+4      	; 0x146 <GPIO_setupPinDirection+0xc4>
+ 142:	88 0f       	add	r24, r24
+ 144:	99 1f       	adc	r25, r25
+ 146:	6a 95       	dec	r22
+ 148:	e2 f7       	brpl	.-8      	; 0x142 <GPIO_setupPinDirection+0xc0>
+ 14a:	82 2b       	or	r24, r18
+ 14c:	81 bb       	out	0x11, r24	; 17
+ 14e:	08 95       	ret
+			}
+			else
+			{
+				CLEAR_BIT(DDRD,pin_num);
+ 150:	21 b3       	in	r18, 0x11	; 17
+ 152:	81 e0       	ldi	r24, 0x01	; 1
+ 154:	90 e0       	ldi	r25, 0x00	; 0
+ 156:	02 c0       	rjmp	.+4      	; 0x15c <GPIO_setupPinDirection+0xda>
+ 158:	88 0f       	add	r24, r24
+ 15a:	99 1f       	adc	r25, r25
+ 15c:	6a 95       	dec	r22
+ 15e:	e2 f7       	brpl	.-8      	; 0x158 <GPIO_setupPinDirection+0xd6>
+ 160:	80 95       	com	r24
+ 162:	82 23       	and	r24, r18
+ 164:	81 bb       	out	0x11, r24	; 17
+ 166:	08 95       	ret
 
-00000094 <main>:
-}
+00000168 <main>:
+#include "USART/usart.h"
+#include <string.h>
+#include <util/delay.h> /* To use the delay functions */
+
 int main(void)
 {
-  94:	cf 93       	push	r28
-  96:	df 93       	push	r29
-  98:	cd b7       	in	r28, 0x3d	; 61
-  9a:	de b7       	in	r29, 0x3e	; 62
-  9c:	c4 56       	subi	r28, 0x64	; 100
-  9e:	d1 09       	sbc	r29, r1
-  a0:	0f b6       	in	r0, 0x3f	; 63
-  a2:	f8 94       	cli
-  a4:	de bf       	out	0x3e, r29	; 62
-  a6:	0f be       	out	0x3f, r0	; 63
-  a8:	cd bf       	out	0x3d, r28	; 61
-	/* Replace with your application code */
-	app_init();
-  aa:	0e 94 41 00 	call	0x82	; 0x82 <app_init>
-	uint8 c[100];
-	while (1)
-	{
-		USART_SendString((uint8*)"MASTER:\r");
-  ae:	80 e6       	ldi	r24, 0x60	; 96
-  b0:	90 e0       	ldi	r25, 0x00	; 0
-  b2:	0e 94 b0 00 	call	0x160	; 0x160 <USART_SendString>
-		
-		/* FROM TERMINAL */
-		USART_ReceiveString(c);
-  b6:	ce 01       	movw	r24, r28
-  b8:	01 96       	adiw	r24, 0x01	; 1
-  ba:	0e 94 bd 00 	call	0x17a	; 0x17a <USART_ReceiveString>
-		/* TO SLAVE */
-		SPI_SendString(c);
-  be:	ce 01       	movw	r24, r28
-  c0:	01 96       	adiw	r24, 0x01	; 1
-  c2:	0e 94 77 00 	call	0xee	; 0xee <SPI_SendString>
-		
-		/* ECHOOOOO */
-		USART_SendString(c);
-  c6:	ce 01       	movw	r24, r28
-  c8:	01 96       	adiw	r24, 0x01	; 1
-  ca:	0e 94 b0 00 	call	0x160	; 0x160 <USART_SendString>
-		USART_SendString((uint8*)"\r");
-  ce:	87 e6       	ldi	r24, 0x67	; 103
-  d0:	90 e0       	ldi	r25, 0x00	; 0
-  d2:	0e 94 b0 00 	call	0x160	; 0x160 <USART_SendString>
-  d6:	eb cf       	rjmp	.-42     	; 0xae <main+0x1a>
+ 168:	cf 93       	push	r28
+ 16a:	df 93       	push	r29
+ 16c:	cd b7       	in	r28, 0x3d	; 61
+ 16e:	de b7       	in	r29, 0x3e	; 62
+ 170:	da 95       	dec	r29
+ 172:	0f b6       	in	r0, 0x3f	; 63
+ 174:	f8 94       	cli
+ 176:	de bf       	out	0x3e, r29	; 62
+ 178:	0f be       	out	0x3f, r0	; 63
+ 17a:	cd bf       	out	0x3d, r28	; 61
+	/* Initialize the SPI driver as Master */
+	SPI_initMaster();
+ 17c:	0e 94 eb 00 	call	0x1d6	; 0x1d6 <SPI_initMaster>
+	USART_Init(9600);
+ 180:	60 e8       	ldi	r22, 0x80	; 128
+ 182:	75 e2       	ldi	r23, 0x25	; 37
+ 184:	80 e0       	ldi	r24, 0x00	; 0
+ 186:	90 e0       	ldi	r25, 0x00	; 0
+ 188:	0e 94 1d 01 	call	0x23a	; 0x23a <USART_Init>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-000000d8 <SPI_InitMaster>:
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 18c:	87 ea       	ldi	r24, 0xA7	; 167
+ 18e:	91 e6       	ldi	r25, 0x61	; 97
+ 190:	01 97       	sbiw	r24, 0x01	; 1
+ 192:	f1 f7       	brne	.-4      	; 0x190 <main+0x28>
+ 194:	00 c0       	rjmp	.+0      	; 0x196 <main+0x2e>
+ 196:	00 00       	nop
+	/* Delay until MC2 finish its initialization task */
+	_delay_ms(100);
 
-uint8 SPI_ReceiveByte()
+	USART_SendString((uint8*)"MASTER\r");
+ 198:	80 e6       	ldi	r24, 0x60	; 96
+ 19a:	90 e0       	ldi	r25, 0x00	; 0
+ 19c:	0e 94 49 01 	call	0x292	; 0x292 <USART_SendString>
+	/*SPI_sendString((uint8*)"I am Micro1\r");*/
+	uint8 message[256];
+
+    while(1)
+    {
+		USART_ReceiveString(message);
+ 1a0:	8e 01       	movw	r16, r28
+ 1a2:	0f 5f       	subi	r16, 0xFF	; 255
+ 1a4:	1f 4f       	sbci	r17, 0xFF	; 255
+ 1a6:	c8 01       	movw	r24, r16
+ 1a8:	0e 94 56 01 	call	0x2ac	; 0x2ac <USART_ReceiveString>
+		//SPI_sendString((uint8*)"message\r");
+		SPI_sendString(message);
+ 1ac:	c8 01       	movw	r24, r16
+ 1ae:	0e 94 0a 01 	call	0x214	; 0x214 <SPI_sendString>
+		SPI_sendReceiveByte('\r');
+ 1b2:	8d e0       	ldi	r24, 0x0D	; 13
+ 1b4:	0e 94 05 01 	call	0x20a	; 0x20a <SPI_sendReceiveByte>
+		memset(message,'\0',256);
+ 1b8:	80 e0       	ldi	r24, 0x00	; 0
+ 1ba:	91 e0       	ldi	r25, 0x01	; 1
+ 1bc:	f8 01       	movw	r30, r16
+ 1be:	9c 01       	movw	r18, r24
+ 1c0:	11 92       	st	Z+, r1
+ 1c2:	21 50       	subi	r18, 0x01	; 1
+ 1c4:	30 40       	sbci	r19, 0x00	; 0
+ 1c6:	e1 f7       	brne	.-8      	; 0x1c0 <main+0x58>
+ 1c8:	87 ea       	ldi	r24, 0xA7	; 167
+ 1ca:	91 e6       	ldi	r25, 0x61	; 97
+ 1cc:	01 97       	sbiw	r24, 0x01	; 1
+ 1ce:	f1 f7       	brne	.-4      	; 0x1cc <main+0x64>
+ 1d0:	00 c0       	rjmp	.+0      	; 0x1d2 <main+0x6a>
+ 1d2:	00 00       	nop
+ 1d4:	e5 cf       	rjmp	.-54     	; 0x1a0 <main+0x38>
+
+000001d6 <SPI_initMaster>:
+	 * SPR1:0  = 00 Choose SPI clock = Fosc/4
+	 ***********************************************************************/
+	SPCR = (1<<SPE);
+
+	/* Clear the SPI2X bit in SPSR to Choose SPI clock = Fosc/4 */
+	SPSR &= ~(1<<SPI2X);
+ 1d6:	41 e0       	ldi	r20, 0x01	; 1
+ 1d8:	64 e0       	ldi	r22, 0x04	; 4
+ 1da:	81 e0       	ldi	r24, 0x01	; 1
+ 1dc:	0e 94 41 00 	call	0x82	; 0x82 <GPIO_setupPinDirection>
+ 1e0:	41 e0       	ldi	r20, 0x01	; 1
+ 1e2:	65 e0       	ldi	r22, 0x05	; 5
+ 1e4:	81 e0       	ldi	r24, 0x01	; 1
+ 1e6:	0e 94 41 00 	call	0x82	; 0x82 <GPIO_setupPinDirection>
+ 1ea:	40 e0       	ldi	r20, 0x00	; 0
+ 1ec:	66 e0       	ldi	r22, 0x06	; 6
+ 1ee:	81 e0       	ldi	r24, 0x01	; 1
+ 1f0:	0e 94 41 00 	call	0x82	; 0x82 <GPIO_setupPinDirection>
+ 1f4:	41 e0       	ldi	r20, 0x01	; 1
+ 1f6:	67 e0       	ldi	r22, 0x07	; 7
+ 1f8:	81 e0       	ldi	r24, 0x01	; 1
+ 1fa:	0e 94 41 00 	call	0x82	; 0x82 <GPIO_setupPinDirection>
+ 1fe:	80 e5       	ldi	r24, 0x50	; 80
+ 200:	8d b9       	out	0x0d, r24	; 13
+ 202:	8e b1       	in	r24, 0x0e	; 14
+ 204:	8e 7f       	andi	r24, 0xFE	; 254
+ 206:	8e b9       	out	0x0e, r24	; 14
+ 208:	08 95       	ret
+
+0000020a <SPI_sendReceiveByte>:
+ * In the same time data will be received from the other device.
+ */
+uint8 SPI_sendReceiveByte(uint8 data)
 {
-	while(BIT_IS_CLEAR(SPSR,SPIF));
+	/* Initiate the communication and send data by SPI */
+	SPDR = data;
+ 20a:	8f b9       	out	0x0f, r24	; 15
+
+	/* Wait until SPI interrupt flag SPIF = 1 (data has been sent/received correctly) */
+	while(BIT_IS_CLEAR(SPSR,SPIF)){}
+ 20c:	77 9b       	sbis	0x0e, 7	; 14
+ 20e:	fe cf       	rjmp	.-4      	; 0x20c <SPI_sendReceiveByte+0x2>
+
+	/*
+	 * Note: SPIF flag is cleared by first reading SPSR (with SPIF set) which is done in the previous step.
+	 * and then accessing SPDR like the below line.
+	 */
 	return SPDR;
+ 210:	8f b1       	in	r24, 0x0f	; 15
 }
-  d8:	87 b3       	in	r24, 0x17	; 23
-  da:	80 6b       	ori	r24, 0xB0	; 176
-  dc:	87 bb       	out	0x17, r24	; 23
-  de:	8d b1       	in	r24, 0x0d	; 13
-  e0:	80 65       	ori	r24, 0x50	; 80
-  e2:	8d b9       	out	0x0d, r24	; 13
-  e4:	08 95       	ret
+ 212:	08 95       	ret
 
-000000e6 <SPI_SendByte>:
-  e6:	8f b9       	out	0x0f, r24	; 15
-  e8:	77 9b       	sbis	0x0e, 7	; 14
-  ea:	fe cf       	rjmp	.-4      	; 0xe8 <SPI_SendByte+0x2>
-  ec:	08 95       	ret
-
-000000ee <SPI_SendString>:
-
-void SPI_SendString(uint8 *str)
+00000214 <SPI_sendString>:
+/*
+ * Description :
+ * Send the required string through SPI to the other SPI device.
+ */
+void SPI_sendString(const uint8 *str)
 {
-  ee:	cf 93       	push	r28
-  f0:	df 93       	push	r29
-  f2:	ec 01       	movw	r28, r24
-	while(*str)
-  f4:	03 c0       	rjmp	.+6      	; 0xfc <SPI_SendString+0xe>
-	{
-		SPI_SendByte(*str);
-  f6:	0e 94 73 00 	call	0xe6	; 0xe6 <SPI_SendByte>
-		str++;
-  fa:	21 96       	adiw	r28, 0x01	; 1
-	return SPDR;
-}
+ 214:	0f 93       	push	r16
+ 216:	1f 93       	push	r17
+ 218:	cf 93       	push	r28
+ 21a:	8c 01       	movw	r16, r24
+	uint8 i = 0;
+ 21c:	c0 e0       	ldi	r28, 0x00	; 0
+	uint8 received_data = 0;
 
-void SPI_SendString(uint8 *str)
-{
-	while(*str)
-  fc:	88 81       	ld	r24, Y
-  fe:	81 11       	cpse	r24, r1
- 100:	fa cf       	rjmp	.-12     	; 0xf6 <SPI_SendString+0x8>
+	/* Send the whole string */
+	while(str[i] != '\0')
+ 21e:	03 c0       	rjmp	.+6      	; 0x226 <SPI_sendString+0x12>
 	{
-		SPI_SendByte(*str);
-		str++;
+		/*
+		 * received_data contains the received data from the other device.
+		 * It is a dummy data variable as we just need to send the string to other device.
+		 */
+		received_data = SPI_sendReceiveByte(str[i]);
+ 220:	0e 94 05 01 	call	0x20a	; 0x20a <SPI_sendReceiveByte>
+		i++;
+ 224:	cf 5f       	subi	r28, 0xFF	; 255
+{
+	uint8 i = 0;
+	uint8 received_data = 0;
+
+	/* Send the whole string */
+	while(str[i] != '\0')
+ 226:	f8 01       	movw	r30, r16
+ 228:	ec 0f       	add	r30, r28
+ 22a:	f1 1d       	adc	r31, r1
+ 22c:	80 81       	ld	r24, Z
+ 22e:	81 11       	cpse	r24, r1
+ 230:	f7 cf       	rjmp	.-18     	; 0x220 <SPI_sendString+0xc>
+		 * It is a dummy data variable as we just need to send the string to other device.
+		 */
+		received_data = SPI_sendReceiveByte(str[i]);
+		i++;
 	}
 }
- 102:	df 91       	pop	r29
- 104:	cf 91       	pop	r28
- 106:	08 95       	ret
+ 232:	cf 91       	pop	r28
+ 234:	1f 91       	pop	r17
+ 236:	0f 91       	pop	r16
+ 238:	08 95       	ret
 
-00000108 <USART_Init>:
+0000023a <USART_Init>:
 #include "usart.h"
 
 void USART_Init(uint32 baud_rate)
 {
 	/* U2X = 1 for double transmission speed */
 	UCSRA |= (1<<U2X);
- 108:	2b b1       	in	r18, 0x0b	; 11
- 10a:	22 60       	ori	r18, 0x02	; 2
- 10c:	2b b9       	out	0x0b, r18	; 11
+ 23a:	2b b1       	in	r18, 0x0b	; 11
+ 23c:	22 60       	ori	r18, 0x02	; 2
+ 23e:	2b b9       	out	0x0b, r18	; 11
 	 * RXEN  = 1 Receiver Enable
 	 * RXEN  = 1 Transmitter Enable
 	 * UCSZ2 = 0 For 8-bit data mode
 	 * RXB8 & TXB8 not used for 8-bit data mode
 	 ***********************************************************************/ 
 	UCSRB |= (1<<RXEN) | (1<<TXEN);
- 10e:	2a b1       	in	r18, 0x0a	; 10
- 110:	28 61       	ori	r18, 0x18	; 24
- 112:	2a b9       	out	0x0a, r18	; 10
+ 240:	2a b1       	in	r18, 0x0a	; 10
+ 242:	28 61       	ori	r18, 0x18	; 24
+ 244:	2a b9       	out	0x0a, r18	; 10
 	 * UPM1:0  = 00 Disable parity bit
 	 * USBS    = 0 One stop bit
 	 * UCSZ1:0 = 11 For 8-bit data mode
 	 * UCPOL   = 0 Used with the Synchronous operation only
 	 ***********************************************************************/
 	UCSRC |= (1<<URSEL) | (1<<UCSZ0) | (1<<UCSZ1);
- 114:	20 b5       	in	r18, 0x20	; 32
- 116:	26 68       	ori	r18, 0x86	; 134
- 118:	20 bd       	out	0x20, r18	; 32
+ 246:	20 b5       	in	r18, 0x20	; 32
+ 248:	26 68       	ori	r18, 0x86	; 134
+ 24a:	20 bd       	out	0x20, r18	; 32
 	
 	/* Calculate the UBRR register value */
 	uint16 ubrr_value = (uint16)(((F_CPU / (baud_rate * 8UL))) - 1);
- 11a:	dc 01       	movw	r26, r24
- 11c:	cb 01       	movw	r24, r22
- 11e:	88 0f       	add	r24, r24
- 120:	99 1f       	adc	r25, r25
- 122:	aa 1f       	adc	r26, r26
- 124:	bb 1f       	adc	r27, r27
- 126:	88 0f       	add	r24, r24
- 128:	99 1f       	adc	r25, r25
- 12a:	aa 1f       	adc	r26, r26
- 12c:	bb 1f       	adc	r27, r27
- 12e:	9c 01       	movw	r18, r24
- 130:	ad 01       	movw	r20, r26
- 132:	22 0f       	add	r18, r18
- 134:	33 1f       	adc	r19, r19
- 136:	44 1f       	adc	r20, r20
- 138:	55 1f       	adc	r21, r21
- 13a:	60 e4       	ldi	r22, 0x40	; 64
- 13c:	72 e4       	ldi	r23, 0x42	; 66
- 13e:	8f e0       	ldi	r24, 0x0F	; 15
- 140:	90 e0       	ldi	r25, 0x00	; 0
- 142:	0e 94 de 00 	call	0x1bc	; 0x1bc <__udivmodsi4>
- 146:	21 50       	subi	r18, 0x01	; 1
- 148:	31 09       	sbc	r19, r1
+ 24c:	dc 01       	movw	r26, r24
+ 24e:	cb 01       	movw	r24, r22
+ 250:	88 0f       	add	r24, r24
+ 252:	99 1f       	adc	r25, r25
+ 254:	aa 1f       	adc	r26, r26
+ 256:	bb 1f       	adc	r27, r27
+ 258:	88 0f       	add	r24, r24
+ 25a:	99 1f       	adc	r25, r25
+ 25c:	aa 1f       	adc	r26, r26
+ 25e:	bb 1f       	adc	r27, r27
+ 260:	9c 01       	movw	r18, r24
+ 262:	ad 01       	movw	r20, r26
+ 264:	22 0f       	add	r18, r18
+ 266:	33 1f       	adc	r19, r19
+ 268:	44 1f       	adc	r20, r20
+ 26a:	55 1f       	adc	r21, r21
+ 26c:	60 e4       	ldi	r22, 0x40	; 64
+ 26e:	72 e4       	ldi	r23, 0x42	; 66
+ 270:	8f e0       	ldi	r24, 0x0F	; 15
+ 272:	90 e0       	ldi	r25, 0x00	; 0
+ 274:	0e 94 77 01 	call	0x2ee	; 0x2ee <__udivmodsi4>
+ 278:	21 50       	subi	r18, 0x01	; 1
+ 27a:	31 09       	sbc	r19, r1
 	
 	/* First 8 bits from the BAUD_PRESCALE inside UBRRL and last 4 bits in UBRRH*/
 	UBRRH = ubrr_value>>8;
- 14a:	30 bd       	out	0x20, r19	; 32
+ 27c:	30 bd       	out	0x20, r19	; 32
 	UBRRL = ubrr_value;
- 14c:	29 b9       	out	0x09, r18	; 9
- 14e:	08 95       	ret
+ 27e:	29 b9       	out	0x09, r18	; 9
+ 280:	08 95       	ret
 
-00000150 <USART_SendByte>:
+00000282 <USART_SendByte>:
 *	Description: sends a character(BYTE) to another USART device
 */
 void USART_SendByte(uint8 data)
 {
 	/* Waits for the data register to be empty */
 	while(BIT_IS_CLEAR(UCSRA,UDRE));
- 150:	5d 9b       	sbis	0x0b, 5	; 11
- 152:	fe cf       	rjmp	.-4      	; 0x150 <USART_SendByte>
+ 282:	5d 9b       	sbis	0x0b, 5	; 11
+ 284:	fe cf       	rjmp	.-4      	; 0x282 <USART_SendByte>
 	UDR = data;
- 154:	8c b9       	out	0x0c, r24	; 12
- 156:	08 95       	ret
+ 286:	8c b9       	out	0x0c, r24	; 12
+ 288:	08 95       	ret
 
-00000158 <USART_ReceiveByte>:
+0000028a <USART_ReceiveByte>:
 *	Description: Receives a character (BYTE) from another USART device
 */
 uint8 USART_ReceiveByte()
 {
 	/* Waits until the receive is completed */
 	while(BIT_IS_CLEAR(UCSRA,RXC));
- 158:	5f 9b       	sbis	0x0b, 7	; 11
- 15a:	fe cf       	rjmp	.-4      	; 0x158 <USART_ReceiveByte>
+ 28a:	5f 9b       	sbis	0x0b, 7	; 11
+ 28c:	fe cf       	rjmp	.-4      	; 0x28a <USART_ReceiveByte>
 	return UDR;
- 15c:	8c b1       	in	r24, 0x0c	; 12
+ 28e:	8c b1       	in	r24, 0x0c	; 12
 }
- 15e:	08 95       	ret
+ 290:	08 95       	ret
 
-00000160 <USART_SendString>:
+00000292 <USART_SendString>:
 
 /*
 *	Description: sends a string to another USART device
 */
 void USART_SendString(uint8 *str)
 {
- 160:	cf 93       	push	r28
- 162:	df 93       	push	r29
- 164:	ec 01       	movw	r28, r24
+ 292:	cf 93       	push	r28
+ 294:	df 93       	push	r29
+ 296:	ec 01       	movw	r28, r24
 	while(*str != '\0')
- 166:	03 c0       	rjmp	.+6      	; 0x16e <USART_SendString+0xe>
+ 298:	03 c0       	rjmp	.+6      	; 0x2a0 <USART_SendString+0xe>
 	{
 		USART_SendByte(*str);
- 168:	0e 94 a8 00 	call	0x150	; 0x150 <USART_SendByte>
+ 29a:	0e 94 41 01 	call	0x282	; 0x282 <USART_SendByte>
 		str++;
- 16c:	21 96       	adiw	r28, 0x01	; 1
+ 29e:	21 96       	adiw	r28, 0x01	; 1
 /*
 *	Description: sends a string to another USART device
 */
 void USART_SendString(uint8 *str)
 {
 	while(*str != '\0')
- 16e:	88 81       	ld	r24, Y
- 170:	81 11       	cpse	r24, r1
- 172:	fa cf       	rjmp	.-12     	; 0x168 <USART_SendString+0x8>
+ 2a0:	88 81       	ld	r24, Y
+ 2a2:	81 11       	cpse	r24, r1
+ 2a4:	fa cf       	rjmp	.-12     	; 0x29a <USART_SendString+0x8>
 	{
 		USART_SendByte(*str);
 		str++;
 	}
 }
- 174:	df 91       	pop	r29
- 176:	cf 91       	pop	r28
- 178:	08 95       	ret
+ 2a6:	df 91       	pop	r29
+ 2a8:	cf 91       	pop	r28
+ 2aa:	08 95       	ret
 
-0000017a <USART_ReceiveString>:
+000002ac <USART_ReceiveString>:
 
 /*
 *	Description: sends a string to another USART device
 */
 void USART_ReceiveString(uint8 *str)
 {
- 17a:	ef 92       	push	r14
- 17c:	ff 92       	push	r15
- 17e:	0f 93       	push	r16
- 180:	1f 93       	push	r17
- 182:	cf 93       	push	r28
- 184:	8c 01       	movw	r16, r24
+ 2ac:	ef 92       	push	r14
+ 2ae:	ff 92       	push	r15
+ 2b0:	0f 93       	push	r16
+ 2b2:	1f 93       	push	r17
+ 2b4:	cf 93       	push	r28
+ 2b6:	8c 01       	movw	r16, r24
 	uint8 i = 0;
 	str[i] = USART_ReceiveByte();
- 186:	0e 94 ac 00 	call	0x158	; 0x158 <USART_ReceiveByte>
- 18a:	f8 01       	movw	r30, r16
- 18c:	80 83       	st	Z, r24
+ 2b8:	0e 94 45 01 	call	0x28a	; 0x28a <USART_ReceiveByte>
+ 2bc:	f8 01       	movw	r30, r16
+ 2be:	80 83       	st	Z, r24
 /*
 *	Description: sends a string to another USART device
 */
 void USART_ReceiveString(uint8 *str)
 {
 	uint8 i = 0;
- 18e:	c0 e0       	ldi	r28, 0x00	; 0
+ 2c0:	c0 e0       	ldi	r28, 0x00	; 0
 	str[i] = USART_ReceiveByte();
-	while(str[i] != '#')
- 190:	08 c0       	rjmp	.+16     	; 0x1a2 <USART_ReceiveString+0x28>
+	while(str[i] != '\r')
+ 2c2:	08 c0       	rjmp	.+16     	; 0x2d4 <USART_ReceiveString+0x28>
 	{
 		i++;
- 192:	cf 5f       	subi	r28, 0xFF	; 255
+ 2c4:	cf 5f       	subi	r28, 0xFF	; 255
 		str[i] = USART_ReceiveByte();
- 194:	78 01       	movw	r14, r16
- 196:	ec 0e       	add	r14, r28
- 198:	f1 1c       	adc	r15, r1
- 19a:	0e 94 ac 00 	call	0x158	; 0x158 <USART_ReceiveByte>
- 19e:	f7 01       	movw	r30, r14
- 1a0:	80 83       	st	Z, r24
+ 2c6:	78 01       	movw	r14, r16
+ 2c8:	ec 0e       	add	r14, r28
+ 2ca:	f1 1c       	adc	r15, r1
+ 2cc:	0e 94 45 01 	call	0x28a	; 0x28a <USART_ReceiveByte>
+ 2d0:	f7 01       	movw	r30, r14
+ 2d2:	80 83       	st	Z, r24
 */
 void USART_ReceiveString(uint8 *str)
 {
 	uint8 i = 0;
 	str[i] = USART_ReceiveByte();
-	while(str[i] != '#')
- 1a2:	f8 01       	movw	r30, r16
- 1a4:	ec 0f       	add	r30, r28
- 1a6:	f1 1d       	adc	r31, r1
- 1a8:	80 81       	ld	r24, Z
- 1aa:	83 32       	cpi	r24, 0x23	; 35
- 1ac:	91 f7       	brne	.-28     	; 0x192 <USART_ReceiveString+0x18>
+	while(str[i] != '\r')
+ 2d4:	f8 01       	movw	r30, r16
+ 2d6:	ec 0f       	add	r30, r28
+ 2d8:	f1 1d       	adc	r31, r1
+ 2da:	80 81       	ld	r24, Z
+ 2dc:	8d 30       	cpi	r24, 0x0D	; 13
+ 2de:	91 f7       	brne	.-28     	; 0x2c4 <USART_ReceiveString+0x18>
 	{
 		i++;
 		str[i] = USART_ReceiveByte();
 	}
 	str[i] = '\0';
- 1ae:	10 82       	st	Z, r1
- 1b0:	cf 91       	pop	r28
- 1b2:	1f 91       	pop	r17
- 1b4:	0f 91       	pop	r16
- 1b6:	ff 90       	pop	r15
- 1b8:	ef 90       	pop	r14
- 1ba:	08 95       	ret
+ 2e0:	10 82       	st	Z, r1
+ 2e2:	cf 91       	pop	r28
+ 2e4:	1f 91       	pop	r17
+ 2e6:	0f 91       	pop	r16
+ 2e8:	ff 90       	pop	r15
+ 2ea:	ef 90       	pop	r14
+ 2ec:	08 95       	ret
 
-000001bc <__udivmodsi4>:
- 1bc:	a1 e2       	ldi	r26, 0x21	; 33
- 1be:	1a 2e       	mov	r1, r26
- 1c0:	aa 1b       	sub	r26, r26
- 1c2:	bb 1b       	sub	r27, r27
- 1c4:	fd 01       	movw	r30, r26
- 1c6:	0d c0       	rjmp	.+26     	; 0x1e2 <__udivmodsi4_ep>
+000002ee <__udivmodsi4>:
+ 2ee:	a1 e2       	ldi	r26, 0x21	; 33
+ 2f0:	1a 2e       	mov	r1, r26
+ 2f2:	aa 1b       	sub	r26, r26
+ 2f4:	bb 1b       	sub	r27, r27
+ 2f6:	fd 01       	movw	r30, r26
+ 2f8:	0d c0       	rjmp	.+26     	; 0x314 <__udivmodsi4_ep>
 
-000001c8 <__udivmodsi4_loop>:
- 1c8:	aa 1f       	adc	r26, r26
- 1ca:	bb 1f       	adc	r27, r27
- 1cc:	ee 1f       	adc	r30, r30
- 1ce:	ff 1f       	adc	r31, r31
- 1d0:	a2 17       	cp	r26, r18
- 1d2:	b3 07       	cpc	r27, r19
- 1d4:	e4 07       	cpc	r30, r20
- 1d6:	f5 07       	cpc	r31, r21
- 1d8:	20 f0       	brcs	.+8      	; 0x1e2 <__udivmodsi4_ep>
- 1da:	a2 1b       	sub	r26, r18
- 1dc:	b3 0b       	sbc	r27, r19
- 1de:	e4 0b       	sbc	r30, r20
- 1e0:	f5 0b       	sbc	r31, r21
+000002fa <__udivmodsi4_loop>:
+ 2fa:	aa 1f       	adc	r26, r26
+ 2fc:	bb 1f       	adc	r27, r27
+ 2fe:	ee 1f       	adc	r30, r30
+ 300:	ff 1f       	adc	r31, r31
+ 302:	a2 17       	cp	r26, r18
+ 304:	b3 07       	cpc	r27, r19
+ 306:	e4 07       	cpc	r30, r20
+ 308:	f5 07       	cpc	r31, r21
+ 30a:	20 f0       	brcs	.+8      	; 0x314 <__udivmodsi4_ep>
+ 30c:	a2 1b       	sub	r26, r18
+ 30e:	b3 0b       	sbc	r27, r19
+ 310:	e4 0b       	sbc	r30, r20
+ 312:	f5 0b       	sbc	r31, r21
 
-000001e2 <__udivmodsi4_ep>:
- 1e2:	66 1f       	adc	r22, r22
- 1e4:	77 1f       	adc	r23, r23
- 1e6:	88 1f       	adc	r24, r24
- 1e8:	99 1f       	adc	r25, r25
- 1ea:	1a 94       	dec	r1
- 1ec:	69 f7       	brne	.-38     	; 0x1c8 <__udivmodsi4_loop>
- 1ee:	60 95       	com	r22
- 1f0:	70 95       	com	r23
- 1f2:	80 95       	com	r24
- 1f4:	90 95       	com	r25
- 1f6:	9b 01       	movw	r18, r22
- 1f8:	ac 01       	movw	r20, r24
- 1fa:	bd 01       	movw	r22, r26
- 1fc:	cf 01       	movw	r24, r30
- 1fe:	08 95       	ret
+00000314 <__udivmodsi4_ep>:
+ 314:	66 1f       	adc	r22, r22
+ 316:	77 1f       	adc	r23, r23
+ 318:	88 1f       	adc	r24, r24
+ 31a:	99 1f       	adc	r25, r25
+ 31c:	1a 94       	dec	r1
+ 31e:	69 f7       	brne	.-38     	; 0x2fa <__udivmodsi4_loop>
+ 320:	60 95       	com	r22
+ 322:	70 95       	com	r23
+ 324:	80 95       	com	r24
+ 326:	90 95       	com	r25
+ 328:	9b 01       	movw	r18, r22
+ 32a:	ac 01       	movw	r20, r24
+ 32c:	bd 01       	movw	r22, r26
+ 32e:	cf 01       	movw	r24, r30
+ 330:	08 95       	ret
 
-00000200 <_exit>:
- 200:	f8 94       	cli
+00000332 <_exit>:
+ 332:	f8 94       	cli
 
-00000202 <__stop_program>:
- 202:	ff cf       	rjmp	.-2      	; 0x202 <__stop_program>
+00000334 <__stop_program>:
+ 334:	ff cf       	rjmp	.-2      	; 0x334 <__stop_program>

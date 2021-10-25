@@ -80,7 +80,7 @@ void USART_ReceiveString(uint8 *str)
 {
 	uint8 i = 0;
 	str[i] = USART_ReceiveByte();
-	while(str[i] != '#')
+	while(str[i] != '\r')
 	{
 		i++;
 		str[i] = USART_ReceiveByte();

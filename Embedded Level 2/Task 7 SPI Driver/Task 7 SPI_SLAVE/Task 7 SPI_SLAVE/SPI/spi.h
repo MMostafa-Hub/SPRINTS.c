@@ -1,23 +1,64 @@
-/*
- * SPI.h
+ /******************************************************************************
  *
- *  Created on: Jan 14, 2018
- *      Author: Mohamed
- */
+ * Module: SPI
+ *
+ * File Name: spi.h
+ *
+ * Description: Header file for the SPI AVR driver
+ *
+ * Author: Mohamed Tarek
+ *
+ *******************************************************************************/
 
 #ifndef SPI_H_
 #define SPI_H_
 
-#include "../micro_config.h"
-#include "../common_macros.h"
 #include "../std_types.h"
+#include "../DIO/dio.h" /* To Setup the SPI pins direction */
+#include "../common_macros.h" /* To use the macros like SET_BIT */
+#include <avr/io.h> /* To use the SPI Registers */
+/*******************************************************************************
+ *                                Definitions                                  *
+ *******************************************************************************/
+/*
+ * Default SPI data value used in case we need to receive a byte from the other device,
+ * without need to send a data to it
+ */
+#define SPI_DEFAULT_DATA_VALUE 0xFF
 
-void SPI_ReceiveString(uint8 *str);
-void SPI_SendString(uint8 *str);
-uint8 SPI_ReceiveByte();
-void SPI_SendByte(uint8 data);
-void SPI_InitSlave();
-void SPI_InitMaster();
+/*******************************************************************************
+ *                      Functions Prototypes                                   *
+ *******************************************************************************/
 
+/*
+ * Description :
+ * Initialize the SPI device as Master.
+ */
+void SPI_initMaster(void); 
 
-#endif /* SPI_H_ */
+/*
+ * Description :
+ * Initialize the SPI device as Slave.
+ */
+void SPI_initSlave(void);
+
+/*
+ * Description :
+ * Send the required data through SPI to the other SPI device.
+ * In the same time data will be received from the other device.
+ */
+uint8 SPI_sendReceiveByte(uint8 data);
+
+/*
+ * Description :
+ * Send the required string through SPI to the other SPI device.
+ */
+void SPI_sendString(const uint8 *str);
+
+/*
+ * Description :
+ * Receive the required string until the '#' symbol through SPI from the other SPI device.
+ */
+void SPI_receiveString(uint8 *str);
+
+#endif
