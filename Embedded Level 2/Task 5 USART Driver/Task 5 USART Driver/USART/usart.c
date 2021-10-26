@@ -9,7 +9,9 @@
 
 void USART_Init(uint32 baud_rate)
 {
-	/* U2X = 1 for double transmission speed */
+	/* *************** ********** USCRA Description ***********************
+	*	U2X = 1 for double transmission speed 
+	***********************************************************************/
 	UCSRA |= (1<<U2X);
 	
 	/************************** UCSRB Description **************************
@@ -37,12 +39,13 @@ void USART_Init(uint32 baud_rate)
 	uint16 ubrr_value = (uint16)(((F_CPU / (baud_rate * 8UL))) - 1);
 	
 	/* First 8 bits from the BAUD_PRESCALE inside UBRRL and last 4 bits in UBRRH*/
-	UBRRH = ubrr_value>>8;
-	UBRRL = ubrr_value;
+	UBRRH = ubrr_value>>8; // hihger 8-bits
+	UBRRL = ubrr_value; // lower 8-bits
 }
 
 /*
 *	Description: sends a character(BYTE) to another USART device
+*	Input args: the character that the user wants to send 
 */
 void USART_SendByte(uint8 data)
 {
@@ -63,6 +66,7 @@ uint8 USART_ReceiveByte()
 
 /*
 *	Description: sends a string to another USART device
+*	Input args: the reference of the string that the user wants to send
 */
 void USART_SendString(uint8 *str)
 {
@@ -74,13 +78,15 @@ void USART_SendString(uint8 *str)
 }
 
 /*
-*	Description: sends a string to another USART device
+*	Description: Receives a string from another USART device
+*	Input args: the reference of the string that the user wants to save the received data into
 */
 void USART_ReceiveString(uint8 *str)
 {
 	uint8 i = 0;
 	str[i] = USART_ReceiveByte();
-	while(str[i] != '\r')
+	/* '\r' new line character */
+	while(str[i] != '\r') 
 	{
 		i++;
 		str[i] = USART_ReceiveByte();

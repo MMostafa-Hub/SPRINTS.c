@@ -13,22 +13,20 @@ Return value : none
 */
 void MADC_voidInit(void)
 {
-	// Select Voltage Reference
-	if (VOLTAGE_REF == AREF)
-	{
-		ADCMUX &= ~(1<<REFS1) & ~((1<<REFS0));
-	}
-	else if (VOLTAGE_REF == AVCC)
-	{
-		ADCMUX &= ~(1<<REFS1);
-		ADCMUX |= (1<<REFS0);
-	}
-	else if (VOLTAGE_REF == INTERNAL_2_HALF_VOLT)
-	{
-		ADCMUX |= (1<<REFS1) | (1<<REFS0);
-	}
-
-	ADCSRA |= ADC_PRE_SCALER; // select Pre-Scalaer
+	
+	/*******************************************************
+	*	REFS0:1 = 10 to select reference voltage to be VCC
+	*******************************************************/
+	ADCMUX &= ~(1<<REFS1);
+	ADCMUX |= (1<<REFS0);
+	
+	/******************************************************
+	*	ADCSRA0:2 = 000 the division factor is 2   
+	*	ADCSRA7 = 1 to enable the ADC
+	*	ADCSRA6 = 1 to start conversion
+	********************************************************/
+	
+	ADCSRA |= 0b000; // select Pre-Scalaer
 	ADCSRA |= (1<<ADEN); // Enable ADC
 	ADCSRA |= (1<<ADSC); // Start Conversion
 		

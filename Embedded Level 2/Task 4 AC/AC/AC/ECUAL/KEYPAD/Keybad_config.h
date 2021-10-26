@@ -17,4 +17,5 @@
 #define INVALID 'i'
 #define ENTER '='
 #define NONE 0xff
+
 #endif

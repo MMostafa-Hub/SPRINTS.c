@@ -425,44 +425,44 @@ Return value : none
 void EUKeypad_voidKeypadInit (void)
 {
 	// Make Columns as Output Pins
-	MDIO_voidSetPinDirection(Col0, HIGH);
+	MDIO_voidSetPinDirection(Col0, OUTPUT);
  244:	41 e0       	ldi	r20, 0x01	; 1
  246:	60 e0       	ldi	r22, 0x00	; 0
  248:	82 e0       	ldi	r24, 0x02	; 2
  24a:	0e 94 11 03 	call	0x622	; 0x622 <MDIO_voidSetPinDirection>
-	MDIO_voidSetPinDirection(Col1, HIGH);
+	MDIO_voidSetPinDirection(Col1, OUTPUT);
  24e:	41 e0       	ldi	r20, 0x01	; 1
  250:	61 e0       	ldi	r22, 0x01	; 1
  252:	82 e0       	ldi	r24, 0x02	; 2
  254:	0e 94 11 03 	call	0x622	; 0x622 <MDIO_voidSetPinDirection>
-	MDIO_voidSetPinDirection(Col2, HIGH);
+	MDIO_voidSetPinDirection(Col2, OUTPUT);
  258:	41 e0       	ldi	r20, 0x01	; 1
  25a:	62 e0       	ldi	r22, 0x02	; 2
  25c:	82 e0       	ldi	r24, 0x02	; 2
  25e:	0e 94 11 03 	call	0x622	; 0x622 <MDIO_voidSetPinDirection>
-	MDIO_voidSetPinDirection(Col3, HIGH);
+	MDIO_voidSetPinDirection(Col3, OUTPUT);
  262:	41 e0       	ldi	r20, 0x01	; 1
  264:	63 e0       	ldi	r22, 0x03	; 3
  266:	82 e0       	ldi	r24, 0x02	; 2
  268:	0e 94 11 03 	call	0x622	; 0x622 <MDIO_voidSetPinDirection>
 	
 	// Make Rows as Input Pins
-	MDIO_voidSetPinDirection(Row0, LOW);
+	MDIO_voidSetPinDirection(Row0, INPUT);
  26c:	40 e0       	ldi	r20, 0x00	; 0
  26e:	64 e0       	ldi	r22, 0x04	; 4
  270:	82 e0       	ldi	r24, 0x02	; 2
  272:	0e 94 11 03 	call	0x622	; 0x622 <MDIO_voidSetPinDirection>
-	MDIO_voidSetPinDirection(Row1, LOW);
+	MDIO_voidSetPinDirection(Row1, INPUT);
  276:	40 e0       	ldi	r20, 0x00	; 0
  278:	65 e0       	ldi	r22, 0x05	; 5
  27a:	82 e0       	ldi	r24, 0x02	; 2
  27c:	0e 94 11 03 	call	0x622	; 0x622 <MDIO_voidSetPinDirection>
-	MDIO_voidSetPinDirection(Row2, LOW);
+	MDIO_voidSetPinDirection(Row2, INPUT);
  280:	40 e0       	ldi	r20, 0x00	; 0
  282:	66 e0       	ldi	r22, 0x06	; 6
  284:	82 e0       	ldi	r24, 0x02	; 2
  286:	0e 94 11 03 	call	0x622	; 0x622 <MDIO_voidSetPinDirection>
-	MDIO_voidSetPinDirection(Row3, LOW);
+	MDIO_voidSetPinDirection(Row3, INPUT);
  28a:	40 e0       	ldi	r20, 0x00	; 0
  28c:	67 e0       	ldi	r22, 0x07	; 7
  28e:	82 e0       	ldi	r24, 0x02	; 2
@@ -1062,25 +1062,25 @@ int main(void)
  5e6:	fd cf       	rjmp	.-6      	; 0x5e2 <main+0x4>
 
 000005e8 <MADC_voidInit>:
-	{
-		ADCMUX &= ~(1<<REFS1) & ~((1<<REFS0));
-	}
-	else if (VOLTAGE_REF == AVCC)
-	{
-		ADCMUX &= ~(1<<REFS1);
+{
+	
+	/*******************************************************
+	*	REFS0:1 = 10 to select reference voltage to be VCC
+	*******************************************************/
+	ADCMUX &= ~(1<<REFS1);
  5e8:	87 b1       	in	r24, 0x07	; 7
  5ea:	8f 77       	andi	r24, 0x7F	; 127
  5ec:	87 b9       	out	0x07, r24	; 7
-		ADCMUX |= (1<<REFS0);
+	ADCMUX |= (1<<REFS0);
  5ee:	87 b1       	in	r24, 0x07	; 7
  5f0:	80 64       	ori	r24, 0x40	; 64
  5f2:	87 b9       	out	0x07, r24	; 7
-	else if (VOLTAGE_REF == INTERNAL_2_HALF_VOLT)
-	{
-		ADCMUX |= (1<<REFS1) | (1<<REFS0);
-	}
-
-	ADCSRA |= ADC_PRE_SCALER; // select Pre-Scalaer
+	*	ADCSRA0:2 = 000 the division factor is 2   
+	*	ADCSRA7 = 1 to enable the ADC
+	*	ADCSRA6 = 1 to start conversion
+	********************************************************/
+	
+	ADCSRA |= 0b000; // select Pre-Scalaer
  5f4:	86 b1       	in	r24, 0x06	; 6
  5f6:	86 b9       	out	0x06, r24	; 6
 	ADCSRA |= (1<<ADEN); // Enable ADC

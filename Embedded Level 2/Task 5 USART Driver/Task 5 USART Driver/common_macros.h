@@ -1,14 +1,9 @@
- /******************************************************************************
+/*
+ * common_macros.h
  *
- * Module: Common - Macros
- *
- * File Name: Common_Macros.h
- *
- * Description: Commonly used Macros
- *
- * Author: Mohamed Tarek
- *
- *******************************************************************************/
+ * Created: 15/10/2021 1:45:28 PM
+ *  Author: OWNER
+ */ 
 
 #ifndef COMMON_MACROS
 #define COMMON_MACROS
