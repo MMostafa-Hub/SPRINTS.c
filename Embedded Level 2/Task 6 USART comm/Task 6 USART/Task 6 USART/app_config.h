@@ -9,8 +9,9 @@
 #ifndef APP_CONFIG_H_
 #define APP_CONFIG_H_
 
-#define red_led 0
-#define yellow_led 1
+#define RED_LED 0
+#define YELLOW_LED 1
+#define GREEN_LED 2
 #define	BAUD_RATE 9600
 
 #endif /* APP_CONFIG_H_ */

@@ -17,38 +17,35 @@ int main(void)
 		/*
 		*	strcmp(str1,str2)
 		*	returns 0 if str1 == str2
-		*	returns 1 if str > str2
+		*	returns 1 if str1 > str2
 		*	returns -1 if str1 < str2
 		*/		
-		if(strcmp(s_input,"START") == 0)
+		if(!strcmp(s_input,"START"))
 		{
-			led_write(&PORTA,2,ON); // GREEN
-			led_write(&PORTA,1,OFF); // YELLOW
-			led_write(&PORTA,0,OFF); // RED
+			led_write(&PORTA,GREEN_LED,ON); // GREEN
+			led_write(&PORTA,YELLOW_LED,OFF); // YELLOW
+			led_write(&PORTA,RED_LED,OFF); // RED
 			USART_SendString((uint8*)"Green LED is ON \r");
 		}
-		else if(strcmp(s_input,"WAIT") == 0)
+		else if(!strcmp(s_input,"WAIT"))
 		{
-			led_write(&PORTA,2,OFF); // GREEN
-			led_write(&PORTA,1,ON); // YELLOW
-			led_write(&PORTA,0,OFF); // RED	
+			led_write(&PORTA,GREEN_LED,OFF); // GREEN
+			led_write(&PORTA,YELLOW_LED,ON); // YELLOW
+			led_write(&PORTA,RED_LED,OFF); // RED	
 			USART_SendString((uint8*)"Yellow LED is ON \r");
 		}
-		else if(strcmp(s_input,"STOP") == 0)
+		else if(!strcmp(s_input,"STOP"))
 		{	
-			led_write(&PORTA,2,OFF); // GREEN
-			led_write(&PORTA,1,OFF); // YELLOW
-			led_write(&PORTA,0,ON); // RED
+			led_write(&PORTA,GREEN_LED,OFF); // GREEN
+			led_write(&PORTA,YELLOW_LED,OFF); // YELLOW
+			led_write(&PORTA,RED_LED,ON); // RED
 			USART_SendString((uint8*)"RED LED is ON \r");
 		}
-		else if (strcmp(s_input,"AT") == 0)
+		else if (!strcmp(s_input,"AT"))
 		{
 			USART_SendString((uint8*)"OK\r");
 		}
-		else 
-		{
-			USART_SendString((uint8*)"PLEASE ENTER THE COMMAND RIGHT IN THE FIRST TRY\r")	;
-		}
+
 	}
 }
 

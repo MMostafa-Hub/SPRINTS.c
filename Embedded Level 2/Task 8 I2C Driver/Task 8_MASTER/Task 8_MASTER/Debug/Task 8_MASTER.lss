@@ -21,11 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000284  00000000  00000000  0000338c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000060d  00000000  00000000  00003610  2**0
+  9 .debug_str    00000605  00000000  00000000  00003610  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000951  00000000  00000000  00003c1d  2**0
+ 10 .debug_loc    00000951  00000000  00000000  00003c15  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000120  00000000  00000000  0000456e  2**0
+ 11 .debug_ranges 00000120  00000000  00000000  00004566  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -88,14 +88,14 @@ void app_init(void)
 	TWI_init();
   82:	0e 94 39 01 	call	0x272	; 0x272 <TWI_init>
 	
-	GPIO_setupPortDirection(PORTA_ID,PORT_OUTPUT); /* All PORTA pins are o/p pins */
+	DIO_setupPortDirection(PORTA_ID,PORT_OUTPUT); /* All PORTA pins are o/p pins */
   86:	6f ef       	ldi	r22, 0xFF	; 255
   88:	80 e0       	ldi	r24, 0x00	; 0
-  8a:	0e 94 8c 00 	call	0x118	; 0x118 <GPIO_setupPortDirection>
-	GPIO_writePort(PORTA_ID,0x00); /* Turn OFF all LEDS */
+  8a:	0e 94 8c 00 	call	0x118	; 0x118 <DIO_setupPortDirection>
+	DIO_writePort(PORTA_ID,0x00); /* Turn OFF all LEDS */
   8e:	60 e0       	ldi	r22, 0x00	; 0
   90:	80 e0       	ldi	r24, 0x00	; 0
-  92:	0e 94 9e 00 	call	0x13c	; 0x13c <GPIO_writePort>
+  92:	0e 94 9e 00 	call	0x13c	; 0x13c <DIO_writePort>
 	
 	USART_Init(9600);
   96:	60 e8       	ldi	r22, 0x80	; 128
@@ -220,7 +220,7 @@ uint16 string_to_binary_to_decimal(uint8 s_eeprom_mem_address[], uint8 size)
  114:	cf 90       	pop	r12
  116:	08 95       	ret
 
-00000118 <GPIO_setupPortDirection>:
+00000118 <DIO_setupPortDirection>:
 {
 	/*
 	 * Check if the input number is greater than NUM_OF_PORTS value.
@@ -228,7 +228,7 @@ uint16 string_to_binary_to_decimal(uint8 s_eeprom_mem_address[], uint8 size)
 	 */
 	if(port_num >= NUM_OF_PORTS)
  118:	84 30       	cpi	r24, 0x04	; 4
- 11a:	78 f4       	brcc	.+30     	; 0x13a <GPIO_setupPortDirection+0x22>
+ 11a:	78 f4       	brcc	.+30     	; 0x13a <DIO_setupPortDirection+0x22>
 		/* Do Nothing */
 	}
 	else
@@ -236,12 +236,12 @@ uint16 string_to_binary_to_decimal(uint8 s_eeprom_mem_address[], uint8 size)
 		/* Setup the port direction as required */
 		switch(port_num)
  11c:	81 30       	cpi	r24, 0x01	; 1
- 11e:	41 f0       	breq	.+16     	; 0x130 <GPIO_setupPortDirection+0x18>
- 120:	28 f0       	brcs	.+10     	; 0x12c <GPIO_setupPortDirection+0x14>
+ 11e:	41 f0       	breq	.+16     	; 0x130 <DIO_setupPortDirection+0x18>
+ 120:	28 f0       	brcs	.+10     	; 0x12c <DIO_setupPortDirection+0x14>
  122:	82 30       	cpi	r24, 0x02	; 2
- 124:	39 f0       	breq	.+14     	; 0x134 <GPIO_setupPortDirection+0x1c>
+ 124:	39 f0       	breq	.+14     	; 0x134 <DIO_setupPortDirection+0x1c>
  126:	83 30       	cpi	r24, 0x03	; 3
- 128:	39 f0       	breq	.+14     	; 0x138 <GPIO_setupPortDirection+0x20>
+ 128:	39 f0       	breq	.+14     	; 0x138 <DIO_setupPortDirection+0x20>
  12a:	08 95       	ret
 		{
 		case PORTA_ID:
@@ -264,7 +264,7 @@ uint16 string_to_binary_to_decimal(uint8 s_eeprom_mem_address[], uint8 size)
  138:	61 bb       	out	0x11, r22	; 17
  13a:	08 95       	ret
 
-0000013c <GPIO_writePort>:
+0000013c <DIO_writePort>:
 {
 	/*
 	 * Check if the input number is greater than NUM_OF_PORTS value.
@@ -272,7 +272,7 @@ uint16 string_to_binary_to_decimal(uint8 s_eeprom_mem_address[], uint8 size)
 	 */
 	if(port_num >= NUM_OF_PORTS)
  13c:	84 30       	cpi	r24, 0x04	; 4
- 13e:	78 f4       	brcc	.+30     	; 0x15e <GPIO_writePort+0x22>
+ 13e:	78 f4       	brcc	.+30     	; 0x15e <DIO_writePort+0x22>
 		/* Do Nothing */
 	}
 	else
@@ -280,12 +280,12 @@ uint16 string_to_binary_to_decimal(uint8 s_eeprom_mem_address[], uint8 size)
 		/* Write the port value as required */
 		switch(port_num)
  140:	81 30       	cpi	r24, 0x01	; 1
- 142:	41 f0       	breq	.+16     	; 0x154 <GPIO_writePort+0x18>
- 144:	28 f0       	brcs	.+10     	; 0x150 <GPIO_writePort+0x14>
+ 142:	41 f0       	breq	.+16     	; 0x154 <DIO_writePort+0x18>
+ 144:	28 f0       	brcs	.+10     	; 0x150 <DIO_writePort+0x14>
  146:	82 30       	cpi	r24, 0x02	; 2
- 148:	39 f0       	breq	.+14     	; 0x158 <GPIO_writePort+0x1c>
+ 148:	39 f0       	breq	.+14     	; 0x158 <DIO_writePort+0x1c>
  14a:	83 30       	cpi	r24, 0x03	; 3
- 14c:	39 f0       	breq	.+14     	; 0x15c <GPIO_writePort+0x20>
+ 14c:	39 f0       	breq	.+14     	; 0x15c <DIO_writePort+0x20>
  14e:	08 95       	ret
 		{
 		case PORTA_ID:
@@ -849,10 +849,10 @@ int main(void)
  3ea:	0e 94 20 02 	call	0x440	; 0x440 <USART_SendByte>
 			
 			/* out the read value from the external EEPROM on LEDS*/
-			GPIO_writePort(PORTA_ID,read_data);
+			DIO_writePort(PORTA_ID,read_data);
  3ee:	69 81       	ldd	r22, Y+1	; 0x01
  3f0:	80 e0       	ldi	r24, 0x00	; 0
- 3f2:	0e 94 9e 00 	call	0x13c	; 0x13c <GPIO_writePort>
+ 3f2:	0e 94 9e 00 	call	0x13c	; 0x13c <DIO_writePort>
  3f6:	72 cf       	rjmp	.-284    	; 0x2dc <main+0x28>
 
 000003f8 <USART_Init>:

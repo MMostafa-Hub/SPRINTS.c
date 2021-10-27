@@ -7,9 +7,9 @@
 #include "app.h"
 void app_init(void)
 {
-	led_init(&PORTA,&DDRA,0); // Red
-	led_init(&PORTA,&DDRA,1); // Green
-	led_init(&PORTA,&DDRA,2); // Yellow
+	led_init(&PORTA,&DDRA,PORTA0); // Red
+	led_init(&PORTA,&DDRA,PORTA1); // Green
+	led_init(&PORTA,&DDRA,PORTA2); // Yellow
 
 	/* Baud Rate = 9600 */
 	USART_Init(BAUD_RATE);

@@ -3,29 +3,29 @@ Task 6 USART.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000034c  00000000  00000000  00000074  2**1
+  0 .text         00000344  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000009a  00800060  0000034c  000003c0  2**0
+  1 .data         00000068  00800060  00000344  000003b8  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000045a  2**0
+  2 .comment      00000030  00000000  00000000  00000420  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000048c  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000450  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 000000d8  00000000  00000000  000004c8  2**0
+  4 .debug_aranges 000000d8  00000000  00000000  0000048c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000e80  00000000  00000000  000005a0  2**0
+  5 .debug_info   00000e64  00000000  00000000  00000564  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000844  00000000  00000000  00001420  2**0
+  6 .debug_abbrev 00000844  00000000  00000000  000013c8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000006e2  00000000  00000000  00001c64  2**0
+  7 .debug_line   000006dc  00000000  00000000  00001c0c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  0000015c  00000000  00000000  00002348  2**2
+  8 .debug_frame  0000015c  00000000  00000000  000022e8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000431  00000000  00000000  000024a4  2**0
+  9 .debug_str    00000431  00000000  00000000  00002444  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000002fc  00000000  00000000  000028d5  2**0
+ 10 .debug_loc    000002fc  00000000  00000000  00002875  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000088  00000000  00000000  00002bd1  2**0
+ 11 .debug_ranges 00000088  00000000  00000000  00002b71  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,16 +65,16 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ec e4       	ldi	r30, 0x4C	; 76
+  66:	e4 e4       	ldi	r30, 0x44	; 68
   68:	f3 e0       	ldi	r31, 0x03	; 3
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	aa 3f       	cpi	r26, 0xFA	; 250
+  70:	a8 3c       	cpi	r26, 0xC8	; 200
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
   76:	0e 94 9b 00 	call	0x136	; 0x136 <main>
-  7a:	0c 94 a4 01 	jmp	0x348	; 0x348 <_exit>
+  7a:	0c 94 a0 01 	jmp	0x340	; 0x340 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -85,21 +85,21 @@ Disassembly of section .text:
 #include "app.h"
 void app_init(void)
 {
-	led_init(&PORTA,&DDRA,0); // Red
+	led_init(&PORTA,&DDRA,PORTA0); // Red
   82:	40 e0       	ldi	r20, 0x00	; 0
   84:	6a e3       	ldi	r22, 0x3A	; 58
   86:	70 e0       	ldi	r23, 0x00	; 0
   88:	8b e3       	ldi	r24, 0x3B	; 59
   8a:	90 e0       	ldi	r25, 0x00	; 0
   8c:	0e 94 93 00 	call	0x126	; 0x126 <led_init>
-	led_init(&PORTA,&DDRA,1); // Green
+	led_init(&PORTA,&DDRA,PORTA1); // Green
   90:	41 e0       	ldi	r20, 0x01	; 1
   92:	6a e3       	ldi	r22, 0x3A	; 58
   94:	70 e0       	ldi	r23, 0x00	; 0
   96:	8b e3       	ldi	r24, 0x3B	; 59
   98:	90 e0       	ldi	r25, 0x00	; 0
   9a:	0e 94 93 00 	call	0x126	; 0x126 <led_init>
-	led_init(&PORTA,&DDRA,2); // Yellow
+	led_init(&PORTA,&DDRA,PORTA2); // Yellow
   9e:	42 e0       	ldi	r20, 0x02	; 2
   a0:	6a e3       	ldi	r22, 0x3A	; 58
   a2:	70 e0       	ldi	r23, 0x00	; 0
@@ -113,7 +113,7 @@ void app_init(void)
   ae:	75 e2       	ldi	r23, 0x25	; 37
   b0:	80 e0       	ldi	r24, 0x00	; 0
   b2:	90 e0       	ldi	r25, 0x00	; 0
-  b4:	0e 94 1f 01 	call	0x23e	; 0x23e <USART_Init>
+  b4:	0e 94 1b 01 	call	0x236	; 0x236 <USART_Init>
   b8:	08 95       	ret
 
 000000ba <DIO_init>:
@@ -237,39 +237,39 @@ int main(void)
 		USART_SendString((uint8*)"Please Enter Your Command \r");
  150:	80 e6       	ldi	r24, 0x60	; 96
  152:	90 e0       	ldi	r25, 0x00	; 0
- 154:	0e 94 4b 01 	call	0x296	; 0x296 <USART_SendString>
+ 154:	0e 94 47 01 	call	0x28e	; 0x28e <USART_SendString>
 		
 		USART_ReceiveString(s_input);
  158:	ce 01       	movw	r24, r28
  15a:	01 96       	adiw	r24, 0x01	; 1
- 15c:	0e 94 58 01 	call	0x2b0	; 0x2b0 <USART_ReceiveString>
+ 15c:	0e 94 54 01 	call	0x2a8	; 0x2a8 <USART_ReceiveString>
 		*	strcmp(str1,str2)
 		*	returns 0 if str1 == str2
-		*	returns 1 if str > str2
+		*	returns 1 if str1 > str2
 		*	returns -1 if str1 < str2
 		*/		
-		if(strcmp(s_input,"START") == 0)
+		if(!strcmp(s_input,"START"))
  160:	6c e7       	ldi	r22, 0x7C	; 124
  162:	70 e0       	ldi	r23, 0x00	; 0
  164:	ce 01       	movw	r24, r28
  166:	01 96       	adiw	r24, 0x01	; 1
- 168:	0e 94 9b 01 	call	0x336	; 0x336 <strcmp>
+ 168:	0e 94 97 01 	call	0x32e	; 0x32e <strcmp>
  16c:	89 2b       	or	r24, r25
  16e:	b9 f4       	brne	.+46     	; 0x19e <main+0x68>
 		{
-			led_write(&PORTA,2,ON); // GREEN
+			led_write(&PORTA,GREEN_LED,ON); // GREEN
  170:	41 e0       	ldi	r20, 0x01	; 1
  172:	62 e0       	ldi	r22, 0x02	; 2
  174:	8b e3       	ldi	r24, 0x3B	; 59
  176:	90 e0       	ldi	r25, 0x00	; 0
  178:	0e 94 98 00 	call	0x130	; 0x130 <led_write>
-			led_write(&PORTA,1,OFF); // YELLOW
+			led_write(&PORTA,YELLOW_LED,OFF); // YELLOW
  17c:	40 e0       	ldi	r20, 0x00	; 0
  17e:	61 e0       	ldi	r22, 0x01	; 1
  180:	8b e3       	ldi	r24, 0x3B	; 59
  182:	90 e0       	ldi	r25, 0x00	; 0
  184:	0e 94 98 00 	call	0x130	; 0x130 <led_write>
-			led_write(&PORTA,0,OFF); // RED
+			led_write(&PORTA,RED_LED,OFF); // RED
  188:	40 e0       	ldi	r20, 0x00	; 0
  18a:	60 e0       	ldi	r22, 0x00	; 0
  18c:	8b e3       	ldi	r24, 0x3B	; 59
@@ -278,31 +278,31 @@ int main(void)
 			USART_SendString((uint8*)"Green LED is ON \r");
  194:	82 e8       	ldi	r24, 0x82	; 130
  196:	90 e0       	ldi	r25, 0x00	; 0
- 198:	0e 94 4b 01 	call	0x296	; 0x296 <USART_SendString>
+ 198:	0e 94 47 01 	call	0x28e	; 0x28e <USART_SendString>
  19c:	d9 cf       	rjmp	.-78     	; 0x150 <main+0x1a>
 		}
-		else if(strcmp(s_input,"WAIT") == 0)
+		else if(!strcmp(s_input,"WAIT"))
  19e:	64 e9       	ldi	r22, 0x94	; 148
  1a0:	70 e0       	ldi	r23, 0x00	; 0
  1a2:	ce 01       	movw	r24, r28
  1a4:	01 96       	adiw	r24, 0x01	; 1
- 1a6:	0e 94 9b 01 	call	0x336	; 0x336 <strcmp>
+ 1a6:	0e 94 97 01 	call	0x32e	; 0x32e <strcmp>
  1aa:	89 2b       	or	r24, r25
  1ac:	b9 f4       	brne	.+46     	; 0x1dc <main+0xa6>
 		{
-			led_write(&PORTA,2,OFF); // GREEN
+			led_write(&PORTA,GREEN_LED,OFF); // GREEN
  1ae:	40 e0       	ldi	r20, 0x00	; 0
  1b0:	62 e0       	ldi	r22, 0x02	; 2
  1b2:	8b e3       	ldi	r24, 0x3B	; 59
  1b4:	90 e0       	ldi	r25, 0x00	; 0
  1b6:	0e 94 98 00 	call	0x130	; 0x130 <led_write>
-			led_write(&PORTA,1,ON); // YELLOW
+			led_write(&PORTA,YELLOW_LED,ON); // YELLOW
  1ba:	41 e0       	ldi	r20, 0x01	; 1
  1bc:	61 e0       	ldi	r22, 0x01	; 1
  1be:	8b e3       	ldi	r24, 0x3B	; 59
  1c0:	90 e0       	ldi	r25, 0x00	; 0
  1c2:	0e 94 98 00 	call	0x130	; 0x130 <led_write>
-			led_write(&PORTA,0,OFF); // RED	
+			led_write(&PORTA,RED_LED,OFF); // RED	
  1c6:	40 e0       	ldi	r20, 0x00	; 0
  1c8:	60 e0       	ldi	r22, 0x00	; 0
  1ca:	8b e3       	ldi	r24, 0x3B	; 59
@@ -311,31 +311,31 @@ int main(void)
 			USART_SendString((uint8*)"Yellow LED is ON \r");
  1d2:	89 e9       	ldi	r24, 0x99	; 153
  1d4:	90 e0       	ldi	r25, 0x00	; 0
- 1d6:	0e 94 4b 01 	call	0x296	; 0x296 <USART_SendString>
+ 1d6:	0e 94 47 01 	call	0x28e	; 0x28e <USART_SendString>
  1da:	ba cf       	rjmp	.-140    	; 0x150 <main+0x1a>
 		}
-		else if(strcmp(s_input,"STOP") == 0)
+		else if(!strcmp(s_input,"STOP"))
  1dc:	6c ea       	ldi	r22, 0xAC	; 172
  1de:	70 e0       	ldi	r23, 0x00	; 0
  1e0:	ce 01       	movw	r24, r28
  1e2:	01 96       	adiw	r24, 0x01	; 1
- 1e4:	0e 94 9b 01 	call	0x336	; 0x336 <strcmp>
+ 1e4:	0e 94 97 01 	call	0x32e	; 0x32e <strcmp>
  1e8:	89 2b       	or	r24, r25
  1ea:	b9 f4       	brne	.+46     	; 0x21a <main+0xe4>
 		{	
-			led_write(&PORTA,2,OFF); // GREEN
+			led_write(&PORTA,GREEN_LED,OFF); // GREEN
  1ec:	40 e0       	ldi	r20, 0x00	; 0
  1ee:	62 e0       	ldi	r22, 0x02	; 2
  1f0:	8b e3       	ldi	r24, 0x3B	; 59
  1f2:	90 e0       	ldi	r25, 0x00	; 0
  1f4:	0e 94 98 00 	call	0x130	; 0x130 <led_write>
-			led_write(&PORTA,1,OFF); // YELLOW
+			led_write(&PORTA,YELLOW_LED,OFF); // YELLOW
  1f8:	40 e0       	ldi	r20, 0x00	; 0
  1fa:	61 e0       	ldi	r22, 0x01	; 1
  1fc:	8b e3       	ldi	r24, 0x3B	; 59
  1fe:	90 e0       	ldi	r25, 0x00	; 0
  200:	0e 94 98 00 	call	0x130	; 0x130 <led_write>
-			led_write(&PORTA,0,ON); // RED
+			led_write(&PORTA,RED_LED,ON); // RED
  204:	41 e0       	ldi	r20, 0x01	; 1
  206:	60 e0       	ldi	r22, 0x00	; 0
  208:	8b e3       	ldi	r24, 0x3B	; 59
@@ -344,272 +344,265 @@ int main(void)
 			USART_SendString((uint8*)"RED LED is ON \r");
  210:	81 eb       	ldi	r24, 0xB1	; 177
  212:	90 e0       	ldi	r25, 0x00	; 0
- 214:	0e 94 4b 01 	call	0x296	; 0x296 <USART_SendString>
+ 214:	0e 94 47 01 	call	0x28e	; 0x28e <USART_SendString>
  218:	9b cf       	rjmp	.-202    	; 0x150 <main+0x1a>
 		}
-		else if (strcmp(s_input,"AT") == 0)
+		else if (!strcmp(s_input,"AT"))
  21a:	61 ec       	ldi	r22, 0xC1	; 193
  21c:	70 e0       	ldi	r23, 0x00	; 0
  21e:	ce 01       	movw	r24, r28
  220:	01 96       	adiw	r24, 0x01	; 1
- 222:	0e 94 9b 01 	call	0x336	; 0x336 <strcmp>
+ 222:	0e 94 97 01 	call	0x32e	; 0x32e <strcmp>
  226:	89 2b       	or	r24, r25
- 228:	29 f4       	brne	.+10     	; 0x234 <main+0xfe>
+ 228:	09 f0       	breq	.+2      	; 0x22c <main+0xf6>
+ 22a:	92 cf       	rjmp	.-220    	; 0x150 <main+0x1a>
 		{
 			USART_SendString((uint8*)"OK\r");
- 22a:	84 ec       	ldi	r24, 0xC4	; 196
- 22c:	90 e0       	ldi	r25, 0x00	; 0
- 22e:	0e 94 4b 01 	call	0x296	; 0x296 <USART_SendString>
- 232:	8e cf       	rjmp	.-228    	; 0x150 <main+0x1a>
-		}
-		else 
-		{
-			USART_SendString((uint8*)"PLEASE ENTER THE COMMAND RIGHT IN THE FIRST TRY\r")	;
- 234:	88 ec       	ldi	r24, 0xC8	; 200
- 236:	90 e0       	ldi	r25, 0x00	; 0
- 238:	0e 94 4b 01 	call	0x296	; 0x296 <USART_SendString>
- 23c:	89 cf       	rjmp	.-238    	; 0x150 <main+0x1a>
+ 22c:	84 ec       	ldi	r24, 0xC4	; 196
+ 22e:	90 e0       	ldi	r25, 0x00	; 0
+ 230:	0e 94 47 01 	call	0x28e	; 0x28e <USART_SendString>
+ 234:	8d cf       	rjmp	.-230    	; 0x150 <main+0x1a>
 
-0000023e <USART_Init>:
+00000236 <USART_Init>:
 #include "usart.h"
 
 void USART_Init(uint32 baud_rate)
 {
 	/* U2X = 1 for double transmission speed */
 	UCSRA |= (1<<U2X);
- 23e:	2b b1       	in	r18, 0x0b	; 11
- 240:	22 60       	ori	r18, 0x02	; 2
- 242:	2b b9       	out	0x0b, r18	; 11
+ 236:	2b b1       	in	r18, 0x0b	; 11
+ 238:	22 60       	ori	r18, 0x02	; 2
+ 23a:	2b b9       	out	0x0b, r18	; 11
 	 * RXEN  = 1 Receiver Enable
 	 * RXEN  = 1 Transmitter Enable
 	 * UCSZ2 = 0 For 8-bit data mode
 	 * RXB8 & TXB8 not used for 8-bit data mode
 	 ***********************************************************************/ 
 	UCSRB |= (1<<RXEN) | (1<<TXEN);
- 244:	2a b1       	in	r18, 0x0a	; 10
- 246:	28 61       	ori	r18, 0x18	; 24
- 248:	2a b9       	out	0x0a, r18	; 10
+ 23c:	2a b1       	in	r18, 0x0a	; 10
+ 23e:	28 61       	ori	r18, 0x18	; 24
+ 240:	2a b9       	out	0x0a, r18	; 10
 	 * UPM1:0  = 00 Disable parity bit
 	 * USBS    = 0 One stop bit
 	 * UCSZ1:0 = 11 For 8-bit data mode
 	 * UCPOL   = 0 Used with the Synchronous operation only
 	 ***********************************************************************/
 	UCSRC |= (1<<URSEL) | (1<<UCSZ0) | (1<<UCSZ1);
- 24a:	20 b5       	in	r18, 0x20	; 32
- 24c:	26 68       	ori	r18, 0x86	; 134
- 24e:	20 bd       	out	0x20, r18	; 32
+ 242:	20 b5       	in	r18, 0x20	; 32
+ 244:	26 68       	ori	r18, 0x86	; 134
+ 246:	20 bd       	out	0x20, r18	; 32
 	
 	/* Calculate the UBRR register value */
 	uint16 ubrr_value = (uint16)(((F_CPU / (baud_rate * 8UL))) - 1);
- 250:	dc 01       	movw	r26, r24
- 252:	cb 01       	movw	r24, r22
+ 248:	dc 01       	movw	r26, r24
+ 24a:	cb 01       	movw	r24, r22
+ 24c:	88 0f       	add	r24, r24
+ 24e:	99 1f       	adc	r25, r25
+ 250:	aa 1f       	adc	r26, r26
+ 252:	bb 1f       	adc	r27, r27
  254:	88 0f       	add	r24, r24
  256:	99 1f       	adc	r25, r25
  258:	aa 1f       	adc	r26, r26
  25a:	bb 1f       	adc	r27, r27
- 25c:	88 0f       	add	r24, r24
- 25e:	99 1f       	adc	r25, r25
- 260:	aa 1f       	adc	r26, r26
- 262:	bb 1f       	adc	r27, r27
- 264:	9c 01       	movw	r18, r24
- 266:	ad 01       	movw	r20, r26
- 268:	22 0f       	add	r18, r18
- 26a:	33 1f       	adc	r19, r19
- 26c:	44 1f       	adc	r20, r20
- 26e:	55 1f       	adc	r21, r21
- 270:	60 e4       	ldi	r22, 0x40	; 64
- 272:	72 e4       	ldi	r23, 0x42	; 66
- 274:	8f e0       	ldi	r24, 0x0F	; 15
- 276:	90 e0       	ldi	r25, 0x00	; 0
- 278:	0e 94 79 01 	call	0x2f2	; 0x2f2 <__udivmodsi4>
- 27c:	21 50       	subi	r18, 0x01	; 1
- 27e:	31 09       	sbc	r19, r1
+ 25c:	9c 01       	movw	r18, r24
+ 25e:	ad 01       	movw	r20, r26
+ 260:	22 0f       	add	r18, r18
+ 262:	33 1f       	adc	r19, r19
+ 264:	44 1f       	adc	r20, r20
+ 266:	55 1f       	adc	r21, r21
+ 268:	60 e4       	ldi	r22, 0x40	; 64
+ 26a:	72 e4       	ldi	r23, 0x42	; 66
+ 26c:	8f e0       	ldi	r24, 0x0F	; 15
+ 26e:	90 e0       	ldi	r25, 0x00	; 0
+ 270:	0e 94 75 01 	call	0x2ea	; 0x2ea <__udivmodsi4>
+ 274:	21 50       	subi	r18, 0x01	; 1
+ 276:	31 09       	sbc	r19, r1
 	
 	/* First 8 bits from the BAUD_PRESCALE inside UBRRL and last 4 bits in UBRRH*/
 	UBRRH = ubrr_value>>8;
- 280:	30 bd       	out	0x20, r19	; 32
+ 278:	30 bd       	out	0x20, r19	; 32
 	UBRRL = ubrr_value;
- 282:	29 b9       	out	0x09, r18	; 9
- 284:	08 95       	ret
+ 27a:	29 b9       	out	0x09, r18	; 9
+ 27c:	08 95       	ret
 
-00000286 <USART_SendByte>:
+0000027e <USART_SendByte>:
 *	Description: sends a character(BYTE) to another USART device
 */
 void USART_SendByte(uint8 data)
 {
 	/* Waits for the data register to be empty */
 	while(BIT_IS_CLEAR(UCSRA,UDRE));
- 286:	5d 9b       	sbis	0x0b, 5	; 11
- 288:	fe cf       	rjmp	.-4      	; 0x286 <USART_SendByte>
+ 27e:	5d 9b       	sbis	0x0b, 5	; 11
+ 280:	fe cf       	rjmp	.-4      	; 0x27e <USART_SendByte>
 	UDR = data;
- 28a:	8c b9       	out	0x0c, r24	; 12
- 28c:	08 95       	ret
+ 282:	8c b9       	out	0x0c, r24	; 12
+ 284:	08 95       	ret
 
-0000028e <USART_ReceiveByte>:
+00000286 <USART_ReceiveByte>:
 *	Description: Receives a character (BYTE) from another USART device
 */
 uint8 USART_ReceiveByte()
 {
 	/* Waits until the receive is completed */
 	while(BIT_IS_CLEAR(UCSRA,RXC));
- 28e:	5f 9b       	sbis	0x0b, 7	; 11
- 290:	fe cf       	rjmp	.-4      	; 0x28e <USART_ReceiveByte>
+ 286:	5f 9b       	sbis	0x0b, 7	; 11
+ 288:	fe cf       	rjmp	.-4      	; 0x286 <USART_ReceiveByte>
 	return UDR;
- 292:	8c b1       	in	r24, 0x0c	; 12
+ 28a:	8c b1       	in	r24, 0x0c	; 12
 }
- 294:	08 95       	ret
+ 28c:	08 95       	ret
 
-00000296 <USART_SendString>:
+0000028e <USART_SendString>:
 
 /*
 *	Description: sends a string to another USART device
 */
 void USART_SendString(uint8 *str)
 {
- 296:	cf 93       	push	r28
- 298:	df 93       	push	r29
- 29a:	ec 01       	movw	r28, r24
+ 28e:	cf 93       	push	r28
+ 290:	df 93       	push	r29
+ 292:	ec 01       	movw	r28, r24
 	while(*str != '\0')
- 29c:	03 c0       	rjmp	.+6      	; 0x2a4 <USART_SendString+0xe>
+ 294:	03 c0       	rjmp	.+6      	; 0x29c <USART_SendString+0xe>
 	{
 		USART_SendByte(*str);
- 29e:	0e 94 43 01 	call	0x286	; 0x286 <USART_SendByte>
+ 296:	0e 94 3f 01 	call	0x27e	; 0x27e <USART_SendByte>
 		str++;
- 2a2:	21 96       	adiw	r28, 0x01	; 1
+ 29a:	21 96       	adiw	r28, 0x01	; 1
 /*
 *	Description: sends a string to another USART device
 */
 void USART_SendString(uint8 *str)
 {
 	while(*str != '\0')
- 2a4:	88 81       	ld	r24, Y
- 2a6:	81 11       	cpse	r24, r1
- 2a8:	fa cf       	rjmp	.-12     	; 0x29e <USART_SendString+0x8>
+ 29c:	88 81       	ld	r24, Y
+ 29e:	81 11       	cpse	r24, r1
+ 2a0:	fa cf       	rjmp	.-12     	; 0x296 <USART_SendString+0x8>
 	{
 		USART_SendByte(*str);
 		str++;
 	}
 }
- 2aa:	df 91       	pop	r29
- 2ac:	cf 91       	pop	r28
- 2ae:	08 95       	ret
+ 2a2:	df 91       	pop	r29
+ 2a4:	cf 91       	pop	r28
+ 2a6:	08 95       	ret
 
-000002b0 <USART_ReceiveString>:
+000002a8 <USART_ReceiveString>:
 
 /*
 *	Description: sends a string to another USART device
 */
 void USART_ReceiveString(uint8 *str)
 {
- 2b0:	ef 92       	push	r14
- 2b2:	ff 92       	push	r15
- 2b4:	0f 93       	push	r16
- 2b6:	1f 93       	push	r17
- 2b8:	cf 93       	push	r28
- 2ba:	8c 01       	movw	r16, r24
+ 2a8:	ef 92       	push	r14
+ 2aa:	ff 92       	push	r15
+ 2ac:	0f 93       	push	r16
+ 2ae:	1f 93       	push	r17
+ 2b0:	cf 93       	push	r28
+ 2b2:	8c 01       	movw	r16, r24
 	uint8 i = 0;
 	str[i] = USART_ReceiveByte();
- 2bc:	0e 94 47 01 	call	0x28e	; 0x28e <USART_ReceiveByte>
- 2c0:	f8 01       	movw	r30, r16
- 2c2:	80 83       	st	Z, r24
+ 2b4:	0e 94 43 01 	call	0x286	; 0x286 <USART_ReceiveByte>
+ 2b8:	f8 01       	movw	r30, r16
+ 2ba:	80 83       	st	Z, r24
 /*
 *	Description: sends a string to another USART device
 */
 void USART_ReceiveString(uint8 *str)
 {
 	uint8 i = 0;
- 2c4:	c0 e0       	ldi	r28, 0x00	; 0
+ 2bc:	c0 e0       	ldi	r28, 0x00	; 0
 	str[i] = USART_ReceiveByte();
 	while(str[i] != '\r')
- 2c6:	08 c0       	rjmp	.+16     	; 0x2d8 <USART_ReceiveString+0x28>
+ 2be:	08 c0       	rjmp	.+16     	; 0x2d0 <USART_ReceiveString+0x28>
 	{
 		i++;
- 2c8:	cf 5f       	subi	r28, 0xFF	; 255
+ 2c0:	cf 5f       	subi	r28, 0xFF	; 255
 		str[i] = USART_ReceiveByte();
- 2ca:	78 01       	movw	r14, r16
- 2cc:	ec 0e       	add	r14, r28
- 2ce:	f1 1c       	adc	r15, r1
- 2d0:	0e 94 47 01 	call	0x28e	; 0x28e <USART_ReceiveByte>
- 2d4:	f7 01       	movw	r30, r14
- 2d6:	80 83       	st	Z, r24
+ 2c2:	78 01       	movw	r14, r16
+ 2c4:	ec 0e       	add	r14, r28
+ 2c6:	f1 1c       	adc	r15, r1
+ 2c8:	0e 94 43 01 	call	0x286	; 0x286 <USART_ReceiveByte>
+ 2cc:	f7 01       	movw	r30, r14
+ 2ce:	80 83       	st	Z, r24
 */
 void USART_ReceiveString(uint8 *str)
 {
 	uint8 i = 0;
 	str[i] = USART_ReceiveByte();
 	while(str[i] != '\r')
- 2d8:	f8 01       	movw	r30, r16
- 2da:	ec 0f       	add	r30, r28
- 2dc:	f1 1d       	adc	r31, r1
- 2de:	80 81       	ld	r24, Z
- 2e0:	8d 30       	cpi	r24, 0x0D	; 13
- 2e2:	91 f7       	brne	.-28     	; 0x2c8 <USART_ReceiveString+0x18>
+ 2d0:	f8 01       	movw	r30, r16
+ 2d2:	ec 0f       	add	r30, r28
+ 2d4:	f1 1d       	adc	r31, r1
+ 2d6:	80 81       	ld	r24, Z
+ 2d8:	8d 30       	cpi	r24, 0x0D	; 13
+ 2da:	91 f7       	brne	.-28     	; 0x2c0 <USART_ReceiveString+0x18>
 	{
 		i++;
 		str[i] = USART_ReceiveByte();
 	}
 	str[i] = '\0';
- 2e4:	10 82       	st	Z, r1
- 2e6:	cf 91       	pop	r28
- 2e8:	1f 91       	pop	r17
- 2ea:	0f 91       	pop	r16
- 2ec:	ff 90       	pop	r15
- 2ee:	ef 90       	pop	r14
- 2f0:	08 95       	ret
+ 2dc:	10 82       	st	Z, r1
+ 2de:	cf 91       	pop	r28
+ 2e0:	1f 91       	pop	r17
+ 2e2:	0f 91       	pop	r16
+ 2e4:	ff 90       	pop	r15
+ 2e6:	ef 90       	pop	r14
+ 2e8:	08 95       	ret
 
-000002f2 <__udivmodsi4>:
- 2f2:	a1 e2       	ldi	r26, 0x21	; 33
- 2f4:	1a 2e       	mov	r1, r26
- 2f6:	aa 1b       	sub	r26, r26
- 2f8:	bb 1b       	sub	r27, r27
- 2fa:	fd 01       	movw	r30, r26
- 2fc:	0d c0       	rjmp	.+26     	; 0x318 <__udivmodsi4_ep>
+000002ea <__udivmodsi4>:
+ 2ea:	a1 e2       	ldi	r26, 0x21	; 33
+ 2ec:	1a 2e       	mov	r1, r26
+ 2ee:	aa 1b       	sub	r26, r26
+ 2f0:	bb 1b       	sub	r27, r27
+ 2f2:	fd 01       	movw	r30, r26
+ 2f4:	0d c0       	rjmp	.+26     	; 0x310 <__udivmodsi4_ep>
 
-000002fe <__udivmodsi4_loop>:
- 2fe:	aa 1f       	adc	r26, r26
- 300:	bb 1f       	adc	r27, r27
- 302:	ee 1f       	adc	r30, r30
- 304:	ff 1f       	adc	r31, r31
- 306:	a2 17       	cp	r26, r18
- 308:	b3 07       	cpc	r27, r19
- 30a:	e4 07       	cpc	r30, r20
- 30c:	f5 07       	cpc	r31, r21
- 30e:	20 f0       	brcs	.+8      	; 0x318 <__udivmodsi4_ep>
- 310:	a2 1b       	sub	r26, r18
- 312:	b3 0b       	sbc	r27, r19
- 314:	e4 0b       	sbc	r30, r20
- 316:	f5 0b       	sbc	r31, r21
+000002f6 <__udivmodsi4_loop>:
+ 2f6:	aa 1f       	adc	r26, r26
+ 2f8:	bb 1f       	adc	r27, r27
+ 2fa:	ee 1f       	adc	r30, r30
+ 2fc:	ff 1f       	adc	r31, r31
+ 2fe:	a2 17       	cp	r26, r18
+ 300:	b3 07       	cpc	r27, r19
+ 302:	e4 07       	cpc	r30, r20
+ 304:	f5 07       	cpc	r31, r21
+ 306:	20 f0       	brcs	.+8      	; 0x310 <__udivmodsi4_ep>
+ 308:	a2 1b       	sub	r26, r18
+ 30a:	b3 0b       	sbc	r27, r19
+ 30c:	e4 0b       	sbc	r30, r20
+ 30e:	f5 0b       	sbc	r31, r21
 
-00000318 <__udivmodsi4_ep>:
- 318:	66 1f       	adc	r22, r22
- 31a:	77 1f       	adc	r23, r23
- 31c:	88 1f       	adc	r24, r24
- 31e:	99 1f       	adc	r25, r25
- 320:	1a 94       	dec	r1
- 322:	69 f7       	brne	.-38     	; 0x2fe <__udivmodsi4_loop>
- 324:	60 95       	com	r22
- 326:	70 95       	com	r23
- 328:	80 95       	com	r24
- 32a:	90 95       	com	r25
- 32c:	9b 01       	movw	r18, r22
- 32e:	ac 01       	movw	r20, r24
- 330:	bd 01       	movw	r22, r26
- 332:	cf 01       	movw	r24, r30
- 334:	08 95       	ret
+00000310 <__udivmodsi4_ep>:
+ 310:	66 1f       	adc	r22, r22
+ 312:	77 1f       	adc	r23, r23
+ 314:	88 1f       	adc	r24, r24
+ 316:	99 1f       	adc	r25, r25
+ 318:	1a 94       	dec	r1
+ 31a:	69 f7       	brne	.-38     	; 0x2f6 <__udivmodsi4_loop>
+ 31c:	60 95       	com	r22
+ 31e:	70 95       	com	r23
+ 320:	80 95       	com	r24
+ 322:	90 95       	com	r25
+ 324:	9b 01       	movw	r18, r22
+ 326:	ac 01       	movw	r20, r24
+ 328:	bd 01       	movw	r22, r26
+ 32a:	cf 01       	movw	r24, r30
+ 32c:	08 95       	ret
 
-00000336 <strcmp>:
- 336:	fb 01       	movw	r30, r22
- 338:	dc 01       	movw	r26, r24
- 33a:	8d 91       	ld	r24, X+
- 33c:	01 90       	ld	r0, Z+
- 33e:	80 19       	sub	r24, r0
- 340:	01 10       	cpse	r0, r1
- 342:	d9 f3       	breq	.-10     	; 0x33a <strcmp+0x4>
- 344:	99 0b       	sbc	r25, r25
- 346:	08 95       	ret
+0000032e <strcmp>:
+ 32e:	fb 01       	movw	r30, r22
+ 330:	dc 01       	movw	r26, r24
+ 332:	8d 91       	ld	r24, X+
+ 334:	01 90       	ld	r0, Z+
+ 336:	80 19       	sub	r24, r0
+ 338:	01 10       	cpse	r0, r1
+ 33a:	d9 f3       	breq	.-10     	; 0x332 <strcmp+0x4>
+ 33c:	99 0b       	sbc	r25, r25
+ 33e:	08 95       	ret
 
-00000348 <_exit>:
- 348:	f8 94       	cli
+00000340 <_exit>:
+ 340:	f8 94       	cli
 
-0000034a <__stop_program>:
- 34a:	ff cf       	rjmp	.-2      	; 0x34a <__stop_program>
+00000342 <__stop_program>:
+ 342:	ff cf       	rjmp	.-2      	; 0x342 <__stop_program>

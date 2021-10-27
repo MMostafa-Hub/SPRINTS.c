@@ -27,13 +27,13 @@ Discarded input sections
  .text          0x00000000        0x0 DIO/dio.o
  .data          0x00000000        0x0 DIO/dio.o
  .bss           0x00000000        0x0 DIO/dio.o
- .text.GPIO_setupPinDirection
+ .text.DIO_setupPinDirection
                 0x00000000       0xe6 DIO/dio.o
- .text.GPIO_writePin
+ .text.DIO_writePin
                 0x00000000       0xe6 DIO/dio.o
- .text.GPIO_readPin
+ .text.DIO_readPin
                 0x00000000       0x8c DIO/dio.o
- .text.GPIO_readPort
+ .text.DIO_readPort
                 0x00000000       0x2c DIO/dio.o
  .text          0x00000000        0x0 EXTERNAL_EEPROM/external_eeprom.o
  .data          0x00000000        0x0 EXTERNAL_EEPROM/external_eeprom.o
@@ -66,7 +66,7 @@ Discarded input sections
                 0x00000000       0x40 SPI/spi.o
  .debug_ranges  0x00000000       0x30 SPI/spi.o
  .debug_line    0x00000000      0x1c7 SPI/spi.o
- .debug_str     0x00000000      0x23a SPI/spi.o
+ .debug_str     0x00000000      0x239 SPI/spi.o
  .comment       0x00000000       0x31 SPI/spi.o
  .debug_frame   0x00000000       0x90 SPI/spi.o
  .text          0x00000000        0x0 USART/usart.o
@@ -353,12 +353,12 @@ END GROUP
  .text.string_to_binary_to_decimal
                 0x000000c2       0x56 app.o
                 0x000000c2                string_to_binary_to_decimal
- .text.GPIO_setupPortDirection
+ .text.DIO_setupPortDirection
                 0x00000118       0x24 DIO/dio.o
-                0x00000118                GPIO_setupPortDirection
- .text.GPIO_writePort
+                0x00000118                DIO_setupPortDirection
+ .text.DIO_writePort
                 0x0000013c       0x24 DIO/dio.o
-                0x0000013c                GPIO_writePort
+                0x0000013c                DIO_writePort
  .text.EEPROM_writeByte
                 0x00000160       0x6e EXTERNAL_EEPROM/external_eeprom.o
                 0x00000160                EEPROM_writeByte
@@ -600,20 +600,20 @@ END GROUP
  .debug_frame   0x000001c4       0x34 main.o
  .debug_frame   0x000001f8       0x8c USART/usart.o
 
-.debug_str      0x00000000      0x60d
+.debug_str      0x00000000      0x605
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
- .debug_str     0x00000196      0x21f app.o
-                                0x253 (size before relaxing)
- .debug_str     0x000003b5       0xbc DIO/dio.o
-                                0x294 (size before relaxing)
- .debug_str     0x00000471       0x99 EXTERNAL_EEPROM/external_eeprom.o
+ .debug_str     0x00000196      0x21d app.o
+                                0x251 (size before relaxing)
+ .debug_str     0x000003b3       0xb6 DIO/dio.o
+                                0x28c (size before relaxing)
+ .debug_str     0x00000469       0x99 EXTERNAL_EEPROM/external_eeprom.o
                                 0x227 (size before relaxing)
- .debug_str     0x0000050a       0x28 TWI/twi.o
+ .debug_str     0x00000502       0x28 TWI/twi.o
                                 0x216 (size before relaxing)
- .debug_str     0x00000532       0xae main.o
-                                0x2d0 (size before relaxing)
- .debug_str     0x000005e0       0x2d USART/usart.o
+ .debug_str     0x0000052a       0xae main.o
+                                0x2cf (size before relaxing)
+ .debug_str     0x000005d8       0x2d USART/usart.o
                                 0x226 (size before relaxing)
 
 .debug_loc      0x00000000      0x951

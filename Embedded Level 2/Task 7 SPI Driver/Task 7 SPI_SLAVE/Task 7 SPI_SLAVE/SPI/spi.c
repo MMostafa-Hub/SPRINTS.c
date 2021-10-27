@@ -1,38 +1,27 @@
- /******************************************************************************
+/*
+ * spi.c
  *
- * Module: SPI
- *
- * File Name: spi.c
- *
- * Description: Source file for the SPI AVR driver
- *
- * Author: Mohamed Tarek
- *
- *******************************************************************************/
+ * Created: 20/10/2021 2:35:20 PM
+ *  Author: OWNER
+ */ 
 
 #include "spi.h"
 
-
-/*******************************************************************************
- *                      Functions Definitions                                  *
- *******************************************************************************/
-
 /*
- * Description :
- * Initialize the SPI device as Master.
+ * Description : Initialize the SPI device as Master
  */
 void SPI_initMaster(void) 
 {
-	/******** Configure SPI Master Pins *********
+	/*************  SPI Master Pins **************
 	 * SS(PB4)   --> Output
 	 * MOSI(PB5) --> Output 
 	 * MISO(PB6) --> Input
 	 * SCK(PB7) --> Output
 	 ********************************************/
-	GPIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_OUTPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_OUTPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_INPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_OUTPUT);
 	
     /************************** SPCR Description **************************
      * SPIE    = 0 Disable SPI Interrupt
@@ -50,8 +39,7 @@ void SPI_initMaster(void)
 }
 
 /*
- * Description :
- * Initialize the SPI device as Slave.
+ * Description : Initialize the SPI device as Slave
  */
 void SPI_initSlave(void)
 { 
@@ -61,10 +49,10 @@ void SPI_initSlave(void)
 	 * MISO(PB6) --> Output
 	 * SCK(PB7) --> Input
 	 ********************************************/
-	GPIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_INPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_INPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_OUTPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_INPUT);
 
 	/************************** SPCR Description **************************
 	 * SPIE    = 0 Disable SPI Interrupt
@@ -82,28 +70,26 @@ void SPI_initSlave(void)
 }
 
 /*
- * Description :
- * Send the required data through SPI to the other SPI device.
- * In the same time data will be received from the other device.
+ *	Description : Send the required data through SPI to the other SPI device
+ *	In the same time data will be received from the other device
  */
 uint8 SPI_sendReceiveByte(uint8 data)
 {
-	/* Initiate the communication and send data by SPI */
+	/*	Initiate the communication and send data by SPI */
+	/*	
+	*	In case of receiving data 
+	*	Since writing to SPDR generates SCK for transmission, write dummy data in the SPDR register
+	*/
 	SPDR = data;
 
-	/* Wait until SPI interrupt flag SPIF = 1 (data has been sent/received correctly) */
-	while(BIT_IS_CLEAR(SPSR,SPIF)){}
+	/*	Wait until SPI interrupt flag SPIF = 1 (data has been sent/received correctly) */
+	while(BIT_IS_CLEAR(SPSR,SPIF));
 
-	/*
-	 * Note: SPIF flag is cleared by first reading SPSR (with SPIF set) which is done in the previous step.
-	 * and then accessing SPDR like the below line.
-	 */
 	return SPDR;
 }
 
 /*
- * Description :
- * Send the required string through SPI to the other SPI device.
+ * Description : Send the required string through SPI to the other SPI device
  */
 void SPI_sendString(const uint8 *str)
 {
@@ -123,8 +109,7 @@ void SPI_sendString(const uint8 *str)
 }
 
 /*
- * Description :
- * Receive the required string until the '#' symbol through SPI from the other SPI device.
+ * Description : Receive the required string until the '\r' symbol through SPI from the other SPI device
  */
 void SPI_receiveString(uint8 *str)
 {
@@ -133,13 +118,13 @@ void SPI_receiveString(uint8 *str)
 	/* Receive the first byte */
 	str[i] = SPI_sendReceiveByte(SPI_DEFAULT_DATA_VALUE);
 
-	/* Receive the whole string until the '#' */
+	/* Receive the whole string until the '\r' ENTER is pressed */
 	while(str[i] != '\r')
 	{
 		i++;
 		str[i] = SPI_sendReceiveByte(SPI_DEFAULT_DATA_VALUE);
 	}
 
-	/* After receiving the whole string plus the '#', replace the '#' with '\0' */
+	/* After receiving the whole string plus the '\r', replace the 'r' with '\0' */
 	str[i] = '\0';
 }

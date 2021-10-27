@@ -89,7 +89,7 @@ int main(void)
 			USART_SendByte('\r');
 			
 			/* out the read value from the external EEPROM on LEDS*/
-			GPIO_writePort(PORTA_ID,read_data);
+			DIO_writePort(PORTA_ID,read_data);
 		}
 		/*
 		*	This program is better
@@ -138,7 +138,7 @@ int main(void)
 // 		USART_SendByte('\r');
 // 		
 // 		/* out the read value from the external EEPROM on LEDS*/
-// 		GPIO_writePort(PORTA_ID,read_data);			
+// 		DIO_writePort(PORTA_ID,read_data);			
 
 	}
 	return 0;

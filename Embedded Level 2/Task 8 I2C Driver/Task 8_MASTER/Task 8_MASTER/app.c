@@ -11,8 +11,8 @@ void app_init(void)
 	/* Initialize the TWI/I2C Driver */
 	TWI_init();
 	
-	GPIO_setupPortDirection(PORTA_ID,PORT_OUTPUT); /* All PORTA pins are o/p pins */
-	GPIO_writePort(PORTA_ID,0x00); /* Turn OFF all LEDS */
+	DIO_setupPortDirection(PORTA_ID,PORT_OUTPUT); /* All PORTA pins are o/p pins */
+	DIO_writePort(PORTA_ID,0x00); /* Turn OFF all LEDS */
 	
 	USART_Init(9600);
 	

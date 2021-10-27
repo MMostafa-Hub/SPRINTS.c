@@ -29,10 +29,10 @@ void SPI_initMaster(void)
 	 * MISO(PB6) --> Input
 	 * SCK(PB7) --> Output
 	 ********************************************/
-	GPIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_OUTPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_OUTPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_INPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_OUTPUT);
 	
     /************************** SPCR Description **************************
      * SPIE    = 0 Disable SPI Interrupt
@@ -61,10 +61,10 @@ void SPI_initSlave(void)
 	 * MISO(PB6) --> Output
 	 * SCK(PB7) --> Input
 	 ********************************************/
-	GPIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_INPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_INPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_OUTPUT);
-	GPIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN4_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN5_ID,PIN_INPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN6_ID,PIN_OUTPUT);
+	DIO_setupPinDirection(PORTB_ID,PIN7_ID,PIN_INPUT);
 
 	/************************** SPCR Description **************************
 	 * SPIE    = 0 Disable SPI Interrupt
