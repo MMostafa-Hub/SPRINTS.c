@@ -1,14 +1,4 @@
- /******************************************************************************
- *
- * Module: TWI(I2C)
- *
- * File Name: twi.h
- *
- * Description: Source file for the TWI(I2C) AVR driver
- *
- * Author: Mohamed Tarek
- *
- *******************************************************************************/
+
  
 #include "twi.h"
 
@@ -27,7 +17,26 @@ void TWI_init(void)
 	
     TWCR = (1<<TWEN); /* enable TWI */
 }
-
+void TWI_initSlave(uint8 Copy_u8Address)
+{
+	/* Set Slave Address */
+	TWAR |= (Copy_u8Address<<1);
+// 	/* If Ack Bit is Enable */
+// 	#if		I2C_ACK_BIT == ENABLE
+	SET_BIT (TWCR,TWEA);
+// 	/* If Ack Bit is Disable */
+// 	#elif 	I2C_ACK_BIT == DISABLE
+// 	CLR_BIT (TWCR,TWEA);
+// 	#endif
+//	/* Enable I2c */
+//	#if I2C == ENABLE
+	SET_BIT (TWCR , TWEN );
+// 	/* DISABLE I2c */
+// 	#elif I2C == DISABLE
+// 	CLR_BIT (TWCR , TWEN );
+// 	#endif
+	
+}
 void TWI_start(void)
 {
     /* 

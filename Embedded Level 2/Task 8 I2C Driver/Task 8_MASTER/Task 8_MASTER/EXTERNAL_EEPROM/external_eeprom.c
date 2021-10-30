@@ -1,14 +1,10 @@
- /******************************************************************************
+/*
+ * app.h
  *
- * Module: External EEPROM
- *
- * File Name: external_eeprom.c
- *
- * Description: Source file for the External EEPROM Memory
- *
- * Author: Mohamed Tarek
- *
- *******************************************************************************/
+ * Created: 26/10/2021 9:24:40 PM
+ *  Author: OWNER
+ */ 
+
 #include "external_eeprom.h"
 #include "../TWI/twi.h"
 uint8 EEPROM_writeByte(uint16 u16addr, uint8 u8data)
