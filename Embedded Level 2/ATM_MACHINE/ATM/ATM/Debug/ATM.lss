@@ -1,0 +1,316 @@
+
+ATM.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001ec  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000260  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  00000260  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000260  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000290  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000098  00000000  00000000  000002cc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000759  00000000  00000000  00000364  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005e4  00000000  00000000  00000abd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000370  00000000  00000000  000010a1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000218  00000000  00000000  00001414  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003f9  00000000  00000000  0000162c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000371  00000000  00000000  00001a25  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000078  00000000  00000000  00001d96  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 4a 00 	jmp	0x94	; 0x94 <__vector_7>
+  20:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__vector_8>
+  24:	0c 94 9c 00 	jmp	0x138	; 0x138 <__vector_9>
+  28:	0c 94 c3 00 	jmp	0x186	; 0x186 <__vector_10>
+  2c:	0c 94 ec 00 	jmp	0x1d8	; 0x1d8 <__vector_11>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	ec ee       	ldi	r30, 0xEC	; 236
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a0 36       	cpi	r26, 0x60	; 96
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	20 e0       	ldi	r18, 0x00	; 0
+  78:	a0 e6       	ldi	r26, 0x60	; 96
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a2 36       	cpi	r26, 0x62	; 98
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
+  8a:	0c 94 f4 00 	jmp	0x1e8	; 0x1e8 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <main>:
+ */ 
+
+#include "./APP/APP.h"
+
+int main(void)
+{
+  92:	ff cf       	rjmp	.-2      	; 0x92 <main>
+
+00000094 <__vector_7>:
+}
+
+/* Vector Function fot Timer 0 and Timer 1 Intterrupts */
+
+void __vector_7  (void)
+{
+  94:	1f 92       	push	r1
+  96:	0f 92       	push	r0
+  98:	0f b6       	in	r0, 0x3f	; 63
+  9a:	0f 92       	push	r0
+  9c:	11 24       	eor	r1, r1
+  9e:	2f 93       	push	r18
+  a0:	3f 93       	push	r19
+  a2:	4f 93       	push	r20
+  a4:	5f 93       	push	r21
+  a6:	6f 93       	push	r22
+  a8:	7f 93       	push	r23
+  aa:	8f 93       	push	r24
+  ac:	9f 93       	push	r25
+  ae:	af 93       	push	r26
+  b0:	bf 93       	push	r27
+  b2:	ef 93       	push	r30
+  b4:	ff 93       	push	r31
+	if (ptr != NULL )
+  b6:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  ba:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+  be:	30 97       	sbiw	r30, 0x00	; 0
+  c0:	09 f0       	breq	.+2      	; 0xc4 <__vector_7+0x30>
+	{
+		ptr();
+  c2:	09 95       	icall
+	}
+}
+  c4:	ff 91       	pop	r31
+  c6:	ef 91       	pop	r30
+  c8:	bf 91       	pop	r27
+  ca:	af 91       	pop	r26
+  cc:	9f 91       	pop	r25
+  ce:	8f 91       	pop	r24
+  d0:	7f 91       	pop	r23
+  d2:	6f 91       	pop	r22
+  d4:	5f 91       	pop	r21
+  d6:	4f 91       	pop	r20
+  d8:	3f 91       	pop	r19
+  da:	2f 91       	pop	r18
+  dc:	0f 90       	pop	r0
+  de:	0f be       	out	0x3f, r0	; 63
+  e0:	0f 90       	pop	r0
+  e2:	1f 90       	pop	r1
+  e4:	18 95       	reti
+
+000000e6 <__vector_8>:
+void __vector_8 (void)
+{
+  e6:	1f 92       	push	r1
+  e8:	0f 92       	push	r0
+  ea:	0f b6       	in	r0, 0x3f	; 63
+  ec:	0f 92       	push	r0
+  ee:	11 24       	eor	r1, r1
+  f0:	2f 93       	push	r18
+  f2:	3f 93       	push	r19
+  f4:	4f 93       	push	r20
+  f6:	5f 93       	push	r21
+  f8:	6f 93       	push	r22
+  fa:	7f 93       	push	r23
+  fc:	8f 93       	push	r24
+  fe:	9f 93       	push	r25
+ 100:	af 93       	push	r26
+ 102:	bf 93       	push	r27
+ 104:	ef 93       	push	r30
+ 106:	ff 93       	push	r31
+	if (ptr != NULL )
+ 108:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 10c:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 110:	30 97       	sbiw	r30, 0x00	; 0
+ 112:	09 f0       	breq	.+2      	; 0x116 <__vector_8+0x30>
+	{
+		ptr();
+ 114:	09 95       	icall
+	}
+}
+ 116:	ff 91       	pop	r31
+ 118:	ef 91       	pop	r30
+ 11a:	bf 91       	pop	r27
+ 11c:	af 91       	pop	r26
+ 11e:	9f 91       	pop	r25
+ 120:	8f 91       	pop	r24
+ 122:	7f 91       	pop	r23
+ 124:	6f 91       	pop	r22
+ 126:	5f 91       	pop	r21
+ 128:	4f 91       	pop	r20
+ 12a:	3f 91       	pop	r19
+ 12c:	2f 91       	pop	r18
+ 12e:	0f 90       	pop	r0
+ 130:	0f be       	out	0x3f, r0	; 63
+ 132:	0f 90       	pop	r0
+ 134:	1f 90       	pop	r1
+ 136:	18 95       	reti
+
+00000138 <__vector_9>:
+void __vector_9 (void)
+{
+ 138:	1f 92       	push	r1
+ 13a:	0f 92       	push	r0
+ 13c:	0f b6       	in	r0, 0x3f	; 63
+ 13e:	0f 92       	push	r0
+ 140:	11 24       	eor	r1, r1
+ 142:	2f 93       	push	r18
+ 144:	3f 93       	push	r19
+ 146:	4f 93       	push	r20
+ 148:	5f 93       	push	r21
+ 14a:	6f 93       	push	r22
+ 14c:	7f 93       	push	r23
+ 14e:	8f 93       	push	r24
+ 150:	9f 93       	push	r25
+ 152:	af 93       	push	r26
+ 154:	bf 93       	push	r27
+ 156:	ef 93       	push	r30
+ 158:	ff 93       	push	r31
+
+		ptr();
+ 15a:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 15e:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 162:	09 95       	icall
+}
+ 164:	ff 91       	pop	r31
+ 166:	ef 91       	pop	r30
+ 168:	bf 91       	pop	r27
+ 16a:	af 91       	pop	r26
+ 16c:	9f 91       	pop	r25
+ 16e:	8f 91       	pop	r24
+ 170:	7f 91       	pop	r23
+ 172:	6f 91       	pop	r22
+ 174:	5f 91       	pop	r21
+ 176:	4f 91       	pop	r20
+ 178:	3f 91       	pop	r19
+ 17a:	2f 91       	pop	r18
+ 17c:	0f 90       	pop	r0
+ 17e:	0f be       	out	0x3f, r0	; 63
+ 180:	0f 90       	pop	r0
+ 182:	1f 90       	pop	r1
+ 184:	18 95       	reti
+
+00000186 <__vector_10>:
+void __vector_10 (void)
+{
+ 186:	1f 92       	push	r1
+ 188:	0f 92       	push	r0
+ 18a:	0f b6       	in	r0, 0x3f	; 63
+ 18c:	0f 92       	push	r0
+ 18e:	11 24       	eor	r1, r1
+ 190:	2f 93       	push	r18
+ 192:	3f 93       	push	r19
+ 194:	4f 93       	push	r20
+ 196:	5f 93       	push	r21
+ 198:	6f 93       	push	r22
+ 19a:	7f 93       	push	r23
+ 19c:	8f 93       	push	r24
+ 19e:	9f 93       	push	r25
+ 1a0:	af 93       	push	r26
+ 1a2:	bf 93       	push	r27
+ 1a4:	ef 93       	push	r30
+ 1a6:	ff 93       	push	r31
+	if (ptr != NULL )
+ 1a8:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 1ac:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1b0:	30 97       	sbiw	r30, 0x00	; 0
+ 1b2:	09 f0       	breq	.+2      	; 0x1b6 <__vector_10+0x30>
+	{
+		ptr();
+ 1b4:	09 95       	icall
+	}
+}
+ 1b6:	ff 91       	pop	r31
+ 1b8:	ef 91       	pop	r30
+ 1ba:	bf 91       	pop	r27
+ 1bc:	af 91       	pop	r26
+ 1be:	9f 91       	pop	r25
+ 1c0:	8f 91       	pop	r24
+ 1c2:	7f 91       	pop	r23
+ 1c4:	6f 91       	pop	r22
+ 1c6:	5f 91       	pop	r21
+ 1c8:	4f 91       	pop	r20
+ 1ca:	3f 91       	pop	r19
+ 1cc:	2f 91       	pop	r18
+ 1ce:	0f 90       	pop	r0
+ 1d0:	0f be       	out	0x3f, r0	; 63
+ 1d2:	0f 90       	pop	r0
+ 1d4:	1f 90       	pop	r1
+ 1d6:	18 95       	reti
+
+000001d8 <__vector_11>:
+void __vector_11 (void)
+{
+	if (ptr != NULL )
+ 1d8:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 1dc:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 1e0:	30 97       	sbiw	r30, 0x00	; 0
+ 1e2:	09 f0       	breq	.+2      	; 0x1e6 <__vector_11+0xe>
+	{
+		ptr();
+ 1e4:	09 95       	icall
+ 1e6:	08 95       	ret
+
+000001e8 <_exit>:
+ 1e8:	f8 94       	cli
+
+000001ea <__stop_program>:
+ 1ea:	ff cf       	rjmp	.-2      	; 0x1ea <__stop_program>

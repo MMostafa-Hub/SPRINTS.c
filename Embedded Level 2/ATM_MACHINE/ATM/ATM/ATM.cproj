@@ -120,22 +120,183 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="APP\APP.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="APP\APP.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\BUTTON\BUTTON_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\BUTTON\BUTTON_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\DC Motor\DC_MOTOR_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\DC Motor\DC_MOTOR_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\DC Motor\DC_MOTOR_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\EEPROM\EEPROM_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\EEPROM\EEPROM_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\EEPROM\EEPROM_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\EEPROM\EEPROM_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\KEYPAD\Keybad_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\KEYPAD\Keybad_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\KEYPAD\Keybad_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\LCD\common_macros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\LCD\lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\LCD\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\LCD\micro_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\LCD\std_types.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\LM35\LM35.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EUCAL\LM35\LM35.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LIB\BIT_MATH\BIT_MATH.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LIB\STD_TYPES\STD_TYPES.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ADC\ADC_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ADC\ADC_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ADC\ADC_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\ADC\ADC_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\DIO\MDIO_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\DIO\MDIO_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\DIO\MDIO_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\DIO\MDIO_register.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\PWM\PWM_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\PWM\PWM_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\PWM\PWM_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\PWM\PWM_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\Timer_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\Timer_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\Timer_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\Timer_register.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART_register.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DIO" />
-    <Folder Include="ADC" />
-    <Folder Include="LCD" />
-    <Folder Include="KEYPAD" />
-    <Folder Include="MOTOR" />
-    <Folder Include="LM35" />
-    <Folder Include="BUTTON" />
-    <Folder Include="TIMER" />
-    <Folder Include="USART" />
-    <Folder Include="SPI" />
-    <Folder Include="TWI" />
+    <Folder Include="EUCAL\BUTTON\" />
+    <Folder Include="EUCAL\KEYPAD\" />
+    <Folder Include="EUCAL\LCD\" />
+    <Folder Include="EUCAL\LM35\" />
+    <Folder Include="EUCAL\DC Motor" />
+    <Folder Include="EUCAL\EEPROM" />
+    <Folder Include="LIB\BIT_MATH" />
+    <Folder Include="LIB\STD_TYPES" />
+    <Folder Include="MCAL\ADC\" />
+    <Folder Include="MCAL\DIO\" />
+    <Folder Include="MCAL\PWM" />
+    <Folder Include="MCAL\SPI\" />
+    <Folder Include="MCAL\TIMER\" />
+    <Folder Include="MCAL\I2C" />
+    <Folder Include="MCAL\UART" />
+    <Folder Include="MCAL" />
+    <Folder Include="EUCAL" />
+    <Folder Include="LIB" />
+    <Folder Include="APP" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

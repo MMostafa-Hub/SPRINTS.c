@@ -1,0 +1,18 @@
+EUCAL/EEPROM/EEPROM_program.d EUCAL/EEPROM/EEPROM_program.o: \
+ ../EUCAL/EEPROM/EEPROM_program.c ../EUCAL/EEPROM/EEPROM_private.h \
+ ../EUCAL/EEPROM/EEPROM_config.h ../EUCAL/EEPROM/EEPROM_interface.h \
+ ../EUCAL/EEPROM/../../LIB/BIT_MATH/BIT_MATH.h \
+ ../EUCAL/EEPROM/../../LIB/STD_TYPES/STD_TYPES.h \
+ ../EUCAL/EEPROM/../../MCAL/I2C/I2C_interface.h
+
+../EUCAL/EEPROM/EEPROM_private.h:
+
+../EUCAL/EEPROM/EEPROM_config.h:
+
+../EUCAL/EEPROM/EEPROM_interface.h:
+
+../EUCAL/EEPROM/../../LIB/BIT_MATH/BIT_MATH.h:
+
+../EUCAL/EEPROM/../../LIB/STD_TYPES/STD_TYPES.h:
+
+../EUCAL/EEPROM/../../MCAL/I2C/I2C_interface.h:
